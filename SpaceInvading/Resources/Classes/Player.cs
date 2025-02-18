@@ -9,10 +9,14 @@ namespace SpaceInvading.Resources.Classes
     class Player : Entity
     {
         List<Item> Drops;
-        List<Item> Upgrades
-
+        List<Item> Upgrades;
 
         public Player()
+        {
+
+        }
+
+        private void Attack()
         {
 
         }
