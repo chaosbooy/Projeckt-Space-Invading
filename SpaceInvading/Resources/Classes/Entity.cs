@@ -6,23 +6,17 @@ using System.Threading.Tasks;
 
 namespace SpaceInvading.Resources.Classes
 {
-    class Entity
+    public class Entity
     {
         public String Name;
         public int Health;
         public String[] IdleSprite;
         public String[] MovingSprite;
         public String[] DestroyedSprite;
+
         
 
 
         public Entity() { }
-
-
-
-        public void Death()
-        {
-
-        } 
     }
 }

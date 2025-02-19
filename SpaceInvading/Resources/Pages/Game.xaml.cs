@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpaceInvading.Resources.Classes;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -22,12 +14,20 @@ namespace SpaceInvading.Pages
     /// </summary>
     public partial class Game : Page
     {
-        private Rectangle player;
-        private List<Rectangle> blocks = new();
+        private const bool TEST = true;
+
+        public Player Player1 = new();
+        private Image playerState = new();
+
+        private List<Entity> enemies = new();
+        private List<Border> enemiesState = new();
+
         private List<Rectangle> bullets = new();
+
         private DispatcherTimer gameTimer = new();
         private double playerSpeed = 10;
         private double bulletSpeed = 5;
+        private double enemySpeed = 1;
 
         private bool playerLeft = false;
         private bool playerRight = false;
@@ -53,30 +53,54 @@ namespace SpaceInvading.Pages
 
         private void SetupGame()
         {
-            player = new Rectangle { Width = 50, Height = 20, Fill = Brushes.Blue };
-            Canvas.SetLeft(player, (MainCanvas.Width - player.Width) / 2);
-            Canvas.SetTop(player, MainCanvas.Height - player.Height - 10);
-            MainCanvas.Children.Add(player);
+            playerState = new Image 
+            { 
+                Width = 100, 
+                Height = 100, 
+                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"))
+            };
+            Canvas.SetLeft(playerState, (MainCanvas.Width - playerState.Width) / 2);
+            Canvas.SetTop(playerState, MainCanvas.Height - playerState.Height - 10);
+            MainCanvas.Children.Add(playerState);
+
+            var enemyWidth = 100;
+            var enemyHeight = 100;
+            var enemySpacing = 20;
 
             for (int i = 0; i < 5; i++)
             {
-                Rectangle block = new() { Width = 60, Height = 30, Fill = Brushes.Red };
-                Canvas.SetLeft(block, i * 70 + 20);
-                Canvas.SetTop(block, 20);
-                MainCanvas.Children.Add(block);
-                blocks.Add(block);
+                Border border = new Border
+                {
+                    Width = enemyWidth,
+                    Height = enemyHeight,
+                    Background = TEST ? Brushes.Black : Brushes.Transparent,
+                };
+
+                Image block = new Image
+                {
+                    Width = enemyWidth,
+                    Height = enemyHeight,
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime_Still.png"))
+                };
+
+                border.Child = block; // Dodaj obraz jako dziecko ramki
+
+                Canvas.SetLeft(border, i * (enemyWidth + enemySpacing) + 20);
+                Canvas.SetTop(border, 20);
+                MainCanvas.Children.Add(border);
+                enemiesState.Add(border);
             }
         }
 
         private void GameLoop(object sender, EventArgs e)
         {
-            if (playerLeft && Canvas.GetLeft(player) > 0)
+            if (playerLeft && Canvas.GetLeft(playerState) > 0)
             {
-                Canvas.SetLeft(player, Canvas.GetLeft(player) - playerSpeed);
+                Canvas.SetLeft(playerState, Canvas.GetLeft(playerState) - playerSpeed);
             }
-            if (playerRight && Canvas.GetLeft(player) < MainCanvas.Width - player.Width)
+            if (playerRight && Canvas.GetLeft(playerState) < MainCanvas.Width - playerState.Width)
             {
-                Canvas.SetLeft(player, Canvas.GetLeft(player) + playerSpeed);
+                Canvas.SetLeft(playerState, Canvas.GetLeft(playerState) + playerSpeed);
             }
             if (playerAttack == KeyState.Pressed)
             {
@@ -94,7 +118,7 @@ namespace SpaceInvading.Pages
                 }
             }
 
-            foreach (var block in blocks.ToArray())
+            foreach (var block in enemiesState.ToArray())
             {
                 foreach (var bullet in bullets.ToArray())
                 {
@@ -103,14 +127,14 @@ namespace SpaceInvading.Pages
                         MainCanvas.Children.Remove(bullet);
                         MainCanvas.Children.Remove(block);
                         bullets.Remove(bullet);
-                        blocks.Remove(block);
+                        enemiesState.Remove(block);
                         break;
                     }
                 }
             }
         }
 
-        private bool IsColliding(Rectangle a, Rectangle b)
+        private bool IsColliding(Rectangle a, Border b)
         {
             double aX = Canvas.GetLeft(a);
             double aY = Canvas.GetTop(a);
@@ -156,9 +180,14 @@ namespace SpaceInvading.Pages
 
         private void Shoot()
         {
-            Rectangle bullet = new Rectangle { Width = 5, Height = 15, Fill = Brushes.Black };
-            double x = Canvas.GetLeft(player) + player.Width / 2 - bullet.Width / 2;
-            double y = Canvas.GetTop(player) - bullet.Height;
+            Rectangle bullet = new Rectangle 
+            { 
+                Width = 5, 
+                Height = 15, 
+                Fill = Brushes.Black 
+            };
+            double x = Canvas.GetLeft(playerState) + playerState.Width / 2 - bullet.Width / 2;
+            double y = Canvas.GetTop(playerState) - bullet.Height;
             Canvas.SetLeft(bullet, x);
             Canvas.SetTop(bullet, y);
             MainCanvas.Children.Add(bullet);

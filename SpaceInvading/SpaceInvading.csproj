@@ -9,8 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\" />
+    <None Remove="Resources\Images\player_still.png" />
+    <None Remove="Resources\Images\Slime_Still.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Resources\Sounds\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\player_still.png" />
+    <Resource Include="Resources\Images\Slime_Still.png" />
   </ItemGroup>
 
 </Project>
