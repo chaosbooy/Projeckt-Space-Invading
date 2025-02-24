@@ -14,23 +14,31 @@ namespace SpaceInvading.Pages
     /// </summary>
     public partial class Game : Page
     {
-        private const bool TEST = true;
+        private const bool HitBoxShow = true;
 
         public Player Player1 = new();
         private Image playerState = new();
 
         private List<Entity> enemies = new();
+        // przeciwnicy na planszy
         private List<Border> enemiesState = new();
 
         private List<Rectangle> bullets = new();
-
+        private List<Rectangle> enemyBullets = new();
+    
         private DispatcherTimer gameTimer = new();
+        // prędkość co tick
         private double playerSpeed = 10;
         private double bulletSpeed = 5;
-        private double enemySpeed = 1;
+        private double enemySpeed = 10;
+        // co ktory tick mają ruszyć się wrogowie
+        private double enemiesMoveTick = 10;
+        private double TickNumber = 0;
 
         private bool playerLeft = false;
         private bool playerRight = false;
+        // kierunek ruchu przeciwników
+        private Direction enemiesMoveDirection = Direction.Left;
         private KeyState playerAttack = KeyState.Up;
 
         public Game()
@@ -73,7 +81,7 @@ namespace SpaceInvading.Pages
                 {
                     Width = enemyWidth,
                     Height = enemyHeight,
-                    Background = TEST ? Brushes.Black : Brushes.Transparent,
+                    Background = HitBoxShow ? Brushes.Black : Brushes.Transparent,
                 };
 
                 Image block = new Image
@@ -94,6 +102,8 @@ namespace SpaceInvading.Pages
 
         private void GameLoop(object sender, EventArgs e)
         {
+            TickNumber++;
+
             if (playerLeft && Canvas.GetLeft(playerState) > 0)
             {
                 Canvas.SetLeft(playerState, Canvas.GetLeft(playerState) - playerSpeed);
@@ -108,9 +118,11 @@ namespace SpaceInvading.Pages
                 Shoot();
             }
 
+            // ruch pocisków
             foreach (var bullet in bullets.ToArray())
             {
                 Canvas.SetTop(bullet, Canvas.GetTop(bullet) - bulletSpeed);
+                // znikanie pocisku
                 if (Canvas.GetTop(bullet) < 0)
                 {
                     MainCanvas.Children.Remove(bullet);
@@ -118,6 +130,19 @@ namespace SpaceInvading.Pages
                 }
             }
 
+            // ruch pocisków wrogów
+            foreach (var bullet in enemyBullets.ToArray())
+            {
+                Canvas.SetTop(bullet, Canvas.GetTop(bullet) + bulletSpeed);
+                // znikanie pocisku
+                if (Canvas.GetTop(bullet) < 0)
+                {
+                    MainCanvas.Children.Remove(bullet);
+                    bullets.Remove(bullet);
+                }
+            }
+
+            // trafienie w przeciwnika
             foreach (var block in enemiesState.ToArray())
             {
                 foreach (var bullet in bullets.ToArray())
@@ -132,6 +157,45 @@ namespace SpaceInvading.Pages
                     }
                 }
             }
+
+            // ruch wrogów
+            if(TickNumber % enemiesMoveTick == 0)
+            {
+                foreach (var enemy in enemiesState.ToArray())
+                {
+                    // jeśli krańcowy wróg z rzędu dotyka ścian - obniż cały rząd
+                    if (Canvas.GetLeft(enemy) <= 0 && enemiesMoveDirection == Direction.Left ||
+                        Canvas.GetLeft(enemy) > MainCanvas.Width - enemy.Width && enemiesMoveDirection == Direction.Right)
+                    {
+                        // wszyscy wrogowie w rzędzie idą niżej
+                        foreach (var enemyInRow in enemiesState.ToArray())
+                        {
+                            Canvas.SetTop(enemyInRow, Canvas.GetTop(enemyInRow) + 20);
+                        }
+                        // zmiana kierunku
+                        if (enemiesMoveDirection == Direction.Left) enemiesMoveDirection = Direction.Right;
+                        else enemiesMoveDirection = Direction.Left;
+                    }
+                    // ruch w lewo lub prawo
+                    if (enemiesMoveDirection == Direction.Left)  Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) - enemySpeed);
+                    else Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) + enemySpeed);
+                }
+            }
+
+            // strzał wrogów ( powiedzmy co 20 tick )
+            if( TickNumber % 20 == 0)
+            {
+                foreach (var enemy in enemiesState.ToArray())
+                {
+                    Random rnd = new Random();
+                    int shootChance = 2;
+                    if (rnd.Next(101) <= shootChance)
+                    {
+                        ShootEnemy(enemy);
+                    }
+                }
+            }
+
         }
 
         private bool IsColliding(Rectangle a, Border b)
@@ -193,6 +257,22 @@ namespace SpaceInvading.Pages
             MainCanvas.Children.Add(bullet);
             bullets.Add(bullet);
         }
+
+        private void ShootEnemy(Border shooter)
+        {
+            Rectangle bullet = new Rectangle
+            {
+                Width = 5,
+                Height = 15,
+                Fill = Brushes.Green
+            };
+            double x = Canvas.GetLeft(shooter) + shooter.Width / 2 - bullet.Width / 2;
+            double y = Canvas.GetTop(shooter) - bullet.Height + 50;
+            Canvas.SetLeft(bullet, x);
+            Canvas.SetTop(bullet, y);
+            MainCanvas.Children.Add(bullet);
+            enemyBullets.Add(bullet);
+        }
     }
 
     enum KeyState
@@ -201,5 +281,10 @@ namespace SpaceInvading.Pages
         Pressed,
         Up,
         Released
+    }
+    enum Direction
+    {
+        Left,
+        Right
     }
 }
