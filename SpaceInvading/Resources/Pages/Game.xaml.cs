@@ -25,8 +25,7 @@ namespace SpaceInvading.Pages
 
         private List<Rectangle> bullets = new();
         private List<Rectangle> enemyBullets = new();
-    
-        private DispatcherTimer gameTimer = new();
+
         // prędkość co tick
         private double playerSpeed = 10;
         private double bulletSpeed = 5;
@@ -40,14 +39,14 @@ namespace SpaceInvading.Pages
         // kierunek ruchu przeciwników
         private Direction enemiesMoveDirection = Direction.Left;
         private KeyState playerAttack = KeyState.Up;
+        // numer klatki gracza
+        private int playerSpriteNumber = 1;
 
         public Game()
         {
             InitializeComponent();
             SetupGame();
-            gameTimer.Interval = TimeSpan.FromMilliseconds(20);
-            gameTimer.Tick += GameLoop;
-            gameTimer.Start();
+            CompositionTarget.Rendering += GameLoop;
         }
 
         private void XamlLoaded(object sender, RoutedEventArgs e) 
@@ -209,13 +208,18 @@ namespace SpaceInvading.Pages
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            switch(e.Key)
+            if (playerSpriteNumber < 4) playerSpriteNumber++;
+            else playerSpriteNumber = 1;
+            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_side_" + playerSpriteNumber.ToString() +".png"));
+            switch (e.Key)
             {
                 case Key.A:
                     playerLeft = true;
+                    playerState.RenderTransform = new ScaleTransform(-1, 1);
                     break;
                 case Key.D:
                     playerRight = true;
+                    playerState.RenderTransform = new ScaleTransform(1, 1);
                     break;
                 case Key.Space:
                     if (playerAttack == KeyState.Pressed || playerAttack == KeyState.Down)
@@ -273,6 +277,7 @@ namespace SpaceInvading.Pages
             MainCanvas.Children.Add(bullet);
             enemyBullets.Add(bullet);
         }
+
     }
 
     enum KeyState
