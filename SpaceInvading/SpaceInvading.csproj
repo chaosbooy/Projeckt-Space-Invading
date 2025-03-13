@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\Player_attack_1.png" />
+    <None Remove="Resources\Images\Player_attack_2.png" />
+    <None Remove="Resources\Images\Player_attack_3.png" />
+    <None Remove="Resources\Images\Player_attack_4.png" />
+    <None Remove="Resources\Images\Player_bullet_1.png" />
+    <None Remove="Resources\Images\Player_bullet_2.png" />
     <None Remove="Resources\Images\Player_side_1.png" />
     <None Remove="Resources\Images\Player_side_2.png" />
     <None Remove="Resources\Images\Player_side_3.png" />
@@ -22,6 +28,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Player_attack_1.png" />
+    <Resource Include="Resources\Images\Player_attack_2.png" />
+    <Resource Include="Resources\Images\Player_attack_3.png" />
+    <Resource Include="Resources\Images\Player_attack_4.png" />
+    <Resource Include="Resources\Images\Player_bullet_1.png" />
+    <Resource Include="Resources\Images\Player_bullet_2.png" />
     <Resource Include="Resources\Images\Player_side_1.png" />
     <Resource Include="Resources\Images\Player_side_2.png" />
     <Resource Include="Resources\Images\Player_side_3.png" />

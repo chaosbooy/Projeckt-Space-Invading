@@ -27,13 +27,13 @@ namespace SpaceInvading.Pages
         private List<Rectangle> enemyBullets = new();
 
         // prędkość co tick
-        private double playerSpeed = 10;
+        private double playerSpeed = 2.5;
         private double bulletSpeed = 5;
-        private double enemySpeed = 10;
+        private double enemySpeed = 2.2;
         // co ktory tick mają ruszyć się wrogowie
         private double enemiesMoveTick = 10;
         private double TickNumber = 0;
-
+        
         private bool playerLeft = false;
         private bool playerRight = false;
         // kierunek ruchu przeciwników
@@ -41,12 +41,33 @@ namespace SpaceInvading.Pages
         private KeyState playerAttack = KeyState.Up;
         // numer klatki gracza
         private int playerSpriteNumber = 1;
+        // animacja ataku gracza
+        DispatcherTimer playerAttackAnimation = new DispatcherTimer();
+        // numer klatki animacji ataku gracza
+        private int playerAttackSprite = 0;
+        
 
         public Game()
         {
             InitializeComponent();
             SetupGame();
             CompositionTarget.Rendering += GameLoop;
+            
+            playerAttackAnimation.Tick += AttackAnimation;
+            playerAttackAnimation.Interval = new TimeSpan(0, 0, 0, 0, 80);
+        }
+
+        private void AttackAnimation(object? sender, EventArgs e)
+        {
+            if (playerAttackSprite < 4) playerAttackSprite++;
+            // koniec klatek - koniec animacji, ustaw domyslny wyglad
+            else
+            {
+                playerAttackSprite = 1;
+                playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
+                playerAttackAnimation.Stop();
+            }
+            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_attack_"+playerAttackSprite.ToString()+".png"));
         }
 
         private void XamlLoaded(object sender, RoutedEventArgs e) 
@@ -102,7 +123,6 @@ namespace SpaceInvading.Pages
         private void GameLoop(object sender, EventArgs e)
         {
             TickNumber++;
-
             if (playerLeft && Canvas.GetLeft(playerState) > 0)
             {
                 Canvas.SetLeft(playerState, Canvas.GetLeft(playerState) - playerSpeed);
@@ -114,6 +134,7 @@ namespace SpaceInvading.Pages
             if (playerAttack == KeyState.Pressed)
             {
                 playerAttack = KeyState.Down;
+                playerAttackAnimation.Start();
                 Shoot();
             }
 
@@ -140,7 +161,7 @@ namespace SpaceInvading.Pages
                     bullets.Remove(bullet);
                 }
             }
-
+            
             // trafienie w przeciwnika
             foreach (var block in enemiesState.ToArray())
             {
@@ -277,6 +298,7 @@ namespace SpaceInvading.Pages
             MainCanvas.Children.Add(bullet);
             enemyBullets.Add(bullet);
         }
+
 
     }
 
