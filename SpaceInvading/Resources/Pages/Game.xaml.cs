@@ -1,4 +1,5 @@
 ﻿using SpaceInvading.Resources.Classes;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -33,7 +34,7 @@ namespace SpaceInvading.Pages
         // co ktory tick mają ruszyć się wrogowie
         private double enemiesMoveTick = 10;
         private double TickNumber = 0;
-        
+
         private bool playerLeft = false;
         private bool playerRight = false;
         // kierunek ruchu przeciwników
@@ -45,14 +46,14 @@ namespace SpaceInvading.Pages
         DispatcherTimer playerAttackAnimation = new DispatcherTimer();
         // numer klatki animacji ataku gracza
         private int playerAttackSprite = 0;
-        
+
 
         public Game()
         {
             InitializeComponent();
-            SetupGame();
+            SetupGame(3, 10);
             CompositionTarget.Rendering += GameLoop;
-            
+
             playerAttackAnimation.Tick += AttackAnimation;
             playerAttackAnimation.Interval = new TimeSpan(0, 0, 0, 0, 80);
         }
@@ -67,56 +68,69 @@ namespace SpaceInvading.Pages
                 playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
                 playerAttackAnimation.Stop();
             }
-            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_attack_"+playerAttackSprite.ToString()+".png"));
+            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_attack_" + playerAttackSprite.ToString() + ".png"));
         }
 
-        private void XamlLoaded(object sender, RoutedEventArgs e) 
+        private void XamlLoaded(object sender, RoutedEventArgs e)
         {
             var window = Window.GetWindow(this);
             window.KeyDown += Window_KeyDown;
             window.KeyUp += Window_KeyUp;
             MainCanvas.Focus();
+
+            if (EnemyHolder.Parent is Canvas)
+            {
+                Canvas.SetLeft(EnemyHolder, 20);
+                Canvas.SetTop(EnemyHolder, 20);
+            }
             // Debug.WriteLine($"Xaml succesfully loaded and key events activated");
         }
 
-        private void SetupGame()
+        private void SetupGame(int enemyRows, int enemyCols)
         {
-            playerState = new Image 
-            { 
-                Width = 100, 
-                Height = 100, 
+            EnemyHolder.ColumnDefinitions.Clear();
+            EnemyHolder.RowDefinitions.Clear();
+
+            for (int i = 0; i < enemyCols; ++i)
+                EnemyHolder.ColumnDefinitions.Add(new ColumnDefinition { MinWidth = 60 });
+
+            for (int i = 0; i < enemyRows; ++i)
+                EnemyHolder.RowDefinitions.Add(new RowDefinition { MinHeight = 60 });
+
+
+            playerState = new Image
+            {
+                Width = 100,
+                Height = 100,
                 Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"))
             };
             Canvas.SetLeft(playerState, (MainCanvas.Width - playerState.Width) / 2);
             Canvas.SetTop(playerState, MainCanvas.Height - playerState.Height - 10);
             MainCanvas.Children.Add(playerState);
 
-            var enemyWidth = 100;
-            var enemyHeight = 100;
-            var enemySpacing = 20;
-
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < enemyRows; i++)
             {
-                Border border = new Border
+                for (int j = 0; j < enemyCols; j++)
                 {
-                    Width = enemyWidth,
-                    Height = enemyHeight,
-                    Background = HitBoxShow ? Brushes.Black : Brushes.Transparent,
-                };
+                    Border border = new Border
+                    {
+                        Background = HitBoxShow ? Brushes.Black : Brushes.Transparent,
+                        Width = 50,
+                        Height = 50
+                    };
 
-                Image block = new Image
-                {
-                    Width = enemyWidth,
-                    Height = enemyHeight,
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime_Still.png"))
-                };
+                    Image block = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime_Still.png"))
+                    };
 
-                border.Child = block; // Dodaj obraz jako dziecko ramki
+                    border.Child = block; // Dodaj obraz jako dziecko ramki
 
-                Canvas.SetLeft(border, i * (enemyWidth + enemySpacing) + 20);
-                Canvas.SetTop(border, 20);
-                MainCanvas.Children.Add(border);
-                enemiesState.Add(border);
+                    Grid.SetColumn(border, j);
+                    Grid.SetRow(border, i);
+                    EnemyHolder.Children.Add(border);
+                    enemiesState.Add(border);
+                }
             }
         }
 
@@ -161,7 +175,7 @@ namespace SpaceInvading.Pages
                     bullets.Remove(bullet);
                 }
             }
-            
+
             // trafienie w przeciwnika
             foreach (var block in enemiesState.ToArray())
             {
@@ -170,7 +184,7 @@ namespace SpaceInvading.Pages
                     if (IsColliding(bullet, block))
                     {
                         MainCanvas.Children.Remove(bullet);
-                        MainCanvas.Children.Remove(block);
+                        EnemyHolder.Children.Remove(block);
                         bullets.Remove(bullet);
                         enemiesState.Remove(block);
                         break;
@@ -179,31 +193,43 @@ namespace SpaceInvading.Pages
             }
 
             // ruch wrogów
-            if(TickNumber % enemiesMoveTick == 0)
+            if (TickNumber % enemiesMoveTick == 0)
             {
-                foreach (var enemy in enemiesState.ToArray())
+                if (Canvas.GetLeft(EnemyHolder) <= 0 && enemiesMoveDirection == Direction.Left ||
+                    Canvas.GetLeft(EnemyHolder) > MainCanvas.Width - (EnemyHolder.ColumnDefinitions.Count * EnemyHolder.ColumnDefinitions[0].ActualWidth) && enemiesMoveDirection == Direction.Right)
                 {
-                    // jeśli krańcowy wróg z rzędu dotyka ścian - obniż cały rząd
-                    if (Canvas.GetLeft(enemy) <= 0 && enemiesMoveDirection == Direction.Left ||
-                        Canvas.GetLeft(enemy) > MainCanvas.Width - enemy.Width && enemiesMoveDirection == Direction.Right)
-                    {
-                        // wszyscy wrogowie w rzędzie idą niżej
-                        foreach (var enemyInRow in enemiesState.ToArray())
-                        {
-                            Canvas.SetTop(enemyInRow, Canvas.GetTop(enemyInRow) + 20);
-                        }
-                        // zmiana kierunku
-                        if (enemiesMoveDirection == Direction.Left) enemiesMoveDirection = Direction.Right;
-                        else enemiesMoveDirection = Direction.Left;
-                    }
-                    // ruch w lewo lub prawo
-                    if (enemiesMoveDirection == Direction.Left)  Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) - enemySpeed);
-                    else Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) + enemySpeed);
+                    enemiesMoveDirection = enemiesMoveDirection == Direction.Left ? Direction.Right : Direction.Left;
+                    Canvas.SetTop(EnemyHolder, Canvas.GetTop(EnemyHolder) + 20);
                 }
+
+                if (enemiesMoveDirection == Direction.Left)
+                    Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) - enemySpeed);
+                else
+                    Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) + enemySpeed);
+
+                //foreach (var enemy in enemiesState.ToArray())
+                //{
+                //    // jeśli krańcowy wróg z rzędu dotyka ścian - obniż cały rząd
+                //    if (Canvas.GetLeft(enemy) <= 0 && enemiesMoveDirection == Direction.Left ||
+                //        Canvas.GetLeft(enemy) > MainCanvas.Width - enemy.Width && enemiesMoveDirection == Direction.Right)
+                //    {
+                //        // wszyscy wrogowie w rzędzie idą niżej
+                //        foreach (var enemyInRow in enemiesState.ToArray())
+                //        {
+                //            Canvas.SetTop(enemyInRow, Canvas.GetTop(enemyInRow) + 20);
+                //        }
+                //        // zmiana kierunku
+                //        if (enemiesMoveDirection == Direction.Left) enemiesMoveDirection = Direction.Right;
+                //        else enemiesMoveDirection = Direction.Left;
+                //    }
+                //    // ruch w lewo lub prawo
+                //    if (enemiesMoveDirection == Direction.Left) Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) - enemySpeed);
+                //    else Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) + enemySpeed);
+                //}
             }
 
             // strzał wrogów ( powiedzmy co 20 tick )
-            if( TickNumber % 20 == 0)
+            if (TickNumber % 20 == 0)
             {
                 foreach (var enemy in enemiesState.ToArray())
                 {
@@ -220,18 +246,23 @@ namespace SpaceInvading.Pages
 
         private bool IsColliding(Rectangle a, Border b)
         {
-            double aX = Canvas.GetLeft(a);
-            double aY = Canvas.GetTop(a);
-            double bX = Canvas.GetLeft(b);
-            double bY = Canvas.GetTop(b);
-            return aX < bX + b.Width && aX + a.Width > bX && aY < bY + b.Height && aY + a.Height > bY;
+            Point positionA = a.PointToScreen(new Point(0d, 0d));
+            Point positionB = b.PointToScreen(new Point(0d, 0d));
+
+            double aX = positionA.X;
+            double aY = positionA.Y;
+            double bX = positionB.X;
+            double bY = positionB.Y;
+
+            return aX < bX + b.ActualWidth && aX + a.ActualWidth > bX && aY < bY + b.ActualHeight && aY + a.ActualHeight > bY;
         }
 
+        #region Player Input
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (playerSpriteNumber < 4) playerSpriteNumber++;
             else playerSpriteNumber = 1;
-            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_side_" + playerSpriteNumber.ToString() +".png"));
+            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_side_" + playerSpriteNumber.ToString() + ".png"));
             switch (e.Key)
             {
                 case Key.A:
@@ -253,7 +284,7 @@ namespace SpaceInvading.Pages
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            switch(e.Key)
+            switch (e.Key)
             {
                 case Key.A:
                     playerLeft = false;
@@ -267,13 +298,15 @@ namespace SpaceInvading.Pages
             }
         }
 
+        #endregion
+
         private void Shoot()
         {
-            Rectangle bullet = new Rectangle 
-            { 
-                Width = 5, 
-                Height = 15, 
-                Fill = Brushes.Black 
+            Rectangle bullet = new Rectangle
+            {
+                Width = 5,
+                Height = 15,
+                Fill = Brushes.Black
             };
             double x = Canvas.GetLeft(playerState) + playerState.Width / 2 - bullet.Width / 2;
             double y = Canvas.GetTop(playerState) - bullet.Height;

@@ -9,6 +9,14 @@
       Title="Game" Loaded="XamlLoaded">
 
     <Grid Background="Pink">
-        <Canvas Name="MainCanvas" Background="LightGray" Focusable="True" Width="800" Height="400"/>
+        <Canvas Name="MainCanvas" Background="LightGray" Focusable="True" Width="800" Height="400">
+            <Grid x:Name="EnemyHolder" >
+                <Grid.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="Margin" Value="5,5,5,5" />
+                    </Style>
+                </Grid.Resources>
+            </Grid>
+        </Canvas>
     </Grid>
 </Page>
