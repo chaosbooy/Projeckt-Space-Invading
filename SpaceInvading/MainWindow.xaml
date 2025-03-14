@@ -9,8 +9,9 @@
     <Grid Background="Green">
 
         <Frame Name="MainContent" 
-               Source="Resources/Pages/Game.xaml" 
-               Visibility="Visible"/>
+               Source="Resources/Pages/Lobby.xaml" 
+               Visibility="Visible"
+               NavigationUIVisibility="Hidden"/>
         
     </Grid>
 </Window>

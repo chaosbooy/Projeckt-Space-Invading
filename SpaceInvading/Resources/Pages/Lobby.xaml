@@ -6,9 +6,22 @@
       xmlns:local="clr-namespace:SpaceInvading.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Lobby">
+      Title="Lobby" Background="LightSlateGray">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         
+        <StackPanel VerticalAlignment="Center">
+            <Label Content="Lobby" FontSize="50" HorizontalContentAlignment="Center" Margin="50" FontWeight="Bold" Foreground="#3453b3"/>
+            <Button Content="Start" FontSize="50" Margin="20" Background="LightSteelBlue" Foreground="#3453b3" Click="StartGame" />
+            <Button Content="Exit" FontSize="39" Margin="50" Background="LightSteelBlue" Foreground="#3453b3" Click="LeaveGame" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Hidden">
+            <TextBlock Text="Scores" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Foreground="LightSteelBlue"/>
+        </ScrollViewer>
     </Grid>
 </Page>

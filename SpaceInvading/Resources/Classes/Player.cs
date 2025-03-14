@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace SpaceInvading.Resources.Classes
 {
-    public class Player : Entity
+    public class Player
     {
-        List<Item> Drops;
-        List<Item> Upgrades;
+        public List<Item> Drops { get; set; }
+        public List<Item> Upgrades { get; set; }
+        public string Name { get; set; }
+        public int Health { get; set; }
+
+        private string _playerState;
+        public string PlayerState { get { return _playerState; } }
+
+        public int AnimationFrame { get; set; }
 
         public Player()
         {
@@ -17,14 +24,7 @@ namespace SpaceInvading.Resources.Classes
             Upgrades = new List<Item>();
             Name = "Player";
             Health = 1;
-
-            IdleSprite = new string[]
-            {
-                "player_still.png"
-            };
-
-            MovingSprite = new string[0];
-            DestroyedSprite = new string[0];
+            _playerState = "";
         }
 
         private void Attack()

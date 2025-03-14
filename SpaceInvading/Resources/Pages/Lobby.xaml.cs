@@ -24,5 +24,15 @@ namespace SpaceInvading.Pages
         {
             InitializeComponent();
         }
+
+        private void StartGame(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Game());
+        }
+
+        private void LeaveGame(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
