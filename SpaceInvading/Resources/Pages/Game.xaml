@@ -6,9 +6,17 @@
       xmlns:local="clr-namespace:SpaceInvading.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Game">
+      Title="Game" Loaded="XamlLoaded">
 
-    <Grid>
-        
+    <Grid Background="Pink">
+        <Canvas Name="MainCanvas" Background="LightGray" Focusable="True" Width="800" Height="400">
+            <Grid x:Name="EnemyHolder" Panel.ZIndex="1">
+                <Grid.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="Margin" Value="5,5,5,5" />
+                    </Style>
+                </Grid.Resources>
+            </Grid>
+        </Canvas>
     </Grid>
 </Page>

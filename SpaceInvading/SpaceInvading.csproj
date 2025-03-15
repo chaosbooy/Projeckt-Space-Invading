@@ -79,6 +79,40 @@
     <Resource Include="Resources\Sprites\Tree_Tiles\Tree_Tile_Middle.png" />
     <Resource Include="Resources\Sprites\Tree_Tiles\Tree_Tile_Right.png" />
     <Resource Include="Resources\Sprites\Tree_Tiles\Tree_Tile_Top.png" />
+    
+    <None Remove="Resources\Images\Player_attack_1.png" />
+    <None Remove="Resources\Images\Player_attack_2.png" />
+    <None Remove="Resources\Images\Player_attack_3.png" />
+    <None Remove="Resources\Images\Player_attack_4.png" />
+    <None Remove="Resources\Images\Player_bullet_1.png" />
+    <None Remove="Resources\Images\Player_bullet_2.png" />
+    <None Remove="Resources\Images\Player_side_1.png" />
+    <None Remove="Resources\Images\Player_side_2.png" />
+    <None Remove="Resources\Images\Player_side_3.png" />
+    <None Remove="Resources\Images\Player_side_4.png" />
+    <None Remove="Resources\Images\player_still.png" />
+    <None Remove="Resources\Images\Slime_bullet_1.png" />
+    <None Remove="Resources\Images\Slime_Still.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Sounds\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Player_attack_1.png" />
+    <Resource Include="Resources\Images\Player_attack_2.png" />
+    <Resource Include="Resources\Images\Player_attack_3.png" />
+    <Resource Include="Resources\Images\Player_attack_4.png" />
+    <Resource Include="Resources\Images\Player_bullet_1.png" />
+    <Resource Include="Resources\Images\Player_bullet_2.png" />
+    <Resource Include="Resources\Images\Player_side_1.png" />
+    <Resource Include="Resources\Images\Player_side_2.png" />
+    <Resource Include="Resources\Images\Player_side_3.png" />
+    <Resource Include="Resources\Images\Player_side_4.png" />
+    <Resource Include="Resources\Images\player_still.png" />
+    <Resource Include="Resources\Images\Slime_bullet_1.png" />
+    <Resource Include="Resources\Images\Slime_Still.png" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceInvading.Resources.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace SpaceInvading.Pages
         public Lobby()
         {
             InitializeComponent();
+        }
+
+        private void StartGame(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Village());
+        }
+
+        private void LeaveGame(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

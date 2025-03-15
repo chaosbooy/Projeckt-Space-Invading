@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpaceInvading.Resources.Classes
 {
-    class Item
+    public class Item
     {
     }
 }

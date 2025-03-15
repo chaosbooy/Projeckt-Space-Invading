@@ -5,50 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceInvading"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Smol" Height="450" Width="800">
+    <Grid Background="Green">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="0.1*"/>
-            <ColumnDefinition Width="1.6 *"/>
-            <ColumnDefinition Width="0.1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <!-- Column 0 -->
-        <Border Grid.Column="0">
-            <Border.Background>
-                <ImageBrush ImageSource="..\SpaceInvading\Resources\Sprites\Tree_Tiles\Tree_Tile_Middle.png" 
-                TileMode="Tile" 
-                Viewport="0,0,20,20" ViewportUnits="Absolute"/>
-            </Border.Background>
-        </Border>
-
-        <!-- Column 1 -->
-        <Border Grid.Column="1">
-            <Border.Background>
-                <ImageBrush ImageSource="..\SpaceInvading\Resources\Sprites\Tree_Tiles\Tree_Tile_Left.png" 
-                TileMode="Tile"
-                Viewport="0,0,20,20" ViewportUnits="Absolute"/>
-            </Border.Background>
-        </Border>
-
-        <!-- Column 3 -->
-        <Border Grid.Column="3">
-            <Border.Background>
-                <ImageBrush ImageSource="..\SpaceInvading\Resources\Sprites\Tree_Tiles\Tree_Tile_Right.png" 
-                TileMode="Tile" Stretch="UniformToFill"
-                Viewport="0,0,20,20" ViewportUnits="Absolute"/>
-            </Border.Background>
-        </Border>
-
-        <!-- Column 4 -->
-        <Border Grid.Column="4">
-            <Border.Background>
-                <ImageBrush ImageSource="..\SpaceInvading\Resources\Sprites\Tree_Tiles\Tree_Tile_Middle.png" 
-                TileMode="Tile" Stretch="UniformToFill"
-                Viewport="0,0,20,20" ViewportUnits="Absolute"/>
-            </Border.Background>
-        </Border>
+        <Frame Name="MainContent" 
+               Source="Resources/Pages/Lobby.xaml" 
+               Visibility="Visible"
+               NavigationUIVisibility="Hidden"/>
+        
     </Grid>
 </Window>
