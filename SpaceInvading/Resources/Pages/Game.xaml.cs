@@ -25,8 +25,8 @@ namespace SpaceInvading.Pages
         // przeciwnicy na planszy
         private List<Border> enemiesState = new();
 
-        private List<Rectangle> bullets = new();
-        private List<Rectangle> enemyBullets = new();
+        private List<Image> bullets = new();
+        private List<Image> enemyBullets = new();
 
         // prędkość co tick
         private double playerSpeed = 2.5;
@@ -45,8 +45,12 @@ namespace SpaceInvading.Pages
         private int playerSpriteNumber = 1;
         // animacja ataku gracza
         DispatcherTimer playerAttackAnimation = new DispatcherTimer();
+        // animacja chodzenia gracza
+        DispatcherTimer playerWalkAnimation = new DispatcherTimer();
         // numer klatki animacji ataku gracza
         private int playerAttackSprite = 0;
+        //numer klatki animacji pocisku gracza
+        private int playerBulletSprite = 1;
 
         #endregion
 
@@ -59,6 +63,9 @@ namespace SpaceInvading.Pages
 
             playerAttackAnimation.Tick += AttackAnimation;
             playerAttackAnimation.Interval = new TimeSpan(0, 0, 0, 0, 80);
+
+            playerWalkAnimation.Tick += WalkAnimation;
+            playerWalkAnimation.Interval = new TimeSpan(0, 0, 1);
         }
 
         private void AttackAnimation(object? sender, EventArgs e)
@@ -72,6 +79,13 @@ namespace SpaceInvading.Pages
                 playerAttackAnimation.Stop();
             }
             playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_attack_" + playerAttackSprite.ToString() + ".png"));
+        }
+
+        private void WalkAnimation(object? sender, EventArgs e)
+        {
+            if (playerSpriteNumber < 4) playerSpriteNumber++;
+            else playerSpriteNumber = 1;
+            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_side_" + playerSpriteNumber.ToString() + ".png"));
         }
 
         private void XamlLoaded(object sender, RoutedEventArgs e)
@@ -159,6 +173,11 @@ namespace SpaceInvading.Pages
             foreach (var bullet in bullets.ToArray())
             {
                 Canvas.SetTop(bullet, Canvas.GetTop(bullet) - bulletSpeed);
+
+                bullet.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_bullet_" + playerBulletSprite.ToString() + ".png"));
+                if (playerBulletSprite < 2) playerBulletSprite++;
+                else playerBulletSprite = 1;
+
                 // znikanie pocisku
                 if (Canvas.GetTop(bullet) < 0)
                 {
@@ -266,9 +285,7 @@ namespace SpaceInvading.Pages
         #region Player Input
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (playerSpriteNumber < 4) playerSpriteNumber++;
-            else playerSpriteNumber = 1;
-            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_side_" + playerSpriteNumber.ToString() + ".png"));
+            playerWalkAnimation.Start();
             switch (e.Key)
             {
                 case Key.A:
@@ -281,7 +298,10 @@ namespace SpaceInvading.Pages
                     break;
                 case Key.Space:
                     if (playerAttack == KeyState.Pressed || playerAttack == KeyState.Down)
+                    {
                         playerAttack = KeyState.Down;
+                        playerWalkAnimation.Stop();
+                    }
                     else
                         playerAttack = KeyState.Pressed;
                     break;
@@ -308,11 +328,11 @@ namespace SpaceInvading.Pages
 
         private void Shoot()
         {
-            Rectangle bullet = new Rectangle
+            Image bullet = new Image
             {
-                Width = 5,
-                Height = 15,
-                Fill = Brushes.Black
+                Width = 32,
+                Height = 16,
+                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_bullet_1.png"))
             };
             double x = Canvas.GetLeft(playerState) + playerState.Width / 2 - bullet.Width / 2;
             double y = Canvas.GetTop(playerState) - bullet.Height;
@@ -324,11 +344,11 @@ namespace SpaceInvading.Pages
 
         private void ShootEnemy(Border shooter)
         {
-            Rectangle bullet = new Rectangle
+            Image bullet = new Image
             {
-                Width = 5,
-                Height = 15,
-                Fill = Brushes.Green
+                Width = 32,
+                Height = 16,
+                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime_bullet_1.png"))
             };
             // Get the position of the shooter relative to the canvas
             Point shooterPositionRelativeToCanvas = shooter.TranslatePoint(new Point(0, 0), MainCanvas);
