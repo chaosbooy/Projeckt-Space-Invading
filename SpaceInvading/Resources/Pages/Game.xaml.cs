@@ -65,7 +65,7 @@ namespace SpaceInvading.Pages
             playerAttackAnimation.Interval = new TimeSpan(0, 0, 0, 0, 80);
 
             playerWalkAnimation.Tick += WalkAnimation;
-            playerWalkAnimation.Interval = new TimeSpan(0, 0, 1);
+            playerWalkAnimation.Interval = new TimeSpan(0, 0, 0, 0, 500);
         }
 
         private void AttackAnimation(object? sender, EventArgs e)
@@ -166,6 +166,7 @@ namespace SpaceInvading.Pages
             {
                 playerAttack = KeyState.Down;
                 playerAttackAnimation.Start();
+                playerWalkAnimation.Stop();
                 Shoot();
             }
 
@@ -189,7 +190,7 @@ namespace SpaceInvading.Pages
             // ruch pocisków wrogów
             foreach (var bullet in enemyBullets.ToArray())
             {
-                Canvas.SetTop(bullet, Canvas.GetTop(bullet) + bulletSpeed);
+                Canvas.SetTop(bullet, Canvas.GetTop(bullet) + bulletSpeed/4);
                 // znikanie pocisku
                 if (Canvas.GetTop(bullet) < 0)
                 {
@@ -251,14 +252,14 @@ namespace SpaceInvading.Pages
                 //}
             }
 
-            // strzał wrogów ( powiedzmy co 20 tick )
-            if (TickNumber % 20 == 0)
+            // strzał wrogów ( powiedzmy co 30 tick )
+            if (TickNumber % 30 == 0)
             {
                 foreach (var enemy in enemiesState.ToArray())
                 {
                     Random rnd = new Random();
-                    int shootChance = 2;
-                    if (rnd.Next(101) <= shootChance)
+                    int shootChance = 15;
+                    if (rnd.Next(1001) <= shootChance)
                     {
                         //var a = enemiesState.IndexOf(enemy);
                         ShootEnemy(enemy);
