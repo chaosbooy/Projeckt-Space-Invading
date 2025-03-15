@@ -20,6 +20,7 @@
     <None Remove="Resources\Images\Player_side_3.png" />
     <None Remove="Resources\Images\Player_side_4.png" />
     <None Remove="Resources\Images\player_still.png" />
+    <None Remove="Resources\Images\Slime_bullet_1.png" />
     <None Remove="Resources\Images\Slime_Still.png" />
   </ItemGroup>
 
@@ -39,6 +40,7 @@
     <Resource Include="Resources\Images\Player_side_3.png" />
     <Resource Include="Resources\Images\Player_side_4.png" />
     <Resource Include="Resources\Images\player_still.png" />
+    <Resource Include="Resources\Images\Slime_bullet_1.png" />
     <Resource Include="Resources\Images\Slime_Still.png" />
   </ItemGroup>
 
