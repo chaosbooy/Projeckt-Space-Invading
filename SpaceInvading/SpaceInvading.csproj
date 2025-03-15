@@ -9,6 +9,77 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Sprites\HealthBar\Health_1_0.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_1_1.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_2_0.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_2_1.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_2_2.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_3_0.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_3_1.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_3_2.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_3_3.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_4_0.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_4_1.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_4_2.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_4_3.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_4_4.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_5_0.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_5_1.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_5_2.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_5_3.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_5_4.png" />
+    <None Remove="Resources\Sprites\HealthBar\Health_5_5.png" />
+    <None Remove="Resources\Sprites\Player\Player_Still.png" />
+    <None Remove="Resources\Sprites\Slime\Slime_Bullet_1.png" />
+    <None Remove="Resources\Sprites\Slime\Slime_Bullet_2.png" />
+    <None Remove="Resources\Sprites\Slime\Slime_left_1.png" />
+    <None Remove="Resources\Sprites\Slime\Slime_Left_2.png" />
+    <None Remove="Resources\Sprites\Slime\Slime_Right_1.png" />
+    <None Remove="Resources\Sprites\Slime\Slime_Right_2.png" />
+    <None Remove="Resources\Sprites\Slime\Slime_Still.png" />
+    <None Remove="Resources\Sprites\Tree_Tiles\Full_Tree.png" />
+    <None Remove="Resources\Sprites\Tree_Tiles\Tree_Tile_Bottom.png" />
+    <None Remove="Resources\Sprites\Tree_Tiles\Tree_Tile_Left.png" />
+    <None Remove="Resources\Sprites\Tree_Tiles\Tree_Tile_Middle.png" />
+    <None Remove="Resources\Sprites\Tree_Tiles\Tree_Tile_Right.png" />
+    <None Remove="Resources\Sprites\Tree_Tiles\Tree_Tile_Top.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Sprites\HealthBar\Health_1_0.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_1_1.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_2_0.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_2_1.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_2_2.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_3_0.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_3_1.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_3_2.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_3_3.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_4_0.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_4_1.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_4_2.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_4_3.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_4_4.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_5_0.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_5_1.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_5_2.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_5_3.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_5_4.png" />
+    <Resource Include="Resources\Sprites\HealthBar\Health_5_5.png" />
+    <Resource Include="Resources\Sprites\Player\Player_Still.png" />
+    <Resource Include="Resources\Sprites\Slime\Slime_Bullet_1.png" />
+    <Resource Include="Resources\Sprites\Slime\Slime_Bullet_2.png" />
+    <Resource Include="Resources\Sprites\Slime\Slime_left_1.png" />
+    <Resource Include="Resources\Sprites\Slime\Slime_Left_2.png" />
+    <Resource Include="Resources\Sprites\Slime\Slime_Right_1.png" />
+    <Resource Include="Resources\Sprites\Slime\Slime_Right_2.png" />
+    <Resource Include="Resources\Sprites\Slime\Slime_Still.png" />
+    <Resource Include="Resources\Sprites\Tree_Tiles\Tree_Tile_Bottom.png" />
+    <Resource Include="Resources\Sprites\Tree_Tiles\Tree_Tile_Left.png" />
+    <Resource Include="Resources\Sprites\Tree_Tiles\Tree_Tile_Middle.png" />
+    <Resource Include="Resources\Sprites\Tree_Tiles\Tree_Tile_Right.png" />
+    <Resource Include="Resources\Sprites\Tree_Tiles\Tree_Tile_Top.png" />
+    
     <None Remove="Resources\Images\Player_attack_1.png" />
     <None Remove="Resources\Images\Player_attack_2.png" />
     <None Remove="Resources\Images\Player_attack_3.png" />
