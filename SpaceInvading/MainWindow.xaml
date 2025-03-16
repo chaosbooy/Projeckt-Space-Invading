@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpaceInvading"
         mc:Ignorable="d"
-        Title="Smol" Height="450" Width="800">
-    <Grid Background="Green">
+        Title="Smol" Height="450" Width="800" Background="Transparent">
+    <Grid Background="Transparent">
 
         <Frame Name="MainContent" 
                Source="Resources/Pages/Lobby.xaml" 
                Visibility="Visible"
-               NavigationUIVisibility="Hidden"/>
+               NavigationUIVisibility="Hidden"
+               Navigated="MainContent_Navigated"/>
         
     </Grid>
 </Window>

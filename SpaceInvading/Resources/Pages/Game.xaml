@@ -5,11 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SpaceInvading.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="Game" Loaded="XamlLoaded">
 
     <Grid Background="Pink">
-        <Canvas Name="MainCanvas" Background="LightGray" Focusable="True" Width="800" Height="400">
+        <Canvas Name="MainCanvas" Background="LightGray" Focusable="True" Width="800" Height="600">
             <Grid x:Name="EnemyHolder" Panel.ZIndex="1">
                 <Grid.Resources>
                     <Style TargetType="Border">

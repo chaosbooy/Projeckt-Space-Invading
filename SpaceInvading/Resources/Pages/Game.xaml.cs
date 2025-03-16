@@ -75,7 +75,14 @@ namespace SpaceInvading.Pages
             else
             {
                 playerAttackSprite = 1;
-                playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
+
+                //jezeli gracz rusza sie w jedna z dwoch stron
+                //jezeli gracz rusza sie w jedna z dwoch stron
+                if(playerLeft != playerRight) 
+                    playerWalkAnimation.Start();
+                else 
+                    playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
+
                 playerAttackAnimation.Stop();
             }
             playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_attack_" + playerAttackSprite.ToString() + ".png"));
@@ -165,8 +172,6 @@ namespace SpaceInvading.Pages
             if (playerAttack == KeyState.Pressed)
             {
                 playerAttack = KeyState.Down;
-                playerAttackAnimation.Start();
-                playerWalkAnimation.Stop();
                 Shoot();
             }
 
@@ -286,7 +291,6 @@ namespace SpaceInvading.Pages
         #region Player Input
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            playerWalkAnimation.Start();
             switch (e.Key)
             {
                 case Key.A:
@@ -298,14 +302,28 @@ namespace SpaceInvading.Pages
                     playerState.RenderTransform = new ScaleTransform(1, 1);
                     break;
                 case Key.Space:
+                    playerAttackAnimation.Start();
+                    playerWalkAnimation.Stop();
                     if (playerAttack == KeyState.Pressed || playerAttack == KeyState.Down)
                     {
                         playerAttack = KeyState.Down;
-                        playerWalkAnimation.Stop();
                     }
                     else
                         playerAttack = KeyState.Pressed;
                     break;
+            }
+
+            //jezeli gracz rusza sie w jedna z dwoch stron
+            if (playerLeft != playerRight && !playerWalkAnimation.IsEnabled)
+            {
+                playerWalkAnimation.Start();
+
+                WalkAnimation(null, new EventArgs());
+            }
+            else if (playerLeft == playerRight)
+            {
+                playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
+                playerWalkAnimation.Stop();
             }
         }
 
@@ -322,6 +340,19 @@ namespace SpaceInvading.Pages
                 case Key.Space:
                     playerAttack = KeyState.Released;
                     break;
+            }
+
+            //jezeli gracz rusza sie w jedna z dwoch stron
+            if (playerLeft != playerRight && !playerWalkAnimation.IsEnabled)
+            {
+                playerWalkAnimation.Start();
+
+                WalkAnimation(null, new EventArgs());
+            }
+            else if (playerLeft == playerRight)
+            {
+                playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
+                playerWalkAnimation.Stop();
             }
         }
 
