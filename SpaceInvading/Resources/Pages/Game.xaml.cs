@@ -1,4 +1,5 @@
 ﻿using SpaceInvading.Resources.Classes;
+using SpaceInvading.Resources.Pages;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -59,6 +60,7 @@ namespace SpaceInvading.Pages
         {
             InitializeComponent();
             SetupGame(3, 10);
+
             CompositionTarget.Rendering += GameLoop;
 
             playerAttackAnimation.Tick += AttackAnimation;
@@ -158,6 +160,12 @@ namespace SpaceInvading.Pages
             }
         }
 
+        private void EndGame()
+        {
+            this.NavigationService.Navigate(new Lobby());
+            CompositionTarget.Rendering -= GameLoop;
+        }
+
         private void GameLoop(object? sender, EventArgs e)
         {
             TickNumber++;
@@ -192,18 +200,6 @@ namespace SpaceInvading.Pages
                 }
             }
 
-            // ruch pocisków wrogów
-            foreach (var bullet in enemyBullets.ToArray())
-            {
-                Canvas.SetTop(bullet, Canvas.GetTop(bullet) + bulletSpeed/4);
-                // znikanie pocisku
-                if (Canvas.GetTop(bullet) < 0)
-                {
-                    MainCanvas.Children.Remove(bullet);
-                    bullets.Remove(bullet);
-                }
-            }
-
             // trafienie w przeciwnika
             foreach (var block in enemiesState.ToArray())
             {
@@ -220,6 +216,28 @@ namespace SpaceInvading.Pages
                 }
             }
 
+            // ruch pocisków wrogów
+            foreach (var bullet in enemyBullets.ToArray())
+            {
+                Canvas.SetTop(bullet, Canvas.GetTop(bullet) + bulletSpeed/4);
+                // znikanie pocisku za swiatem
+                if (Canvas.GetTop(bullet) < 0)
+                {
+                    MainCanvas.Children.Remove(bullet);
+                    bullets.Remove(bullet);
+                }
+                //trafienie gracza
+                else if(IsColliding(playerState, bullet))
+                {
+                    //jezeli nastepne hp bedzie 0 koncz gre
+                    if (Player1.Health-- == 1) EndGame();
+                    else
+                    {
+                        enemyBullets.Remove(bullet);
+                        MainCanvas.Children.Remove(bullet);
+                    }
+                }
+            }
             // ruch wrogów
             if (TickNumber % enemiesMoveTick == 0)
             {
@@ -277,8 +295,11 @@ namespace SpaceInvading.Pages
 
         private bool IsColliding(FrameworkElement a, FrameworkElement b)
         {
-            Point positionA = a.PointToScreen(new Point(0d, 0d));
-            Point positionB = b.PointToScreen(new Point(0d, 0d));
+            GeneralTransform transformA = a.TransformToAncestor(MainCanvas);
+            Point positionA = transformA.Transform(new Point(0, 0));
+
+            GeneralTransform transformB = b.TransformToAncestor(MainCanvas);
+            Point positionB = transformB.Transform(new Point(0, 0));
 
             double aX = positionA.X;
             double aY = positionA.Y;
@@ -310,6 +331,10 @@ namespace SpaceInvading.Pages
                     }
                     else
                         playerAttack = KeyState.Pressed;
+                    break;
+                case Key.F:
+                    // // for debugging
+                    //CompositionTarget.Rendering += GameLoop;
                     break;
             }
 
@@ -374,7 +399,7 @@ namespace SpaceInvading.Pages
             bullets.Add(bullet);
         }
 
-        private void ShootEnemy(Border shooter)
+        private void ShootEnemy(FrameworkElement shooter)
         {
             Image bullet = new Image
             {
@@ -397,7 +422,6 @@ namespace SpaceInvading.Pages
             MainCanvas.Children.Add(bullet);
             enemyBullets.Add(bullet);
         }
-
 
     }
 

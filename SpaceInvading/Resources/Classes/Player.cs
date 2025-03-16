@@ -13,6 +13,8 @@ namespace SpaceInvading.Resources.Classes
         public string Name { get; set; }
         public int Health { get; set; }
 
+        public int MaxHealth { get; set; }
+
         private string _playerState;
         public string PlayerState { get { return _playerState; } }
 
@@ -23,7 +25,8 @@ namespace SpaceInvading.Resources.Classes
             Drops = new List<Item>();
             Upgrades = new List<Item>();
             Name = "Player";
-            Health = 1;
+            Health = 2;
+            MaxHealth = 2;
             _playerState = "";
         }
 
