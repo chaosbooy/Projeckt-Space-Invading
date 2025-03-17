@@ -21,7 +21,6 @@ namespace SpaceInvading.Pages
         private const bool HitBoxShow = false;
 
         public Player Player1 = new();
-        private Image playerState = new();
 
         // przeciwnicy na planszy
         private List<Border> enemiesState = new();
@@ -30,26 +29,17 @@ namespace SpaceInvading.Pages
         private List<Image> enemyBullets = new();
 
         // prędkość co tick
-        private double playerSpeed = 2.5;
         private double bulletSpeed = 5;
         private double enemySpeed = 2.2;
         // co ktory tick mają ruszyć się wrogowie
         private double enemiesMoveTick = 10;
         private double TickNumber = 0;
 
-        private bool playerLeft = false;
-        private bool playerRight = false;
         // kierunek ruchu przeciwników
         private Direction enemiesMoveDirection = Direction.Left;
         private KeyState playerAttack = KeyState.Up;
-        // numer klatki gracza
-        private int playerSpriteNumber = 1;
-        // animacja ataku gracza
-        DispatcherTimer playerAttackAnimation = new DispatcherTimer();
-        // animacja chodzenia gracza
-        DispatcherTimer playerWalkAnimation = new DispatcherTimer();
-        // numer klatki animacji ataku gracza
-        private int playerAttackSprite = 0;
+
+
         //numer klatki animacji pocisku gracza
         private int playerBulletSprite = 1;
 
@@ -62,39 +52,6 @@ namespace SpaceInvading.Pages
             SetupGame(3, 10);
 
             CompositionTarget.Rendering += GameLoop;
-
-            playerAttackAnimation.Tick += AttackAnimation;
-            playerAttackAnimation.Interval = new TimeSpan(0, 0, 0, 0, 80);
-
-            playerWalkAnimation.Tick += WalkAnimation;
-            playerWalkAnimation.Interval = new TimeSpan(0, 0, 0, 0, 500);
-        }
-
-        private void AttackAnimation(object? sender, EventArgs e)
-        {
-            if (playerAttackSprite < 4) playerAttackSprite++;
-            // koniec klatek - koniec animacji, ustaw domyslny wyglad
-            else
-            {
-                playerAttackSprite = 1;
-
-                //jezeli gracz rusza sie w jedna z dwoch stron
-                //jezeli gracz rusza sie w jedna z dwoch stron
-                if(playerLeft != playerRight) 
-                    playerWalkAnimation.Start();
-                else 
-                    playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
-
-                playerAttackAnimation.Stop();
-            }
-            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_attack_" + playerAttackSprite.ToString() + ".png"));
-        }
-
-        private void WalkAnimation(object? sender, EventArgs e)
-        {
-            if (playerSpriteNumber < 4) playerSpriteNumber++;
-            else playerSpriteNumber = 1;
-            playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_side_" + playerSpriteNumber.ToString() + ".png"));
         }
 
         private void XamlLoaded(object sender, RoutedEventArgs e)
@@ -123,16 +80,10 @@ namespace SpaceInvading.Pages
             for (int i = 0; i < enemyRows; ++i)
                 EnemyHolder.RowDefinitions.Add(new RowDefinition { MinHeight = 60 });
 
-
-            playerState = new Image
-            {
-                Width = 100,
-                Height = 100,
-                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"))
-            };
-            Canvas.SetLeft(playerState, (MainCanvas.Width - playerState.Width) / 2);
-            Canvas.SetTop(playerState, MainCanvas.Height - playerState.Height - 10);
-            MainCanvas.Children.Add(playerState);
+            Player1 = new Player();
+            Canvas.SetLeft(Player1.PlayerState, (MainCanvas.Width - Player1.PlayerState.Width) / 2);
+            Canvas.SetTop(Player1.PlayerState, MainCanvas.Height - Player1.PlayerState.Height - 10);
+            MainCanvas.Children.Add(Player1.PlayerState);
 
             for (int i = 0; i < enemyRows; i++)
             {
@@ -169,13 +120,13 @@ namespace SpaceInvading.Pages
         private void GameLoop(object? sender, EventArgs e)
         {
             TickNumber++;
-            if (playerLeft && Canvas.GetLeft(playerState) > 0)
+            if (Player1.PlayerLeft && Canvas.GetLeft(Player1.PlayerState) > Player1.PlayerState.ActualWidth * 0.7)
             {
-                Canvas.SetLeft(playerState, Canvas.GetLeft(playerState) - playerSpeed);
+                Canvas.SetLeft(Player1.PlayerState, Canvas.GetLeft(Player1.PlayerState) - Player1.PlayerSpeed);
             }
-            if (playerRight && Canvas.GetLeft(playerState) < MainCanvas.Width - playerState.Width)
+            if (Player1.PlayerRight && Canvas.GetLeft(Player1.PlayerState) < MainCanvas.ActualWidth - Player1.PlayerState.ActualWidth * 2)
             {
-                Canvas.SetLeft(playerState, Canvas.GetLeft(playerState) + playerSpeed);
+                Canvas.SetLeft(Player1.PlayerState, Canvas.GetLeft(Player1.PlayerState) + Player1.PlayerSpeed);
             }
             if (playerAttack == KeyState.Pressed)
             {
@@ -227,7 +178,7 @@ namespace SpaceInvading.Pages
                     bullets.Remove(bullet);
                 }
                 //trafienie gracza
-                else if(IsColliding(playerState, bullet))
+                else if(IsColliding(Player1.PlayerState, bullet))
                 {
                     //jezeli nastepne hp bedzie 0 koncz gre
                     if (Player1.Health-- == 1) EndGame();
@@ -315,20 +266,15 @@ namespace SpaceInvading.Pages
             switch (e.Key)
             {
                 case Key.A:
-                    playerLeft = true;
-                    playerState.RenderTransform = new ScaleTransform(-1, 1);
+                    Player1.TurnLeft(true);
                     break;
                 case Key.D:
-                    playerRight = true;
-                    playerState.RenderTransform = new ScaleTransform(1, 1);
+                    Player1.TurnRight(true);
                     break;
                 case Key.Space:
-                    playerAttackAnimation.Start();
-                    playerWalkAnimation.Stop();
+                    Player1.Attack();
                     if (playerAttack == KeyState.Pressed || playerAttack == KeyState.Down)
-                    {
                         playerAttack = KeyState.Down;
-                    }
                     else
                         playerAttack = KeyState.Pressed;
                     break;
@@ -338,18 +284,12 @@ namespace SpaceInvading.Pages
                     break;
             }
 
+            if (Player1.IsAttacking) return;
             //jezeli gracz rusza sie w jedna z dwoch stron
-            if (playerLeft != playerRight && !playerWalkAnimation.IsEnabled)
-            {
-                playerWalkAnimation.Start();
-
-                WalkAnimation(null, new EventArgs());
-            }
-            else if (playerLeft == playerRight)
-            {
-                playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
-                playerWalkAnimation.Stop();
-            }
+            if (Player1.PlayerLeft != Player1.PlayerRight)
+                Player1.Walk();
+            else
+                Player1.Stay();
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -357,28 +297,22 @@ namespace SpaceInvading.Pages
             switch (e.Key)
             {
                 case Key.A:
-                    playerLeft = false;
+                    Player1.TurnLeft(false);
                     break;
                 case Key.D:
-                    playerRight = false;
+                    Player1.TurnRight(false);
                     break;
                 case Key.Space:
                     playerAttack = KeyState.Released;
                     break;
             }
 
+            if (Player1.IsAttacking) return;
             //jezeli gracz rusza sie w jedna z dwoch stron
-            if (playerLeft != playerRight && !playerWalkAnimation.IsEnabled)
-            {
-                playerWalkAnimation.Start();
-
-                WalkAnimation(null, new EventArgs());
-            }
-            else if (playerLeft == playerRight)
-            {
-                playerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
-                playerWalkAnimation.Stop();
-            }
+            if (Player1.PlayerLeft != Player1.PlayerRight)
+                Player1.Walk();
+            else
+                Player1.Stay();
         }
 
         #endregion
@@ -391,8 +325,8 @@ namespace SpaceInvading.Pages
                 Height = 16,
                 Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_bullet_1.png"))
             };
-            double x = Canvas.GetLeft(playerState) + playerState.Width / 2 - bullet.Width / 2;
-            double y = Canvas.GetTop(playerState) - bullet.Height;
+            double x = Canvas.GetLeft(Player1.PlayerState) + Player1.PlayerState.Width / 2 - bullet.Width / 2;
+            double y = Canvas.GetTop(Player1.PlayerState) - bullet.Height;
             Canvas.SetLeft(bullet, x);
             Canvas.SetTop(bullet, y);
             MainCanvas.Children.Add(bullet);
