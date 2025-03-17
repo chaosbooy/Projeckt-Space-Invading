@@ -8,14 +8,9 @@
       d:DesignHeight="600" d:DesignWidth="800"
       Title="Game" Loaded="XamlLoaded">
 
-    <Grid>
-    
-        <!--<Grid.Background>
-            <ImageBrush ImageSource="../Images/Background/background_Path.png" />
-        </Grid.Background>
-        <Image Panel.ZIndex="3" Source="../Images/Background/background_tree.png">-->
+    <Grid Background="DarkOliveGreen">
 
-        <Canvas Name="MainCanvas" Focusable="True" Width="800"  > 
+        <Canvas Name="MainCanvas" Focusable="True" Width="700" Height="600" >
             <Canvas.Background>
                 <ImageBrush ImageSource="../Images/Background/background_Path.png" />
             </Canvas.Background>
@@ -27,5 +22,10 @@
                 </Grid.Resources>
             </Grid>
         </Canvas>
+        <Image Source="../Images/Background/background_Tree.png" Stretch="Fill" HorizontalAlignment="Center" MinWidth="1300"/>
+        
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="../Images/Background/background_Path.png" />
+        </Grid.Background>-->
     </Grid>
 </Page>

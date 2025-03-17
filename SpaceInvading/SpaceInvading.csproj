@@ -14,7 +14,6 @@
     <None Remove="Resources\Images\Background\background_Path.png" />
     <None Remove="Resources\Images\Background\background_Path_Cave.png" />
     <None Remove="Resources\Images\Background\background_tree.png" />
-    <None Remove="Resources\Pages\background_Path.png" />
     <None Remove="Resources\Sprites\HealthBar\Health_1_0.png" />
     <None Remove="Resources\Sprites\HealthBar\Health_1_1.png" />
     <None Remove="Resources\Sprites\HealthBar\Health_2_0.png" />
@@ -57,7 +56,6 @@
     <Resource Include="Resources\Images\Background\background_Path.png" />
     <Resource Include="Resources\Images\Background\background_Path_Cave.png" />
     <Resource Include="Resources\Images\Background\background_tree.png" />
-    <Resource Include="Resources\Pages\background_Path.png" />
     <Resource Include="Resources\Sprites\HealthBar\Health_1_0.png" />
     <Resource Include="Resources\Sprites\HealthBar\Health_1_1.png" />
     <Resource Include="Resources\Sprites\HealthBar\Health_2_0.png" />
