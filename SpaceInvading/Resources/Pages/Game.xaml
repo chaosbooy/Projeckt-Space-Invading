@@ -8,8 +8,17 @@
       d:DesignHeight="600" d:DesignWidth="800"
       Title="Game" Loaded="XamlLoaded">
 
-    <Grid Background="Pink">
-        <Canvas Name="MainCanvas" Background="LemonChiffon" Focusable="True" Width="800" Height="600">
+    <Grid>
+    
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="../Images/Background/background_Path.png" />
+        </Grid.Background>
+        <Image Panel.ZIndex="3" Source="../Images/Background/background_tree.png">-->
+
+        <Canvas Name="MainCanvas" Focusable="True" Width="800"  > 
+            <Canvas.Background>
+                <ImageBrush ImageSource="../Images/Background/background_Path.png" />
+            </Canvas.Background>
             <Grid x:Name="EnemyHolder" Panel.ZIndex="1">
                 <Grid.Resources>
                     <Style TargetType="Border">

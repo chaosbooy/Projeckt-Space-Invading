@@ -6,8 +6,10 @@
         xmlns:local="clr-namespace:SpaceInvading"
         mc:Ignorable="d"
         Title="Smol" Height="450" Width="800" Background="Transparent">
-    <Grid Background="Transparent">
-
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/Images/Background/background_tree.png" />
+        </Grid.Background>
         <Frame Name="MainContent" 
                Source="Resources/Pages/Lobby.xaml" 
                Visibility="Visible"
