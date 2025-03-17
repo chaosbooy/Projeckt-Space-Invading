@@ -45,7 +45,6 @@ namespace SpaceInvading.Pages
 
         #endregion
 
-
         public Game()
         {
             InitializeComponent();
@@ -156,7 +155,7 @@ namespace SpaceInvading.Pages
             {
                 foreach (var bullet in bullets.ToArray())
                 {
-                    if (IsColliding(bullet, block))
+                    if (IsColliding(bullet, 0.9, block))
                     {
                         MainCanvas.Children.Remove(bullet);
                         EnemyHolder.Children.Remove(block);
@@ -178,7 +177,7 @@ namespace SpaceInvading.Pages
                     bullets.Remove(bullet);
                 }
                 //trafienie gracza
-                else if(IsColliding(Player1.PlayerState, bullet))
+                else if(IsColliding(Player1.PlayerState, 0.7, bullet))
                 {
                     //jezeli nastepne hp bedzie 0 koncz gre
                     if (Player1.Health-- == 1) EndGame();
@@ -244,7 +243,7 @@ namespace SpaceInvading.Pages
 
         }
 
-        private bool IsColliding(FrameworkElement a, FrameworkElement b)
+        private bool IsColliding(FrameworkElement a, double hitboxMultiplier, FrameworkElement b)
         {
             GeneralTransform transformA = a.TransformToAncestor(MainCanvas);
             Point positionA = transformA.Transform(new Point(0, 0));
@@ -252,13 +251,20 @@ namespace SpaceInvading.Pages
             GeneralTransform transformB = b.TransformToAncestor(MainCanvas);
             Point positionB = transformB.Transform(new Point(0, 0));
 
-            double aX = positionA.X;
-            double aY = positionA.Y;
+            double newWidth = a.ActualWidth * hitboxMultiplier;
+            double newHeight = a.ActualHeight * hitboxMultiplier;
+
+            double aX = positionA.X - (newWidth - a.ActualWidth) / 2;
+            double aY = positionA.Y - (newHeight - a.ActualHeight) / 2;
+
             double bX = positionB.X;
             double bY = positionB.Y;
 
-            return aX < bX + b.ActualWidth && aX + a.ActualWidth > bX && aY < bY + b.ActualHeight && aY + a.ActualHeight > bY;
+            return aX < bX + b.ActualWidth && aX + newWidth > bX &&
+                   aY < bY + b.ActualHeight && aY + newHeight > bY;
         }
+
+
 
         #region Player Input
         private void Window_KeyDown(object sender, KeyEventArgs e)

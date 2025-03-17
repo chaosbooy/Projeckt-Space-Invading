@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -8,20 +9,24 @@ namespace SpaceInvading.Resources.Classes
 {
     public class Player
     {
+        #region Variables
+        //Village interaction
         public List<Item> Drops { get; set; }
         public List<Item> Upgrades { get; set; }
+        public int Money { get; set; }
+
+        //Basics
         public string Name { get; set; }
         public int Health { get; set; }
-
         public int MaxHealth { get; set; }
+        public double PlayerSpeed { get; set; }
 
+        //Current Player Look
         private Image _playerState;
         public Image PlayerState { get { return _playerState; } }
 
         private int playerSpriteNumber = 1;
         private int playerAttackSprite = 0;
-
-        public double PlayerSpeed { get; set; }
 
         private bool _playerLeft = false;
         private bool _playerRight = false;
@@ -29,13 +34,13 @@ namespace SpaceInvading.Resources.Classes
         public bool PlayerLeft { get { return _playerLeft; } }
         public bool PlayerRight { get { return _playerRight; } }
 
-        // animacja ataku gracza
+        //Animations
         DispatcherTimer playerAttackAnimation = new DispatcherTimer();
-        // animacja chodzenia gracza
         DispatcherTimer playerWalkAnimation = new DispatcherTimer();
 
         public bool IsAttacking { get { return playerAttackAnimation.IsEnabled; } }
 
+        #endregion
 
         public Player()
         {
