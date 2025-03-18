@@ -10,10 +10,9 @@
 
     <Grid Background="DarkOliveGreen">
 
+        <Image Source="../Images/Background/background_Path.png" Stretch="Fill" Width="700" HorizontalAlignment="Center" Focusable="False" />
+        <Image Source="../Images/Background/background_Cave.png" Stretch="Fill" Width="1300" HorizontalAlignment="Center" Focusable="False"/>
         <Canvas Name="MainCanvas" Focusable="True" Width="700" Height="600" >
-            <Canvas.Background>
-                <ImageBrush ImageSource="../Images/Background/background_Path.png" />
-            </Canvas.Background>
             <Grid x:Name="EnemyHolder" Panel.ZIndex="1" Canvas.Top="20" Canvas.Left="20">
                 <Grid.Resources>
                     <Style TargetType="Border">
@@ -22,6 +21,7 @@
                 </Grid.Resources>
             </Grid>
         </Canvas>
+
         <Image Source="../Images/Background/background_Tree.png" Stretch="Fill" HorizontalAlignment="Center" MinWidth="1300"/>
         
         <!--<Grid.Background>

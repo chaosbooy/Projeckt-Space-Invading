@@ -218,6 +218,10 @@ namespace SpaceInvading.Pages
                         EnemyHolder.Children.Remove(block);
                         bullets.Remove(bullet);
                         enemiesState.Remove(block);
+
+                        while (RemoveEmptyColumn(0))
+                            Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) + 60);
+                        while (RemoveEmptyColumn(EnemyHolder.ColumnDefinitions.Count - 1));
                         break;
                     }
                 }
@@ -353,6 +357,32 @@ namespace SpaceInvading.Pages
                    aY < bY + b.ActualHeight && aY + newHeight > bY;
         }
 
+        private bool RemoveEmptyColumn(int columnIndex)
+        {
+            if (EnemyHolder.ColumnDefinitions.Count <= columnIndex || columnIndex < 0) return false;
+
+            // Check if any child belongs to the given column
+            bool columnHasElements = EnemyHolder.Children
+                .OfType<UIElement>()
+                .Any(child => Grid.GetColumn(child) == columnIndex);
+
+            // If no elements are in the column, remove it
+            if (!columnHasElements)
+            {
+                EnemyHolder.ColumnDefinitions.RemoveAt(columnIndex);
+
+                // Adjust column indices for elements after the removed column
+                foreach (UIElement child in EnemyHolder.Children)
+                {
+                    int currentColumn = Grid.GetColumn(child);
+                    if (currentColumn > columnIndex)
+                    {
+                        Grid.SetColumn(child, currentColumn - 1);
+                    }
+                }
+            }
+            return !columnHasElements;
+        }
 
 
         #region Player Input

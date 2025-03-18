@@ -17,6 +17,7 @@ namespace SpaceInvading.Resources.Classes
 
         //Basics
         public string Name { get; set; }
+        public int Score { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public double PlayerSpeed { get; set; }
