@@ -43,7 +43,7 @@ namespace SpaceInvading.Pages
 
         //numer klatki animacji pocisku gracza
         private int playerBulletSprite = 1;
-
+        List<Obstacle> obstacles = new List<Obstacle>();
         #endregion
 
         public Game()
@@ -112,6 +112,10 @@ namespace SpaceInvading.Pages
                     enemiesState.Add(border);
                 }
             }
+
+            CreateObstacle(150, 400);
+            CreateObstacle(350, 400);
+            CreateObstacle(550, 400);
         }
 
         private void EndGame()
@@ -175,6 +179,33 @@ namespace SpaceInvading.Pages
                     bullets.Remove(bullet);
                 }
             }
+            // trafienie pocisku gracza w przeszkode
+            foreach (var bullet in bullets.ToArray())
+            {
+                // okresla czy przycisk jest na ekranie
+                bool isBulletAlive = true;
+                for (int i = 0; i < obstacles.Count; i++)
+                {
+                    // sprawdzanie czesci w kazdej przeszkodzie
+                    for (int j = 0; j < obstacles[i].Parts.Count(); j++)
+                    {
+                        if (obstacles[i].Damages[j] != -1)
+                        {
+                            if (isBulletAlive && IsColliding(obstacles[i].Parts[j], 1, bullet))
+                            {
+                                bool ifDestroyed = obstacles[i].DamagePart(j);
+                                bullets.Remove(bullet);
+                                MainCanvas.Children.Remove(bullet);
+                                if (ifDestroyed)
+                                {
+                                    MainCanvas.Children.Remove(obstacles[i].Parts[j]);
+                                }
+                                isBulletAlive = false;
+                            }
+                        }
+                    }
+                }
+            }
 
             // trafienie w przeciwnika
             foreach (var block in enemiesState.ToArray())
@@ -214,6 +245,34 @@ namespace SpaceInvading.Pages
                     {
                         enemyBullets.Remove(bullet);
                         MainCanvas.Children.Remove(bullet);
+                    }
+                }
+                // trafienie w przeszkodę
+                else if (obstacles.Count != 0)
+                {
+                    // okresla czy przycisk jest na ekranie
+                    bool isBulletAlive = true;
+                    // sprawdzanie duzych przeszkod
+                    for (int i = 0; i < obstacles.Count; i++)
+                    {
+                        // sprawdzanie czesci w kazdej przeszkodzie
+                        for (int j = 0; j < obstacles[i].Parts.Count(); j++)
+                        {
+                            if (obstacles[i].Damages[j] != -1)
+                            {
+                                if (isBulletAlive && IsColliding(obstacles[i].Parts[j], 1, bullet))
+                                {
+                                    bool ifDestroyed = obstacles[i].DamagePart(j);
+                                    enemyBullets.Remove(bullet);
+                                    MainCanvas.Children.Remove(bullet);
+                                    if (ifDestroyed)
+                                    {
+                                        MainCanvas.Children.Remove(obstacles[i].Parts[j]);
+                                    }
+                                    isBulletAlive = false;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -391,6 +450,30 @@ namespace SpaceInvading.Pages
 
             MainCanvas.Children.Add(bullet);
             enemyBullets.Add(bullet);
+        }
+
+        private void CreateObstacle(double x, double y)
+        {
+            // części przeszkody
+            Image[] obstacleParts = new Image[11];
+            List<int> pozX = new List<int>() { -40, -40, -40, -20, -20, 0, 20, 20, 40, 40, 40 };
+            List<int> pozY = new List<int>() { -20,0,20,20,40,40,40,20,20,0,-20 };
+            for (int i = 0; i < 11; i++)
+            {
+                Image obstaclePart = new Image
+                {
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Obstacles/obstacle_0.png")),
+                    Width = 20,
+                    Height = 20,
+                };
+                Canvas.SetLeft(obstaclePart, x - pozX[i]);
+                Canvas.SetTop(obstaclePart, y - pozY[i]);
+                MainCanvas.Children.Add(obstaclePart);
+                obstacleParts[i] = obstaclePart;
+            }
+
+            Obstacle obstacle = new Obstacle(obstacleParts);
+            obstacles.Add(obstacle);
         }
 
     }
