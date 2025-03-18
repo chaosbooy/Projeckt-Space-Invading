@@ -420,7 +420,10 @@ namespace SpaceInvading.Pages
                 Height = 16,
                 Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_bullet_1.png"))
             };
-            double x = Canvas.GetLeft(Player1.PlayerState) + Player1.PlayerState.Width / 2 - bullet.Width / 2;
+
+
+            double middle = Player1.PlayerSpriteTurnedRight ? 1 : -1;
+            double x = Canvas.GetLeft(Player1.PlayerState) + (Player1.PlayerState.ActualWidth / 2 - bullet.ActualWidth / 2) * middle;
             double y = Canvas.GetTop(Player1.PlayerState) - bullet.Height;
             Canvas.SetLeft(bullet, x);
             Canvas.SetTop(bullet, y);
