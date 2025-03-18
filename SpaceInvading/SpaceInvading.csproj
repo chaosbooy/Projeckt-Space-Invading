@@ -14,6 +14,16 @@
     <None Remove="Resources\Images\Background\background_Path.png" />
     <None Remove="Resources\Images\Background\background_Path_Cave.png" />
     <None Remove="Resources\Images\Background\background_tree.png" />
+    <None Remove="Resources\Images\Village\Gate.png" />
+    <None Remove="Resources\Images\Village\Gate_selected.png" />
+    <None Remove="Resources\Images\Village\Shop_blacksmith.png" />
+    <None Remove="Resources\Images\Village\Shop_blacksmith_selected.png" />
+    <None Remove="Resources\Images\Village\Shop_merchant.png" />
+    <None Remove="Resources\Images\Village\Shop_merchant_selected.png" />
+    <None Remove="Resources\Images\Village\Shop_witch.png" />
+    <None Remove="Resources\Images\Village\Shop_witch_selected.png" />
+    <None Remove="Resources\Images\Village\village.png" />
+    <None Remove="Resources\Images\Village\village_full.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +49,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\Village\Gate.png" />
+    <Resource Include="Resources\Images\Village\Gate_selected.png" />
+    <Resource Include="Resources\Images\Village\Shop_blacksmith_selected.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Resources\Sounds\" />
   </ItemGroup>
 
@@ -56,6 +72,13 @@
     <Resource Include="Resources\Images\player_still.png" />
     <Resource Include="Resources\Images\Slime_bullet_1.png" />
     <Resource Include="Resources\Images\Slime_Still.png" />
+    <Resource Include="Resources\Images\Village\Shop_blacksmith.png" />
+    <Resource Include="Resources\Images\Village\Shop_merchant.png" />
+    <Resource Include="Resources\Images\Village\Shop_merchant_selected.png" />
+    <Resource Include="Resources\Images\Village\Shop_witch.png" />
+    <Resource Include="Resources\Images\Village\Shop_witch_selected.png" />
+    <Resource Include="Resources\Images\Village\village.png" />
+    <Resource Include="Resources\Images\Village\village_full.png" />
   </ItemGroup>
 
 </Project>
