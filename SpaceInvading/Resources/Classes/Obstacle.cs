@@ -26,21 +26,21 @@ namespace SpaceInvading.Resources.Classes
             }
         }
 
-        // zwrocono true - zniszczono całkowicie część, false - tylko uszkodzenie
-        public bool DamagePart(Image DamagedImage)
+        // zwrocono true - zniszczono całkowicie część, false - tylko uszkodzenie, jesli true - usun obrazek z planszy
+        public bool DamagePart(int PartNr)
         {
+            /*
             int PartNr = 0;
             // szukanie indeksu trafionej części
             for(int i = 0; i < Parts.Length; i++)
             {
                 if (Parts[i] == DamagedImage) PartNr = i; break;
-            }
+            }*/
 
             if(Damages[PartNr] < 5) Damages[PartNr]++;
             else
             {
                 Damages[PartNr] = -1;
-                Parts[PartNr] = new Image();
                 return true;
             }
             Parts[PartNr].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/obstacle_" + Damages[PartNr].ToString() + ".png"));

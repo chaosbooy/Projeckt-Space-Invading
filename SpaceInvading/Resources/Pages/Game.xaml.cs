@@ -1,8 +1,10 @@
 ﻿using SpaceInvading.Resources.Classes;
 using SpaceInvading.Resources.Pages;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -39,9 +41,9 @@ namespace SpaceInvading.Pages
         private Direction enemiesMoveDirection = Direction.Left;
         private KeyState playerAttack = KeyState.Up;
 
-
         //numer klatki animacji pocisku gracza
         private int playerBulletSprite = 1;
+        List<Obstacle> obstacles = new List<Obstacle>();
 
         #endregion
 
@@ -84,6 +86,7 @@ namespace SpaceInvading.Pages
             Canvas.SetTop(Player1.PlayerState, MainCanvas.Height - Player1.PlayerState.Height - 10);
             MainCanvas.Children.Add(Player1.PlayerState);
 
+            // tworzenie przeciwników
             for (int i = 0; i < enemyRows; i++)
             {
                 for (int j = 0; j < enemyCols; j++)
@@ -108,6 +111,8 @@ namespace SpaceInvading.Pages
                     enemiesState.Add(border);
                 }
             }
+
+            CreateObstacle(200,500);
         }
 
         private void EndGame()
@@ -166,6 +171,33 @@ namespace SpaceInvading.Pages
                 }
             }
 
+            foreach (var bullet in bullets.ToArray())
+            {
+                for (int i = 0; i < obstacles.Count; i++)
+                {
+                    // sprawdzanie czesci w kazdej przeszkodzie
+                    for (int j = 0; j < obstacles[i].Parts.Count(); j++)
+                    {
+                        if (obstacles[i].Damages[j] != -1)
+                        {
+                            if (IsColliding(obstacles[i].Parts[j], 1, bullet))
+                            {
+                                bool ifDestroyed = obstacles[i].DamagePart(j);
+                                bullets.Remove(bullet);
+                                MainCanvas.Children.Remove(bullet);
+                                if (ifDestroyed)
+                                {
+                                    MainCanvas.Children.Remove(obstacles[i].Parts[j]);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            // sprawdzanie duzych przeszkod
+
+
             // ruch pocisków wrogów
             foreach (var bullet in enemyBullets.ToArray())
             {
@@ -187,6 +219,32 @@ namespace SpaceInvading.Pages
                         MainCanvas.Children.Remove(bullet);
                     }
                 }
+                // trafienie w przeszkodę
+                else if(obstacles.Count != 0)
+                {
+                    // sprawdzanie duzych przeszkod
+                    for (int i = 0; i < obstacles.Count; i++)
+                    {
+                        // sprawdzanie czesci w kazdej przeszkodzie
+                        for (int j = 0; j < obstacles[i].Parts.Count(); j++)
+                        {
+                            if(obstacles[i].Damages[j] != -1)
+                            {
+                                if (IsColliding(obstacles[i].Parts[j], 1, bullet))
+                                {
+                                    bool ifDestroyed = obstacles[i].DamagePart(j);
+                                    enemyBullets.Remove(bullet);
+                                    MainCanvas.Children.Remove(bullet);
+                                    if (ifDestroyed)
+                                    {
+                                        MainCanvas.Children.Remove(obstacles[i].Parts[j]);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             // ruch wrogów
             if (TickNumber % enemiesMoveTick == 0)
@@ -203,26 +261,6 @@ namespace SpaceInvading.Pages
                     Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) - enemySpeed);
                 else
                     Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) + enemySpeed);
-
-                //foreach (var enemy in enemiesState.ToArray())
-                //{
-                //    // jeśli krańcowy wróg z rzędu dotyka ścian - obniż cały rząd
-                //    if (Canvas.GetLeft(enemy) <= 0 && enemiesMoveDirection == Direction.Left ||
-                //        Canvas.GetLeft(enemy) > MainCanvas.Width - enemy.Width && enemiesMoveDirection == Direction.Right)
-                //    {
-                //        // wszyscy wrogowie w rzędzie idą niżej
-                //        foreach (var enemyInRow in enemiesState.ToArray())
-                //        {
-                //            Canvas.SetTop(enemyInRow, Canvas.GetTop(enemyInRow) + 20);
-                //        }
-                //        // zmiana kierunku
-                //        if (enemiesMoveDirection == Direction.Left) enemiesMoveDirection = Direction.Right;
-                //        else enemiesMoveDirection = Direction.Left;
-                //    }
-                //    // ruch w lewo lub prawo
-                //    if (enemiesMoveDirection == Direction.Left) Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) - enemySpeed);
-                //    else Canvas.SetLeft(enemy, Canvas.GetLeft(enemy) + enemySpeed);
-                //}
             }
 
             // strzał wrogów ( powiedzmy co 30 tick )
@@ -236,7 +274,6 @@ namespace SpaceInvading.Pages
                     {
                         //var a = enemiesState.IndexOf(enemy);
                         ShootEnemy(enemy);
-
                     }
                 }
             }
@@ -361,6 +398,28 @@ namespace SpaceInvading.Pages
 
             MainCanvas.Children.Add(bullet);
             enemyBullets.Add(bullet);
+        }
+
+        private void CreateObstacle(double x, double y)
+        {
+            // części przeszkody
+            Image[] obstacleParts = new Image[16];
+            for (int i = 0; i < 16; i++)
+            {
+                Image obstaclePart = new Image
+                {
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/obstacle_0.png")),
+                    Width = 20,
+                    Height = 20,
+                };
+                Canvas.SetLeft(obstaclePart, x + (i % 5) * 30);
+                Canvas.SetTop(obstaclePart, y - (100 + i * 15));
+                MainCanvas.Children.Add(obstaclePart);
+                obstacleParts[i] = obstaclePart;
+            }
+
+            Obstacle obstacle = new Obstacle(obstacleParts);
+            obstacles.Add(obstacle);
         }
 
     }
