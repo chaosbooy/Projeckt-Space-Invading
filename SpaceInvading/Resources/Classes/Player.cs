@@ -33,6 +33,7 @@ namespace SpaceInvading.Resources.Classes
 
         public bool PlayerLeft { get { return _playerLeft; } }
         public bool PlayerRight { get { return _playerRight; } }
+        public bool PlayerSpriteTurnedRight { get; set; }
 
         //Animations
         DispatcherTimer playerAttackAnimation = new DispatcherTimer();
@@ -93,14 +94,22 @@ namespace SpaceInvading.Resources.Classes
         public void TurnLeft(bool left)
         {
             _playerLeft = left;
-            if(left) PlayerState.RenderTransform = new ScaleTransform(-1, 1);
+            if (left)
+            {
+                PlayerState.RenderTransform = new ScaleTransform(-1, 1);
+                PlayerSpriteTurnedRight = false;
+            }
         }
 
         public void TurnRight(bool right)
         {
             _playerRight = right;
-            if (right) PlayerState.RenderTransform = new ScaleTransform(1, 1);
-        }
+            if (right)
+            {
+                PlayerState.RenderTransform = new ScaleTransform(1, 1);
+                PlayerSpriteTurnedRight = true;
+            }
+            }
 
         public void Attack()
         {
