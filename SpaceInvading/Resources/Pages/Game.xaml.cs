@@ -35,6 +35,7 @@ namespace SpaceInvading.Pages
         private double enemiesMoveTick = 10;
         private double TickNumber = 0;
 
+        private int round;
         // kierunek ruchu przeciwników
         private Direction enemiesMoveDirection = Direction.Left;
         private KeyState playerAttack = KeyState.Up;
@@ -48,7 +49,7 @@ namespace SpaceInvading.Pages
         public Game()
         {
             InitializeComponent();
-            SetupGame(3, 10);
+            SetupGame(1, 5);
 
             CompositionTarget.Rendering += GameLoop;
         }
@@ -60,18 +61,17 @@ namespace SpaceInvading.Pages
             window.KeyUp += Window_KeyUp;
             MainCanvas.Focus();
 
-            if (EnemyHolder.Parent is Canvas)
-            {
-                Canvas.SetLeft(EnemyHolder, 20);
-                Canvas.SetTop(EnemyHolder, 20);
-            }
             // Debug.WriteLine($"Xaml succesfully loaded and key events activated");
         }
 
         private void SetupGame(int enemyRows, int enemyCols)
         {
+            Canvas.SetLeft(EnemyHolder, 20);
+            Canvas.SetTop(EnemyHolder, 20);
+
             EnemyHolder.ColumnDefinitions.Clear();
             EnemyHolder.RowDefinitions.Clear();
+            
 
             for (int i = 0; i < enemyCols; ++i)
                 EnemyHolder.ColumnDefinitions.Add(new ColumnDefinition { MinWidth = 60 });
@@ -79,10 +79,14 @@ namespace SpaceInvading.Pages
             for (int i = 0; i < enemyRows; ++i)
                 EnemyHolder.RowDefinitions.Add(new RowDefinition { MinHeight = 60 });
 
-            Player1 = new Player();
-            Canvas.SetLeft(Player1.PlayerState, (MainCanvas.Width - Player1.PlayerState.Width) / 2);
-            Canvas.SetTop(Player1.PlayerState, MainCanvas.Height - Player1.PlayerState.Height - 10);
-            MainCanvas.Children.Add(Player1.PlayerState);
+            if (round == 0)
+            {
+                Player1 = new Player();
+                Canvas.SetLeft(Player1.PlayerState, (MainCanvas.Width - Player1.PlayerState.Width) / 2);
+                Canvas.SetTop(Player1.PlayerState, MainCanvas.Height - Player1.PlayerState.Height - 10);
+
+                MainCanvas.Children.Add(Player1.PlayerState);
+            }
 
             for (int i = 0; i < enemyRows; i++)
             {
@@ -116,6 +120,27 @@ namespace SpaceInvading.Pages
             CompositionTarget.Rendering -= GameLoop;
         }
 
+        private void SetupBoss()
+        {
+
+        }
+
+        private void SetupNewRound()
+        {
+            round++;
+            if (round == 5)
+                SetupBoss();
+            else if (round % 5 == 0)
+                SetupBoss();
+            if (round < 2)
+                SetupGame(1, 10);
+            else if (round < 5)
+                SetupGame(2, 10);
+            else
+                SetupGame(3, 10);
+            return;
+        }
+
         private void GameLoop(object? sender, EventArgs e)
         {
             TickNumber++;
@@ -127,10 +152,11 @@ namespace SpaceInvading.Pages
             {
                 Canvas.SetLeft(Player1.PlayerState, Canvas.GetLeft(Player1.PlayerState) + Player1.PlayerSpeed);
             }
-            if (playerAttack == KeyState.Pressed)
+            if (playerAttack == KeyState.Pressed && !Player1.IsAttacking)
             {
                 playerAttack = KeyState.Down;
                 Shoot();
+                Player1.Attack();
             }
 
             // ruch pocisków
@@ -166,6 +192,9 @@ namespace SpaceInvading.Pages
                 }
             }
 
+            if (enemiesState.Count == 0)
+                SetupNewRound();
+
             // ruch pocisków wrogów
             foreach (var bullet in enemyBullets.ToArray())
             {
@@ -188,6 +217,7 @@ namespace SpaceInvading.Pages
                     }
                 }
             }
+
             // ruch wrogów
             if (TickNumber % enemiesMoveTick == 0)
             {
@@ -278,15 +308,15 @@ namespace SpaceInvading.Pages
                     Player1.TurnRight(true);
                     break;
                 case Key.Space:
-                    Player1.Attack();
                     if (playerAttack == KeyState.Pressed || playerAttack == KeyState.Down)
                         playerAttack = KeyState.Down;
                     else
                         playerAttack = KeyState.Pressed;
                     break;
                 case Key.F:
-                    // // for debugging
-                    //CompositionTarget.Rendering += GameLoop;
+                    //// for debugging
+                    //CompositionTarget.Rendering -= GameLoop;
+
                     break;
             }
 
