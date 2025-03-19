@@ -31,5 +31,11 @@ namespace SpaceInvading.Resources.Pages
         {
             this.NavigationService.Navigate(new Game());
         }
+
+        private void GoShop(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Shop());
+        }
+
     }
 }

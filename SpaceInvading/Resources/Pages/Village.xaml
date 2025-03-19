@@ -21,13 +21,13 @@
         </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="../Images/Village/village.png"></ImageBrush>
-        </Grid.Background>
-        <Button Content="Graj" Grid.Column="1" Grid.Row="0"  FontSize="30" Margin="40"  Foreground="#3453b3"  Click="StartGame">
+        </Grid.Background> 
+        <Button Content="Graj" Grid.Column="1" Grid.Row="0"  FontSize="30" Margin="40" Foreground="#3453b3"  Click="StartGame">
             <Button.Background>
                 <ImageBrush ImageSource="../Images/Village/Gate.png"></ImageBrush>
             </Button.Background>
         </Button>
-        <Button Content="Sklep" Grid.Column="2" Grid.Row="1"  FontSize="30" Margin="40" Foreground="#3453b3" >
+        <Button Content="Sklep" Grid.Column="2" Grid.Row="1"  FontSize="30" Margin="40" Foreground="#3453b3" Click="GoShop" >
             <Button.Background>
                 <ImageBrush ImageSource="../Images/Village/Shop_merchant.png"></ImageBrush>
             </Button.Background>
