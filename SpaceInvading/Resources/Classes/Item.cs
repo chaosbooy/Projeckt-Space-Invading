@@ -8,5 +8,7 @@ namespace SpaceInvading.Resources.Classes
 {
     public class Item
     {
+        public int Worth { get; set; }
+        public bool isUsable { get; set; }
     }
 }
