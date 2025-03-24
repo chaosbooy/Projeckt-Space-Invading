@@ -20,6 +20,12 @@
     <None Remove="Resources\Images\Obstacles\obstacle_3.png" />
     <None Remove="Resources\Images\Obstacles\obstacle_4.png" />
     <None Remove="Resources\Images\Obstacles\obstacle_5.png" />
+    <None Remove="Resources\Images\Slime\Slime_bullet_1.png" />
+    <None Remove="Resources\Images\Slime\Slime_Right_1.png" />
+    <None Remove="Resources\Images\Slime\Slime_Right_2.png" />
+    <None Remove="Resources\Images\Slime\Slime_Still.png" />
+    <None Remove="Resources\Images\Spider\Spider.png" />
+    <None Remove="Resources\Images\Spider\Spider_bullet_1.png" />
     <None Remove="Resources\Images\Village\Gate.png" />
     <None Remove="Resources\Images\Village\Gate_selected.png" />
     <None Remove="Resources\Images\Village\Shop_blacksmith.png" />
@@ -61,6 +67,11 @@
     <Resource Include="Resources\Images\Obstacles\obstacle_3.png" />
     <Resource Include="Resources\Images\Obstacles\obstacle_4.png" />
     <Resource Include="Resources\Images\Obstacles\obstacle_5.png" />
+    <Resource Include="Resources\Images\Slime\Slime_bullet_1.png" />
+    <Resource Include="Resources\Images\Slime\Slime_Right_1.png" />
+    <Resource Include="Resources\Images\Slime\Slime_Still.png" />
+    <Resource Include="Resources\Images\Spider\Spider.png" />
+    <Resource Include="Resources\Images\Spider\Spider_bullet_1.png" />
     <Resource Include="Resources\Images\Village\Gate.png" />
     <Resource Include="Resources\Images\Village\Gate_selected.png" />
     <Resource Include="Resources\Images\Village\Shop_blacksmith_selected.png" />

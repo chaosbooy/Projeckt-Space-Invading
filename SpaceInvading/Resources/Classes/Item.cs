@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace SpaceInvading.Resources.Classes
 {
-    public class Item
+    public class Item : ICloneable
     {
         public int Worth { get; set; }
         public bool isUsable { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

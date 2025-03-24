@@ -15,7 +15,6 @@ namespace SpaceInvading.Resources.Classes
             Name = "Spider",
             Score = 10,
             Health = 1,
-            MaxHealth = 1,
             MaxDropCount = 3,
             Projectile = new Projectile
             {
@@ -23,16 +22,16 @@ namespace SpaceInvading.Resources.Classes
                 Speed = 2,
                 ProjectileState = new Image
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime/Spider_bullet_1.png")),
-                    Width = 32,
-                    Height = 16
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Spider/Spider_bullet_1.png")),
+                    Width = 64,
+                    Height = 32
                 }
             },
             EnemyState = new Image
             {
                 Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Spider/Spider.png")),
-                Width = 32,
-                Height = 32
+                Width = 50,
+                Height = 50
             },
             PossibleDrops = new List<Item>
             {
@@ -45,7 +44,6 @@ namespace SpaceInvading.Resources.Classes
             Name = "Slime",
             Score = 15,
             Health = 1,
-            MaxHealth = 1,
             MaxDropCount = 3,
             Projectile = new Projectile
             {
@@ -53,16 +51,16 @@ namespace SpaceInvading.Resources.Classes
                 Speed = 2,
                 ProjectileState = new Image
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Projectiles/Slime/Slime_bullet_1.png")),
-                    Width = 32,
-                    Height = 16
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime/Slime_bullet_1.png")),
+                    Width = 64,
+                    Height = 32
                 }
             },
             EnemyState = new Image
             {
                 Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime/Slime_Still.png")),
-                Width = 32,
-                Height = 32
+                Width = 50,
+                Height = 50
             },
             PossibleDrops = new List<Item>
             {
