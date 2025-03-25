@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -25,6 +24,7 @@ namespace SpaceInvading.Resources.Classes
         //Current Player Look
         private Image _playerState;
         public Image PlayerState { get { return _playerState; } }
+        public readonly Border PlayerHitBoxes;
 
         private int playerSpriteNumber = 1;
         private int playerAttackSprite = 0;
@@ -44,18 +44,28 @@ namespace SpaceInvading.Resources.Classes
 
         #endregion
 
-        public Player()
+        public Player(bool showHitBox)
         {
             Drops = new List<Item>();
             Upgrades = new List<Item>();
             Name = "Player";
             Health = MaxHealth = 2;
+            
             _playerState = new Image
+            {
+                Stretch = Stretch.Fill,
+                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/player_still.png"))
+            };
+            PlayerHitBoxes = new Border
             {
                 Width = 100,
                 Height = 100,
-                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/player_still.png"))
+                Background = showHitBox ? Brushes.Pink : Brushes.Transparent,
+                BorderBrush = Brushes.Transparent
             };
+            PlayerState.RenderTransformOrigin = new Point(0.5, 0.5);
+
+            PlayerHitBoxes.Child = PlayerState;
 
             PlayerSpeed = 2.5;
 
@@ -78,7 +88,11 @@ namespace SpaceInvading.Resources.Classes
                 if (PlayerLeft != PlayerRight)
                     Walk();
                 else
+<<<<<<< Updated upstream
                     PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/player_still.png"));
+=======
+                    Stay();
+>>>>>>> Stashed changes
 
                 playerAttackAnimation.Stop();
             }
@@ -110,7 +124,7 @@ namespace SpaceInvading.Resources.Classes
                 PlayerState.RenderTransform = new ScaleTransform(1, 1);
                 PlayerSpriteTurnedRight = true;
             }
-            }
+        }
 
         public void Attack()
         {

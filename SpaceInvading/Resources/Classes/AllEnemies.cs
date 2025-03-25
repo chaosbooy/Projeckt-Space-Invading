@@ -18,7 +18,7 @@ namespace SpaceInvading.Resources.Classes
             MaxDropCount = 3,
             Projectile = new Projectile
             {
-                Damage = 1,
+                Damage = 2,
                 Speed = 2,
                 ProjectileState = new Image
                 {

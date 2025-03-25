@@ -18,15 +18,15 @@ namespace SpaceInvading.Pages
     {
         #region Variables
 
-        private const bool HitBoxShow = false;
+        private const bool HitBoxShow = true;
 
-        public Player Player1 = new();
+        public Player Player1;
 
         // przeciwnicy na planszy
         private List<Enemy> Enemies = new();
 
         private List<Image> bullets = new();
-        private List<Image> enemyBullets = new();
+        private List<Projectile> enemyBullets = new();
 
         // prędkość co tick
         private double bulletSpeed = 5;
@@ -50,11 +50,11 @@ namespace SpaceInvading.Pages
         {
             InitializeComponent();
 
-            Player1 = new Player();
-            Canvas.SetLeft(Player1.PlayerState, (MainCanvas.Width - Player1.PlayerState.Width) / 2 + 50);
-            Canvas.SetTop(Player1.PlayerState, MainCanvas.Height - Player1.PlayerState.Height - 10);
+            Player1 = new Player(HitBoxShow);
+            Canvas.SetLeft(Player1.PlayerHitBoxes, (MainCanvas.Width - Player1.PlayerHitBoxes.Width) / 2 + 50);
+            Canvas.SetTop(Player1.PlayerHitBoxes, MainCanvas.Height - Player1.PlayerHitBoxes.Height - 10);
 
-            MainCanvas.Children.Add(Player1.PlayerState);
+            MainCanvas.Children.Add(Player1.PlayerHitBoxes);
             Player1.TurnLeft(true);
             Player1.TurnLeft(false);
 
@@ -155,13 +155,13 @@ namespace SpaceInvading.Pages
         private void GameLoop(object? sender, EventArgs e)
         {
             TickNumber++;
-            if (Player1.PlayerLeft && Canvas.GetLeft(Player1.PlayerState) > Player1.PlayerState.ActualWidth * 0.7)
+            if (Player1.PlayerLeft && Canvas.GetLeft(Player1.PlayerHitBoxes) > Player1.PlayerHitBoxes.ActualWidth * 0.7)
             {
-                Canvas.SetLeft(Player1.PlayerState, Canvas.GetLeft(Player1.PlayerState) - Player1.PlayerSpeed);
+                Canvas.SetLeft(Player1.PlayerHitBoxes, Canvas.GetLeft(Player1.PlayerHitBoxes) - Player1.PlayerSpeed);
             }
-            if (Player1.PlayerRight && Canvas.GetLeft(Player1.PlayerState) < MainCanvas.ActualWidth - Player1.PlayerState.ActualWidth * 2)
+            if (Player1.PlayerRight && Canvas.GetLeft(Player1.PlayerHitBoxes) < MainCanvas.ActualWidth - Player1.PlayerHitBoxes.ActualWidth * 2)
             {
-                Canvas.SetLeft(Player1.PlayerState, Canvas.GetLeft(Player1.PlayerState) + Player1.PlayerSpeed);
+                Canvas.SetLeft(Player1.PlayerHitBoxes, Canvas.GetLeft(Player1.PlayerHitBoxes) + Player1.PlayerSpeed);
             }
             if (playerAttack == KeyState.Pressed && !Player1.IsAttacking)
             {
@@ -240,8 +240,10 @@ namespace SpaceInvading.Pages
                 SetupNewRound();
 
             // ruch pocisków wrogów
-            foreach (var bullet in enemyBullets.ToArray())
+            foreach (var projectile in enemyBullets.ToArray())
             {
+                Image bullet = projectile.ProjectileState;
+
                 Canvas.SetTop(bullet, Canvas.GetTop(bullet) + bulletSpeed/4);
                 // znikanie pocisku za swiatem
                 if (Canvas.GetTop(bullet) < 0)
@@ -250,13 +252,14 @@ namespace SpaceInvading.Pages
                     bullets.Remove(bullet);
                 }
                 //trafienie gracza
-                else if(IsColliding(Player1.PlayerState, 0.7, bullet))
+                else if(IsColliding(Player1.PlayerHitBoxes, 0.7, bullet))
                 {
+                    Player1.Health -= projectile.Damage;
                     //jezeli nastepne hp bedzie 0 koncz gre
-                    if (Player1.Health-- == 1) EndGame();
+                    if (Player1.Health <= 0) EndGame();
                     else
                     {
-                        enemyBullets.Remove(bullet);
+                        enemyBullets.Remove(projectile);
                         MainCanvas.Children.Remove(bullet);
                     }
                 }
@@ -276,7 +279,7 @@ namespace SpaceInvading.Pages
                                 if (isBulletAlive && IsColliding(obstacles[i].Parts[j], 1, bullet))
                                 {
                                     bool ifDestroyed = obstacles[i].DamagePart(j);
-                                    enemyBullets.Remove(bullet);
+                                    enemyBullets.Remove(projectile);
                                     MainCanvas.Children.Remove(bullet);
                                     if (ifDestroyed)
                                     {
@@ -436,10 +439,8 @@ namespace SpaceInvading.Pages
                 Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/Player_bullet_1.png"))
             };
 
-
-            double middle = Player1.PlayerSpriteTurnedRight ? 1 : -1;
-            double x = Canvas.GetLeft(Player1.PlayerState) + (Player1.PlayerState.ActualWidth / 2 - bullet.ActualWidth / 2) * middle;
-            double y = Canvas.GetTop(Player1.PlayerState) - bullet.Height;
+            double x = Canvas.GetLeft(Player1.PlayerHitBoxes) + (Player1.PlayerHitBoxes.ActualWidth / 2 - bullet.ActualWidth / 2);
+            double y = Canvas.GetTop(Player1.PlayerHitBoxes) - bullet.Height;
             Canvas.SetLeft(bullet, x);
             Canvas.SetTop(bullet, y);
             MainCanvas.Children.Add(bullet);
@@ -463,7 +464,7 @@ namespace SpaceInvading.Pages
 
 
             MainCanvas.Children.Add(bullet);
-            enemyBullets.Add(bullet);
+            enemyBullets.Add(projectile);
         }
 
         private void CreateObstacle(double x, double y)
