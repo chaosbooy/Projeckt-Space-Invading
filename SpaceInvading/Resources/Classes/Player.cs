@@ -54,7 +54,7 @@ namespace SpaceInvading.Resources.Classes
             {
                 Width = 100,
                 Height = 100,
-                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"))
+                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/player_still.png"))
             };
 
             PlayerSpeed = 2.5;
@@ -82,14 +82,14 @@ namespace SpaceInvading.Resources.Classes
 
                 playerAttackAnimation.Stop();
             }
-            PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_attack_" + playerAttackSprite.ToString() + ".png"));
+            PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/Player_attack_" + playerAttackSprite.ToString() + ".png"));
         }
 
         private void WalkAnimation(object? sender, EventArgs e)
         {
             if (playerSpriteNumber < 4) playerSpriteNumber++;
             else playerSpriteNumber = 1;
-            PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_side_" + playerSpriteNumber.ToString() + ".png"));
+            PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/Player_side_" + playerSpriteNumber.ToString() + ".png"));
         }
 
         public void TurnLeft(bool left)

@@ -120,9 +120,9 @@ namespace SpaceInvading.Pages
                 }
             }
 
-            CreateObstacle(150, 400);
-            CreateObstacle(350, 400);
-            CreateObstacle(550, 400);
+            //CreateObstacle(150, 400);
+            //CreateObstacle(350, 400);
+            //CreateObstacle(550, 400);
         }
 
         private void EndGame()
@@ -310,7 +310,7 @@ namespace SpaceInvading.Pages
                 {
                     Random rnd = new Random();
                     int shootChance = 15;
-                    if (rnd.Next(1001) <= shootChance)
+                    if (rnd.Next(101) <= shootChance)
                     {
                         //var a = enemiesState.IndexOf(enemy);
                         ShootEnemy(enemy);
