@@ -88,11 +88,7 @@ namespace SpaceInvading.Resources.Classes
                 if (PlayerLeft != PlayerRight)
                     Walk();
                 else
-<<<<<<< Updated upstream
-                    PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/player_still.png"));
-=======
                     Stay();
->>>>>>> Stashed changes
 
                 playerAttackAnimation.Stop();
             }

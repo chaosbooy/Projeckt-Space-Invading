@@ -18,7 +18,7 @@ namespace SpaceInvading.Pages
     {
         #region Variables
 
-        private const bool HitBoxShow = true;
+        private const bool HitBoxShow = false;
 
         public Player Player1;
 
