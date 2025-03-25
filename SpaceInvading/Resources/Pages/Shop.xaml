@@ -21,13 +21,18 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.RowSpan="3" Text="Oferty" TextAlignment="Center" Height="100" Background="DimGray" VerticalAlignment="Top" FontSize="30" Foreground="#DDDDDD"/>
-        <ScrollViewer>
+        <ScrollViewer Grid.Row="0" Grid.RowSpan="3">
             <StackPanel>
-                <Grid Background="blue">
-                    <Label>dsdsdsd</Label>
-                </Grid>
-                <Grid Background="red">
-                    <Label>dsdsdsd</Label>
+                <Grid x:Name="oferta1" Background="MediumPurple" Height="55">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="0.6*" />
+                        <ColumnDefinition Width="0.2*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="../Images/misc/Item_frame.png" Width="48" Stretch="Fill" HorizontalAlignment="Left" Margin="5" Height="48"/>
+                    <Image  Grid.Column="0" Source="../Images/misc/Upgrade_armor.png" Width="43" Stretch="Fill" HorizontalAlignment="Left" Margin="7" Height="43"/>
+                    <TextBox Grid.Column="1" Background="Transparent" HorizontalAlignment="Center" Text="Ulepszenie zbroi - +1HP" VerticalContentAlignment="Center" FontSize="20" TextWrapping="Wrap"  BorderThickness="0" ></TextBox>
+                    <TextBox Grid.Column="2" Background="Transparent" HorizontalAlignment="Right" Text="Cena: 999" VerticalContentAlignment="Center" FontSize="20" TextWrapping="Wrap" BorderThickness="0" ></TextBox>
                 </Grid>
             </StackPanel>
         </ScrollViewer>
