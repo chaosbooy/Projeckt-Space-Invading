@@ -21,6 +21,10 @@ namespace SpaceInvading.Resources.Pages
     /// </summary>
     public partial class Shop : Page
     {
+        // przechowuje oferty jako gridy które zawierają części składowe oferty(napisy, obrazki)
+        List<Grid> offers = new List<Grid>();
+        List<string> offersNames = new List<string>() { "armor", "Barrier_1", "Barrier_2", "Barrier_3", "Canon", "Crossbow", "health_potion", "luck_potion", "rage_potion", "shadow_potion", "shield_potion", "sword_enchant" };
+
         public Shop()
         {
             InitializeComponent();
@@ -37,6 +41,47 @@ namespace SpaceInvading.Resources.Pages
         {
             for (int i = 0; i < 10; i++)
             {
+                Grid offer = new Grid {
+                    Name = "offer" + i.ToString(),
+                    Background = Brushes.DimGray,
+                };
+
+                Rectangle border = new Rectangle
+                {
+                    Stroke = Brushes.White,
+                    StrokeThickness = 1
+                };
+                offer.Children.Add(border);
+
+                // -- tworzenie części składowych oferty --~\\
+
+                Image frame = new Image {
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Item_frame_empty.png")),
+                    Width = 48,
+                    Height = 48,
+                    Stretch = Stretch.Fill,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(5)
+                };
+                Image item = new Image
+                {
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_"+ offersNames[i] +".png")),
+                    Width = 43,
+                    Height = 43,
+                    Stretch = Stretch.Fill,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(7)
+                };
+                Grid.SetColumn(frame, 0);
+                Grid.SetColumn(item, 0);
+                offer.Children.Add(item);
+                offer.Children.Add(frame);
+
+
+
+
+                offers.Add(offer);
+                offerList.Children.Add(offer);
             }
         }
     }

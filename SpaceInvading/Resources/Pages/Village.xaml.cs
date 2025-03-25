@@ -34,7 +34,9 @@ namespace SpaceInvading.Resources.Pages
 
         private void GoShop(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Shop());
+            if (ShopFrame.Visibility == Visibility.Visible) ShopFrame.Visibility = Visibility.Collapsed;
+            else ShopFrame.Visibility = Visibility.Visible;
+
         }
         private void MouseEnter(object sender, MouseEventArgs e)
         {

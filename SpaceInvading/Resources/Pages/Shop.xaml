@@ -10,9 +10,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.4*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -20,22 +20,11 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.RowSpan="3" Text="Oferty" TextAlignment="Center" Height="100" Background="DimGray" VerticalAlignment="Top" FontSize="30" Foreground="#DDDDDD"/>
         <ScrollViewer Grid.Row="0" Grid.RowSpan="3">
-            <StackPanel>
-                <Grid x:Name="oferta1" Background="MediumPurple" Height="55">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*" />
-                        <ColumnDefinition Width="0.6*" />
-                        <ColumnDefinition Width="0.2*" />
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Source="../Images/misc/Item_frame.png" Width="48" Stretch="Fill" HorizontalAlignment="Left" Margin="5" Height="48"/>
-                    <Image  Grid.Column="0" Source="../Images/misc/Upgrade_armor.png" Width="43" Stretch="Fill" HorizontalAlignment="Left" Margin="7" Height="43"/>
-                    <TextBox Grid.Column="1" Background="Transparent" HorizontalAlignment="Center" Text="Ulepszenie zbroi - +1HP" VerticalContentAlignment="Center" FontSize="20" TextWrapping="Wrap"  BorderThickness="0" ></TextBox>
-                    <TextBox Grid.Column="2" Background="Transparent" HorizontalAlignment="Right" Text="Cena: 999" VerticalContentAlignment="Center" FontSize="20" TextWrapping="Wrap" BorderThickness="0" ></TextBox>
-                </Grid>
-            </StackPanel>
+            <StackPanel x:Name="offerList"/>
         </ScrollViewer>
-        <Button Content="Powrót do wioski" FontSize="30" Margin="10,20" Grid.Column="2" Grid.Row="2" Foreground="#3453b3" Click="BackToVillage" ></Button>
+
+        <Label Content="Sklep" FontSize="50" FontWeight="SemiBold" Foreground="White" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+
     </Grid>
 </Page>
