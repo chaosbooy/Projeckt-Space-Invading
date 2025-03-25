@@ -120,9 +120,9 @@ namespace SpaceInvading.Pages
                 }
             }
 
-            //CreateObstacle(150, 400);
-            //CreateObstacle(350, 400);
-            //CreateObstacle(550, 400);
+            CreateObstacle(150, 400);
+            CreateObstacle(350, 400);
+            CreateObstacle(550, 400);
         }
 
         private void EndGame()
@@ -175,7 +175,7 @@ namespace SpaceInvading.Pages
             {
                 Canvas.SetTop(bullet, Canvas.GetTop(bullet) - bulletSpeed);
 
-                bullet.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_bullet_" + playerBulletSprite.ToString() + ".png"));
+                bullet.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/Player_bullet_" + playerBulletSprite.ToString() + ".png"));
                 if (playerBulletSprite < 2) playerBulletSprite++;
                 else playerBulletSprite = 1;
 
@@ -433,7 +433,7 @@ namespace SpaceInvading.Pages
             {
                 Width = 32,
                 Height = 16,
-                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player_bullet_1.png"))
+                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/Player_bullet_1.png"))
             };
 
 
