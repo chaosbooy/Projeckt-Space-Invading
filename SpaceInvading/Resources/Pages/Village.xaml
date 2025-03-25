@@ -10,22 +10,48 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <!--shop_blacksmith start-->
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <!--shop_witch start-->
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <!--shop_witch end-->
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <!--shop_blacksmith end-->
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <!--gate start-->
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <!--gate end-->
+            <ColumnDefinition Width="7*"></ColumnDefinition>
+            <!--shop_merchant start-->
+            <ColumnDefinition Width="9*"></ColumnDefinition>
+            <!--shop_merchant end-->
+            <ColumnDefinition Width="7*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <!--gate start-->
+            <RowDefinition Height="3*"></RowDefinition>
+            <!--shop_blacksmith start-->
+            <RowDefinition Height="1*"></RowDefinition>
+            <!--gate end-->
+            <RowDefinition Height="5*"></RowDefinition>
+            <!--shop_blacksmith end-->
+            <!--shop_merchant start-->
+            <RowDefinition Height="5*"></RowDefinition>
+            <!--shop_merchant end-->
+            <RowDefinition Height="5*"></RowDefinition>
+            <!--shop_witch start-->
+            <RowDefinition Height="6*"></RowDefinition>
+            <!--shop_witch end-->
+            <RowDefinition Height="3*"></RowDefinition> 
         </Grid.RowDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="../Images/Village/village.png"></ImageBrush>
+            <ImageBrush ImageSource="../Images/Village/village.png" Stretch="Fill"></ImageBrush>
         </Grid.Background>
-        <Image Grid.Column="0" Grid.Row="0" MinWidth="200" MaxWidth="1000" Source="../Images/Village/Shop_blacksmith.png"  MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="1" Grid.Row="0" MinWidth="200" MaxWidth="1000" Source="../Images/Village/Gate.png"  MouseLeftButtonDown="StartGame" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="2" Grid.Row="1" MinWidth="200" MaxWidth="1000" Source="../Images/Village/Shop_merchant.png"  MouseLeftButtonDown="GoShop" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="0" Grid.Row="2" MinWidth="200" MaxWidth="1000" Source="../Images/Village/Shop_witch.png"  MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Stretch="Fill" Source="../Images/Village/Shop_blacksmith.png" MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Grid.Column="5"                     Grid.Row="0" Grid.RowSpan="2" Stretch="Fill" Source="../Images/Village/Gate.png"            MouseLeftButtonDown="StartGame"                 MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Grid.Column="7"                     Grid.Row="3"                  Stretch="Fill" Source="../Images/Village/Shop_merchant.png"   MouseLeftButtonDown="GoShop"                    MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Grid.Column="2"                     Grid.Row="5"                  Stretch="Fill" Source="../Images/Village/Shop_witch.png"      MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
         <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="ShopFrame" Source="Shop.xaml" Grid.Column="1" Margin="-50" Grid.Row="1"/>
     </Grid>
 </Page>
