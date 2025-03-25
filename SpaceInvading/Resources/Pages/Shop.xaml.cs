@@ -17,24 +17,27 @@ using System.Windows.Shapes;
 namespace SpaceInvading.Resources.Pages
 {
     /// <summary>
-    /// Logika interakcji dla klasy Village.xaml
+    /// Logika interakcji dla klasy Shop.xaml
     /// </summary>
-    public partial class Village : Page
+    public partial class Shop : Page
     {
-        public Village()
+        public Shop()
         {
             InitializeComponent();
+            CreateOffers();
         }
 
-
-        private void StartGame(object sender, RoutedEventArgs e)
+        private void BackToVillage(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Game());
+            this.NavigationService.Navigate(new Village());
+
         }
 
-        private void GoShop(object sender, RoutedEventArgs e)
+        private void CreateOffers()
         {
-            this.NavigationService.Navigate(new Shop());
+            for (int i = 0; i < 10; i++)
+            {
+            }
         }
     }
 }
