@@ -22,10 +22,9 @@
         <Grid.Background>
             <ImageBrush ImageSource="../Images/Village/village.png"></ImageBrush>
         </Grid.Background>
-        <Image Grid.Column="0" Grid.Row="0" Source="../Images/Village/Shop_blacksmith.png"  MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="1" Grid.Row="0" Source="../Images/Village/Gate.png"  MouseLeftButtonDown="StartGame" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="2" Grid.Row="1" Source="../Images/Village/Shop_merchant.png"  MouseLeftButtonDown="GoShop" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="0" Grid.Row="2" Source="../Images/Village/Shop_witch.png"  MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        
+        <Image Grid.Column="0" Grid.Row="0" MinWidth="200" MaxWidth="1000" Source="../Images/Village/Shop_blacksmith.png"  MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Grid.Column="1" Grid.Row="0" MinWidth="200" MaxWidth="1000" Source="../Images/Village/Gate.png"  MouseLeftButtonDown="StartGame" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Grid.Column="2" Grid.Row="1" MinWidth="200" MaxWidth="1000" Source="../Images/Village/Shop_merchant.png"  MouseLeftButtonDown="GoShop" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Grid.Column="0" Grid.Row="2" MinWidth="200" MaxWidth="1000" Source="../Images/Village/Shop_witch.png"  MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
     </Grid>
 </Page>
