@@ -244,7 +244,7 @@ namespace SpaceInvading.Pages
             {
                 Image bullet = projectile.ProjectileState;
 
-                Canvas.SetTop(bullet, Canvas.GetTop(bullet) + bulletSpeed/4);
+                Canvas.SetTop(bullet, Canvas.GetTop(bullet) + projectile.Speed);
                 // znikanie pocisku za swiatem
                 if (Canvas.GetTop(bullet) < 0)
                 {

@@ -18,8 +18,8 @@ namespace SpaceInvading.Resources.Classes
             MaxDropCount = 3,
             Projectile = new Projectile
             {
-                Damage = 2,
-                Speed = 2,
+                Damage = 1,
+                Speed = 4,
                 ProjectileState = new Image
                 {
                     Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Spider/Spider_bullet_1.png")),
