@@ -78,7 +78,7 @@ namespace SpaceInvading.Resources.Classes
                 if (PlayerLeft != PlayerRight)
                     Walk();
                 else
-                    PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
+                    PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/player_still.png"));
 
                 playerAttackAnimation.Stop();
             }
@@ -132,7 +132,7 @@ namespace SpaceInvading.Resources.Classes
         {
             playerWalkAnimation.Stop();
             playerAttackAnimation.Stop();
-            PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/player_still.png"));
+            PlayerState.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Player/player_still.png"));
         }
     }
 }
