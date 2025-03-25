@@ -36,5 +36,44 @@ namespace SpaceInvading.Resources.Pages
         {
             this.NavigationService.Navigate(new Shop());
         }
+        private void MouseEnter(object sender, MouseEventArgs e)
+        {
+            Image img = (Image)sender;
+
+            string currentUri = img.Source.ToString();
+
+            int extensionIndex = currentUri.LastIndexOf(".png");
+
+            if (extensionIndex > 0)
+            {
+                string newUri = currentUri.Substring(0, extensionIndex) + "_selected.png" ;
+
+                img.Source = new BitmapImage(new Uri(newUri));
+            }
+        }
+        private void MouseLeave(object sender, MouseEventArgs e)
+        {
+            Image img = (Image)sender;
+
+            string currentUri = img.Source.ToString();
+
+            int extensionIndex = currentUri.LastIndexOf("_selected.png");
+
+            if (extensionIndex > 0)
+            {
+                string newUri = currentUri.Substring(0, extensionIndex) + ".png";
+
+                img.Source = new BitmapImage(new Uri(newUri));
+            }
+        }    
+        private void Button_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
