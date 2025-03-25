@@ -60,18 +60,24 @@ namespace SpaceInvading.Pages
 
             SetupGame(1, 5);
 
+            CompositionTarget.Rendering -= GameLoop;
             CompositionTarget.Rendering += GameLoop;
+
         }
 
         private void XamlLoaded(object sender, RoutedEventArgs e)
         {
             var window = Window.GetWindow(this);
+            
+            window.KeyDown -= Window_KeyDown;
+            window.KeyUp -= Window_KeyUp;
+
             window.KeyDown += Window_KeyDown;
             window.KeyUp += Window_KeyUp;
-            MainCanvas.Focus();
 
-            // Debug.WriteLine($"Xaml succesfully loaded and key events activated");
+            MainCanvas.Focus();
         }
+
 
         private void SetupGame(int enemyRows, int enemyCols)
         {
@@ -155,14 +161,14 @@ namespace SpaceInvading.Pages
         private void GameLoop(object? sender, EventArgs e)
         {
             TickNumber++;
-            if (Player1.PlayerLeft && Canvas.GetLeft(Player1.PlayerHitBoxes) > Player1.PlayerHitBoxes.ActualWidth * 0.7)
+            if (Player1.PlayerLeft && Canvas.GetLeft(Player1.PlayerHitBoxes) > 0)
             {
                 Canvas.SetLeft(Player1.PlayerHitBoxes, Canvas.GetLeft(Player1.PlayerHitBoxes) - Player1.PlayerSpeed);
-            }
-            if (Player1.PlayerRight && Canvas.GetLeft(Player1.PlayerHitBoxes) < MainCanvas.ActualWidth - Player1.PlayerHitBoxes.ActualWidth * 2)
+            } else if (Player1.PlayerRight && Canvas.GetLeft(Player1.PlayerHitBoxes) < MainCanvas.ActualWidth - Player1.PlayerHitBoxes.ActualWidth * 0.7)
             {
                 Canvas.SetLeft(Player1.PlayerHitBoxes, Canvas.GetLeft(Player1.PlayerHitBoxes) + Player1.PlayerSpeed);
             }
+
             if (playerAttack == KeyState.Pressed && !Player1.IsAttacking)
             {
                 playerAttack = KeyState.Down;
@@ -379,9 +385,13 @@ namespace SpaceInvading.Pages
             switch (e.Key)
             {
                 case Key.A:
+                    if (Player1.PlayerLeft)
+                        return;
                     Player1.TurnLeft(true);
                     break;
                 case Key.D:
+                    if (Player1.PlayerRight)
+                        return;
                     Player1.TurnRight(true);
                     break;
                 case Key.Space:
@@ -389,12 +399,13 @@ namespace SpaceInvading.Pages
                         playerAttack = KeyState.Down;
                     else
                         playerAttack = KeyState.Pressed;
-                    break;
+                    return;
                 case Key.F:
-                    //// for debugging
-                    //CompositionTarget.Rendering -= GameLoop;
+                //// for debugging
+                //CompositionTarget.Rendering -= GameLoop;
 
-                    break;
+                default:
+                    return;
             }
 
             if (Player1.IsAttacking) return;

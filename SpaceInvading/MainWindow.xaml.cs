@@ -18,10 +18,14 @@ namespace SpaceInvading
         {
             if(MainContent.Content.GetType() == new Game().GetType())
             {
+                this.ResizeMode = ResizeMode.NoResize;
+                this.WindowStyle = WindowStyle.None;
                 this.Height = 650;
             }
             else
             {
+                this.ResizeMode = ResizeMode.CanResize;
+                this.WindowStyle = WindowStyle.SingleBorderWindow;
                 this.Height = 450;
             }
         }
