@@ -263,7 +263,9 @@ namespace SpaceInvading.Pages
             if (Enemies.Count == 0)
                 SetupNewRound();
 
+            //debug line to delete later
             debug.Content = enemyBullets.Count.ToString() +" | " + bullets.Count.ToString();
+
             // ruch pocisków wrogów
             foreach (var projectile in enemyBullets.ToArray())
             {
