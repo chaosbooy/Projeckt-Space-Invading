@@ -51,6 +51,7 @@ namespace SpaceInvading.Pages
             InitializeComponent();
 
             Player1 = new Player(HitBoxShow);
+            UpdateHealthBar();
             Canvas.SetLeft(Player1.PlayerHitBoxes, (MainCanvas.Width - Player1.PlayerHitBoxes.Width) / 2 + 50);
             Canvas.SetTop(Player1.PlayerHitBoxes, MainCanvas.Height - Player1.PlayerHitBoxes.Height - 10);
 
@@ -261,6 +262,7 @@ namespace SpaceInvading.Pages
                 else if(IsColliding(Player1.PlayerHitBoxes, 0.7, bullet))
                 {
                     Player1.Health -= projectile.Damage;
+                    UpdateHealthBar();
                     //jezeli nastepne hp bedzie 0 koncz gre
                     if (Player1.Health <= 0) EndGame();
                     else
@@ -329,7 +331,10 @@ namespace SpaceInvading.Pages
             }
 
         }
-
+        private void UpdateHealthBar()
+        {
+            ImageHealthBar.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/HealthBar/Health_" + Player1.MaxHealth + "_" + Player1.Health + ".png"));
+        }
         private bool IsColliding(FrameworkElement a, double hitboxMultiplier, FrameworkElement b)
         {
             GeneralTransform transformA = a.TransformToAncestor(MainCanvas);
