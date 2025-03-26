@@ -23,7 +23,12 @@
         </Canvas>
 
         <Image Source="../Images/Background/background_Tree.png" Stretch="Fill" HorizontalAlignment="Center" MinWidth="1300"/>
-        <Image Source="../Images/HealthBar/Health_1_0.png" x:Name="ImageHealthBar" HorizontalAlignment="Left" VerticalAlignment="Bottom" MinWidth="10" MaxHeight="200"></Image>
+        <Image Source="../Images/HealthBar/Health_1_0.png" x:Name="ImageHealthBar" HorizontalAlignment="Left" VerticalAlignment="Bottom" MinWidth="10" MaxHeight="200">
+            </Image>
+
+        <StackPanel x:Name="PausePanel" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+            <Button Content="Resume" FontSize="40" Padding="40, 3" Click="PauseGame"/>
+        </StackPanel>
         <!--<Grid.Background>
             <ImageBrush ImageSource="../Images/Background/background_Path.png" />
         </Grid.Background>-->
