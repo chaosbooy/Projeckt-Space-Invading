@@ -48,10 +48,12 @@
         <Grid.Background>
             <ImageBrush ImageSource="../Images/Village/village.png" Stretch="Fill"></ImageBrush>
         </Grid.Background>
-        <Image Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Stretch="Fill" Source="../Images/Village/Shop_blacksmith.png" MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Stretch="Fill" Source="../Images/Village/Shop_blacksmith.png" MouseLeftButtonDown="GoBlacksmith" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
         <Image Grid.Column="5"                     Grid.Row="0" Grid.RowSpan="2" Stretch="Fill" Source="../Images/Village/Gate.png"            MouseLeftButtonDown="StartGame"                 MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
         <Image Grid.Column="7"                     Grid.Row="3"                  Stretch="Fill" Source="../Images/Village/Shop_merchant.png"   MouseLeftButtonDown="GoShop"                    MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="2"                     Grid.Row="5"                  Stretch="Fill" Source="../Images/Village/Shop_witch.png"      MouseLeftButtonDown="Image_MouseLeftButtonDown" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="ShopFrame" Source="Shop.xaml" Grid.ColumnSpan="100" Grid.RowSpan="100" Margin="50" />
+        <Image Grid.Column="2"                     Grid.Row="5"                  Stretch="Fill" Source="../Images/Village/Shop_witch.png"      MouseLeftButtonDown="GoWitch" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="FrameShop" Source="Shop.xaml" Margin="50" Grid.RowSpan="1000" Grid.ColumnSpan="1000"/>
+        <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="FrameWitch" Source="Witch.xaml" Margin="50" Grid.RowSpan="1000" Grid.ColumnSpan="1000"/>
+        <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="FrameBlacksmith" Source="Blacksmith.xaml" Margin="50" Grid.RowSpan="1000" Grid.ColumnSpan="1000"/>
     </Grid>
 </Page>

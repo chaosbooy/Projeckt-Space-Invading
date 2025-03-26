@@ -34,10 +34,22 @@ namespace SpaceInvading.Resources.Pages
 
         private void GoShop(object sender, RoutedEventArgs e)
         {
-            if (ShopFrame.Visibility == Visibility.Visible) ShopFrame.Visibility = Visibility.Collapsed;
-            else ShopFrame.Visibility = Visibility.Visible;
-
+            if (FrameShop.Visibility == Visibility.Visible) FrameShop.Visibility = Visibility.Collapsed;
+            else FrameShop.Visibility = Visibility.Visible;
         }
+
+        private void GoWitch(object sender, RoutedEventArgs e)
+        {
+            if (FrameWitch.Visibility == Visibility.Visible) FrameWitch.Visibility = Visibility.Collapsed;
+            else FrameWitch.Visibility = Visibility.Visible;
+        }
+
+        private void GoBlacksmith(object sender, RoutedEventArgs e)
+        {
+            if (FrameWitch.Visibility == Visibility.Visible) FrameWitch.Visibility = Visibility.Collapsed;
+            else FrameWitch.Visibility = Visibility.Visible;
+        }
+
         private void MouseEnter(object sender, MouseEventArgs e)
         {
             Image img = (Image)sender;
