@@ -350,6 +350,7 @@ namespace SpaceInvading.Pages
         }
         private void UpdateHealthBar()
         {
+            if(Player1.Health <0 || Player1.Health > 5) { return; }
             ImageHealthBar.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/HealthBar/Health_" + Player1.MaxHealth + "_" + Player1.Health + ".png"));
         }
         private bool IsColliding(FrameworkElement a, double hitboxMultiplier, FrameworkElement b)
