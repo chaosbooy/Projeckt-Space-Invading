@@ -18,7 +18,8 @@ namespace SpaceInvading.Pages
     {
         #region Variables
 
-        private const bool HitBoxShow = false;
+        private readonly bool HitBoxShow = false;
+        private bool gamePaused;
 
         public Player Player1;
 
@@ -79,6 +80,22 @@ namespace SpaceInvading.Pages
             MainCanvas.Focus();
         }
 
+        private void PauseGame(object sender, RoutedEventArgs e)
+        {
+            gamePaused = !gamePaused;
+            CompositionTarget.Rendering -= GameLoop;
+
+            if (gamePaused)
+            {
+                PausePanel.Visibility = Visibility.Visible;
+
+                return;
+            }
+
+            PausePanel.Visibility = Visibility.Collapsed;
+            CompositionTarget.Rendering += GameLoop;
+
+        }
 
         private void SetupGame(int enemyRows, int enemyCols)
         {
@@ -404,6 +421,9 @@ namespace SpaceInvading.Pages
                         playerAttack = KeyState.Down;
                     else
                         playerAttack = KeyState.Pressed;
+                    return;
+                case Key.Escape:
+                    PauseGame(sender, e);
                     return;
                 case Key.F:
                 //// for debugging

@@ -9,6 +9,7 @@ namespace SpaceInvading.Resources.Classes
     internal class AllItems
     {
         #region Upgrades
+
         public readonly static Item HealthPotion = new Item
         {
             Worth = 10,
@@ -44,6 +45,12 @@ namespace SpaceInvading.Resources.Classes
             Worth = 10,
             isUsable = true
         };
+
+        public readonly static List<Item> DroppableUpgrades = new List<Item>
+        {
+            Gun, Crossbow, EnchantedSword, RagePotion, ShieldPotion, HealthPotion
+        };
+
         #endregion
 
         #region Drops
@@ -61,5 +68,6 @@ namespace SpaceInvading.Resources.Classes
         };
 
         #endregion
+
     }
 }
