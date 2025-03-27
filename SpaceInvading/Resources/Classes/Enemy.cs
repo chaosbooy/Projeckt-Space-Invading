@@ -6,11 +6,11 @@ namespace SpaceInvading.Resources.Classes
     {
         public List<Item> PossibleDrops = new List<Item>();
         public int MaxDropCount { get; set; }
-
         public string Name { get; set; }
         public int Score { get; set; }
         public int Health { get; set; }
         public int Tier { get; set; }
+        public int ShootChance { get; set; }
         public Image EnemyState { get; set; }
         public Projectile Projectile { get; set; }
 
@@ -29,6 +29,8 @@ namespace SpaceInvading.Resources.Classes
                 Score = this.Score,
                 Health = this.Health,
                 MaxDropCount = this.MaxDropCount,
+                ShootChance = this.ShootChance,
+                Tier = this.Tier,
                 PossibleDrops = new List<Item>(this.PossibleDrops), // Głębokie kopiowanie listy
                 Projectile = (Projectile)this.Projectile.Clone(), // Jeśli Projectile też implementuje ICloneable
                 EnemyState = new Image
