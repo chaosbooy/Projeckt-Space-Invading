@@ -43,6 +43,7 @@
     <None Remove="Resources\Images\HealthBar\Health_5_3.png" />
     <None Remove="Resources\Images\HealthBar\Health_5_4.png" />
     <None Remove="Resources\Images\HealthBar\Health_5_5.png" />
+    <None Remove="Resources\Images\misc\Coin.png" />
     <None Remove="Resources\Images\misc\Item_frame.png" />
     <None Remove="Resources\Images\misc\Item_frame_empty.png" />
     <None Remove="Resources\Images\misc\Upgrade_Armor.png" />
@@ -171,6 +172,7 @@
     <Resource Include="Resources\Images\HealthBar\Health_5_3.png" />
     <Resource Include="Resources\Images\HealthBar\Health_5_4.png" />
     <Resource Include="Resources\Images\HealthBar\Health_5_5.png" />
+    <Resource Include="Resources\Images\misc\Coin.png" />
     <Resource Include="Resources\Images\misc\Item_frame.png" />
     <Resource Include="Resources\Images\misc\Item_frame_empty.png" />
     <Resource Include="Resources\Images\misc\Upgrade_Armor.png" />

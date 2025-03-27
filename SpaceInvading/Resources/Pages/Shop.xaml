@@ -24,7 +24,7 @@
             <StackPanel x:Name="offerList"/>
         </ScrollViewer>
 
-        <Label Content="Sklep" FontSize="50" FontWeight="SemiBold" Foreground="White" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+        <Label Content="Shop" FontSize="50" FontWeight="SemiBold" Foreground="White" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
 
     </Grid>
 </Page>

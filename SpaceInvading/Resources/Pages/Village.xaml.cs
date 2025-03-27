@@ -46,8 +46,8 @@ namespace SpaceInvading.Resources.Pages
 
         private void GoBlacksmith(object sender, RoutedEventArgs e)
         {
-            if (FrameWitch.Visibility == Visibility.Visible) FrameWitch.Visibility = Visibility.Collapsed;
-            else FrameWitch.Visibility = Visibility.Visible;
+            if (FrameBlacksmith.Visibility == Visibility.Visible) FrameBlacksmith.Visibility = Visibility.Collapsed;
+            else FrameBlacksmith.Visibility = Visibility.Visible;
         }
 
         private void MouseEnter(object sender, MouseEventArgs e)
