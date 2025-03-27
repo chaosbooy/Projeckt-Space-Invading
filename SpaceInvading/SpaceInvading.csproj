@@ -78,6 +78,9 @@
     <None Remove="Resources\Images\Player\Player_side_3.png" />
     <None Remove="Resources\Images\Player\Player_side_4.png" />
     <None Remove="Resources\Images\Player\Player_Still.png" />
+    <None Remove="Resources\Images\Skeleton\Skeleton.png" />
+    <None Remove="Resources\Images\Skeleton\Skeleton_Bullet.png" />
+    <None Remove="Resources\Images\Skeleton\Skeleton_item.png" />
     <None Remove="Resources\Images\Slime\Slime_bullet_1.png" />
     <None Remove="Resources\Images\Slime\Slime_bullet_2.png" />
     <None Remove="Resources\Images\Slime\Slime_Item.png" />
@@ -195,6 +198,9 @@
     <Resource Include="Resources\Images\Player\Player_side_3.png" />
     <Resource Include="Resources\Images\Player\Player_side_4.png" />
     <Resource Include="Resources\Images\Player\Player_Still.png" />
+    <Resource Include="Resources\Images\Skeleton\Skeleton.png" />
+    <Resource Include="Resources\Images\Skeleton\Skeleton_Bullet.png" />
+    <Resource Include="Resources\Images\Skeleton\Skeleton_item.png" />
     <Resource Include="Resources\Images\Slime\Slime_bullet_1.png" />
     <Resource Include="Resources\Images\Slime\Slime_bullet_2.png" />
     <Resource Include="Resources\Images\Slime\Slime_Item.png" />

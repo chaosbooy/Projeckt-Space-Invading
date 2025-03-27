@@ -50,7 +50,7 @@ namespace SpaceInvading.Resources.Classes
                 Speed = 4,
                 ProjectileState = new Image
                 {
-                    Source = new BitmapImage(new Uri($"pack://application:,,,/Resources/Images/Skeleton/Skeleton_bullet_1.png")),
+                    Source = new BitmapImage(new Uri($"pack://application:,,,/Resources/Images/Skeleton/Skeleton_Bullet.png")),
                     Width = 64,
                     Height = 32
                 }
