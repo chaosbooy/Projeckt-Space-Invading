@@ -23,7 +23,7 @@
         <ScrollViewer Grid.Row="0" Grid.RowSpan="3">
             <StackPanel x:Name="offerList"/>
         </ScrollViewer>
-
+        <StackPanel x:Name="ItemList" Grid.Column="1" Grid.RowSpan="3"/>
         <Image Grid.Column="2" Grid.RowSpan="100"  Source="/Resources/Images/Village/Merchant_Profile.png" Stretch="Uniform"></Image>
     </Grid>
 </Page>
