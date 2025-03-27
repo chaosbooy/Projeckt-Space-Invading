@@ -355,7 +355,7 @@ namespace SpaceInvading.Resources.Classes
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Luck_potion.png"))
             }
         };
         public readonly static Item Luck_potion_2 = new Item
@@ -368,7 +368,7 @@ namespace SpaceInvading.Resources.Classes
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Luck_potion.png"))
             }
         };
         public readonly static Item Luck_potion_3 = new Item
@@ -381,7 +381,7 @@ namespace SpaceInvading.Resources.Classes
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Luck_potion.png"))
             }
         };
         public readonly static Item Luck_potion_4 = new Item
@@ -394,7 +394,7 @@ namespace SpaceInvading.Resources.Classes
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Luck_potion.png"))
             }
         };
         public readonly static Item Luck_potion_5 = new Item
@@ -407,7 +407,7 @@ namespace SpaceInvading.Resources.Classes
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Luck_potion.png"))
             }
         };
         #endregion

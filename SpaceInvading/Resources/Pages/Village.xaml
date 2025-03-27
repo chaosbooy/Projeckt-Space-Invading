@@ -55,5 +55,6 @@
         <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="FrameShop" Source="Shop.xaml" Margin="50" Grid.RowSpan="1000" Grid.ColumnSpan="1000"/>
         <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="FrameWitch" Source="Witch.xaml" Margin="50" Grid.RowSpan="1000" Grid.ColumnSpan="1000"/>
         <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="FrameBlacksmith" Source="Blacksmith.xaml" Margin="50" Grid.RowSpan="1000" Grid.ColumnSpan="1000"/>
+        <Image x:Name="closeFrame" Source="../Images/Village/close_frame.png" Grid.Row="0" Grid.Column="9" Visibility="Collapsed" MouseLeftButtonDown="CloseFrame"/>
     </Grid>
 </Page>

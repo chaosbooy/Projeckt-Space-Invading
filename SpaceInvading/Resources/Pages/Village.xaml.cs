@@ -36,18 +36,21 @@ namespace SpaceInvading.Resources.Pages
         {
             if (FrameShop.Visibility == Visibility.Visible) FrameShop.Visibility = Visibility.Collapsed;
             else FrameShop.Visibility = Visibility.Visible;
+            closeFrame.Visibility = Visibility.Visible;
         }
 
         private void GoWitch(object sender, RoutedEventArgs e)
         {
             if (FrameWitch.Visibility == Visibility.Visible) FrameWitch.Visibility = Visibility.Collapsed;
             else FrameWitch.Visibility = Visibility.Visible;
+            closeFrame.Visibility = Visibility.Visible;
         }
 
         private void GoBlacksmith(object sender, RoutedEventArgs e)
         {
             if (FrameBlacksmith.Visibility == Visibility.Visible) FrameBlacksmith.Visibility = Visibility.Collapsed;
             else FrameBlacksmith.Visibility = Visibility.Visible;
+            closeFrame.Visibility = Visibility.Visible;
         }
 
         private void MouseEnter(object sender, MouseEventArgs e)
@@ -88,6 +91,13 @@ namespace SpaceInvading.Resources.Pages
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
+        }
+        private void CloseFrame(object sender, MouseButtonEventArgs e)
+        {
+            FrameShop.Visibility = Visibility.Collapsed;
+            FrameWitch.Visibility = Visibility.Collapsed;
+            FrameBlacksmith.Visibility = Visibility.Collapsed;
+            closeFrame.Visibility = Visibility.Collapsed;
         }
     }
 }
