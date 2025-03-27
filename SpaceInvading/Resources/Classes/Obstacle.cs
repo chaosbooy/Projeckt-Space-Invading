@@ -14,15 +14,17 @@ namespace SpaceInvading.Resources.Classes
         // części przeszkody - obrazki
         public Image[] Parts { get; set; }
         // od 0 do 5 - przeszkody widoczne, -1 -> przeszkoda usunięta
-        public int[] Damages { get; set; }
-
+        public int[] Health { get; set; }
+        public int tier { get; set; }
+            
         public Obstacle(Image[] ObstacleParts)
         {
             this.Parts = ObstacleParts;
-            Damages = new int[ObstacleParts.Length];
+            tier = Inventory.GetPermamentUpgradeCount("Barrier Upgrade");
+            Health = new int[ObstacleParts.Length];
             for (int i = 0; i < Parts.Length; i++)
             {
-                Damages[i] = 0;
+                Health[i] = tier + 2;
             }
         }
 
@@ -30,13 +32,13 @@ namespace SpaceInvading.Resources.Classes
         public bool DamagePart(int PartNr)
         {
 
-            if (Damages[PartNr] < 5) Damages[PartNr]++;
+            if (Health[PartNr] > 1 ) Health[PartNr]--;
             else
             {
-                Damages[PartNr] = -1;
+                Health[PartNr] = -1;
                 return true;
             }
-            Parts[PartNr].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Obstacles/obstacle_" + Damages[PartNr].ToString() + ".png"));
+             Parts[PartNr].Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Obstacles/obstacle_"+ tier + "_" + Health[PartNr].ToString() + ".png"));
             return false;
         }
 

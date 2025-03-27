@@ -1,4 +1,5 @@
-﻿using SpaceInvading.Resources.Pages;
+﻿using SpaceInvading.Resources.Classes;
+using SpaceInvading.Resources.Pages;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,6 +13,7 @@ namespace SpaceInvading.Pages
         public Lobby()
         {
             InitializeComponent();
+            
         }
 
         private void StartGame(object sender, RoutedEventArgs e)

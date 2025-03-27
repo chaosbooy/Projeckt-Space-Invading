@@ -1,4 +1,5 @@
 ﻿using SpaceInvading.Pages;
+using SpaceInvading.Resources.Classes;
 using System.Windows;
 using System.Windows.Navigation;
 
@@ -12,6 +13,9 @@ namespace SpaceInvading
         public MainWindow()
         {
             InitializeComponent();
+            Inventory.AddUpgrade((Item)AllItems.Barrier_1.Clone()); // debug line to delete later
+            Inventory.AddUpgrade((Item)AllItems.Barrier_2.Clone());
+            Inventory.AddUpgrade((Item)AllItems.Barrier_3.Clone());
         }
 
         private void MainContent_Navigated(object sender, NavigationEventArgs e)

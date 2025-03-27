@@ -13,8 +13,10 @@ namespace SpaceInvading.Resources.Classes
         public static Dictionary<string, int> ItemCount = new Dictionary<string, int>();
         public static Dictionary<string, int> PermamentUpgrades = new Dictionary<string, int>();
         public static Dictionary<string, int> UsableUpgrades = new Dictionary<string, int>();
+        
         public static void count()
         {
+            ItemCount.Clear();
             foreach (Item item in Items)
             {
                 if (ItemCount.ContainsKey(item.Name))
@@ -55,20 +57,22 @@ namespace SpaceInvading.Resources.Classes
         }
         public static void PermamentUpgradesCount()
         {
+            PermamentUpgrades.Clear();
             foreach (Item item in Upgrades)
             {
-                if (ItemCount.ContainsKey(item.Name))
+                if (PermamentUpgrades.ContainsKey(item.Name))
                 {
-                    ItemCount[item.Name]++;
+                    PermamentUpgrades[item.Name]++;
                 }
                 else
                 {
-                    ItemCount.Add(item.Name, 1);
+                    PermamentUpgrades.Add(item.Name, 1);
                 }
             }
         }
         public static void UsableUpgradesCount()
         {
+            UsableUpgrades.Clear();
             foreach (Item item in Upgrades)
             {
                 if (UsableUpgrades.ContainsKey(item.Name))
@@ -80,6 +84,15 @@ namespace SpaceInvading.Resources.Classes
                     UsableUpgrades.Add(item.Name, 1);
                 }
             }
+        }
+        public static int GetItemCount(string name)
+        {
+            
+            if (ItemCount.ContainsKey(name))
+            {
+                return ItemCount[name];
+            }
+            return 0;
         }
         public static int GetPermamentUpgradeCount(string name)
         {
@@ -101,14 +114,7 @@ namespace SpaceInvading.Resources.Classes
             }
             return Return;
         }
-        public static int GetItemCount(string name)
-        {
-            if (ItemCount.ContainsKey(name))
-            {
-                return ItemCount[name];
-            }
-            return 0;
-        }
+       
         public static bool CheckForItem(Item item, int quantity)
         {
             if (ItemCount.ContainsKey(item.Name))

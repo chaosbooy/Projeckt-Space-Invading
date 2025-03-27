@@ -248,7 +248,7 @@ namespace SpaceInvading.Pages
                     // sprawdzanie czesci w kazdej przeszkodzie
                     for (int j = 0; j < obstacles[i].Parts.Count(); j++)
                     {
-                        if (obstacles[i].Damages[j] != -1)
+                        if (obstacles[i].Health[j] != -1)
                         {
                             if (isBulletAlive && IsColliding(obstacles[i].Parts[j], 1, bullet))
                             {
@@ -332,7 +332,7 @@ namespace SpaceInvading.Pages
                         // sprawdzanie czesci w kazdej przeszkodzie
                         for (int j = 0; j < obstacles[i].Parts.Count(); j++)
                         {
-                            if (obstacles[i].Damages[j] != -1)
+                            if (obstacles[i].Health[j] != -1)
                             {
                                 if (isBulletAlive && IsColliding(obstacles[i].Parts[j], 1, bullet))
                                 {
@@ -559,16 +559,16 @@ namespace SpaceInvading.Pages
         private void CreateObstacle(double x, double y)
         {
             // części przeszkody
-            Image[] obstacleParts = new Image[11];
-            List<int> pozX = new List<int>() { -40, -40, -40, -20, -20, 0, 20, 20, 40, 40, 40 };
-            List<int> pozY = new List<int>() { -20,0,20,20,40,40,40,20,20,0,-20 };
-            for (int i = 0; i < 11; i++)
+            Image[] obstacleParts = new Image[4];
+            List<int> pozX = new List<int>() { -31, 0, 31, 62 };
+            List<int> pozY = new List<int>() { -0,0,0,0};
+            for (int i = 3; i >= 0; i--)
             {
                 Image obstaclePart = new Image
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Obstacles/obstacle_0.png")),
-                    Width = 20,
-                    Height = 20,
+                    Source = new BitmapImage(new Uri($"pack://application:,,,/Resources/Images/Obstacles/obstacle_{Inventory.GetPermamentUpgradeCount("Barrier Upgrade")}_{Inventory.GetPermamentUpgradeCount("Barrier Upgrade") + 2}.png")),
+                    Width = 40,
+                    Height = 40,
                 };
                 Canvas.SetLeft(obstaclePart, x - pozX[i]);
                 Canvas.SetTop(obstaclePart, y - pozY[i]);
