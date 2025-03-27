@@ -4,17 +4,19 @@ namespace SpaceInvading.Resources.Classes
 {
     public class Boss : Enemy
     {
-        public int ProjectileThrownCount;
+        public int ProjectileThrownCount { get; set; }
+        public int AttackSpeed { get; set; }
 
         new public object Clone()
         {
             return new Boss
             {
+                ProjectileThrownCount = this.ProjectileThrownCount,
+                AttackSpeed = this.AttackSpeed,
                 Name = this.Name,
                 Score = this.Score,
                 Health = this.Health,
                 MaxDropCount = this.MaxDropCount,
-                ProjectileThrownCount = this.ProjectileThrownCount,
                 PossibleDrops = new List<Item>(this.PossibleDrops), // Głębokie kopiowanie listy
                 Projectile = (Projectile)this.Projectile.Clone(), // Jeśli Projectile też implementuje ICloneable
                 EnemyState = new Image

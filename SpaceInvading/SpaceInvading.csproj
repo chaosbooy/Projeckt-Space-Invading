@@ -15,6 +15,7 @@
     <None Remove="Resources\Images\Background\background_Path_Cave.png" />
     <None Remove="Resources\Images\Background\background_tree.png" />
     <None Remove="Resources\Images\Background\background_Tree_Right.png" />
+    <None Remove="Resources\Images\Background\Title_Card.png" />
     <None Remove="Resources\Images\Boss_1\Boss_Item_1.png" />
     <None Remove="Resources\Images\Boss_1\Boss_item_2.png" />
     <None Remove="Resources\Images\Boss_1\Boss_item_3.png" />
@@ -146,6 +147,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\Background\background_Tree_Right.png" />
+    <Resource Include="Resources\Images\Background\Title_Card.png" />
     <Resource Include="Resources\Images\Boss_1\Boss_Item_1.png" />
     <Resource Include="Resources\Images\Boss_1\Boss_item_2.png" />
     <Resource Include="Resources\Images\Boss_1\Boss_item_3.png" />

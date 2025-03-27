@@ -27,6 +27,7 @@ namespace SpaceInvading.Pages
 
         // przeciwnicy na planszy
         private List<Enemy> Enemies = new();
+        private Boss CurrentBoss = new();
 
         private List<Image> bullets = new();
         private List<Projectile> enemyBullets = new();
@@ -97,9 +98,7 @@ namespace SpaceInvading.Pages
             EnemyHolder.RowDefinitions.Clear();
 
             round++;
-            if (round == 1)
-                SetupBoss();
-            else if (round % 5 == 0)
+            if (round % 5 == 0)
                 SetupBoss();
             else if (round == 1)
                 SetupGame(1, 5);
@@ -114,6 +113,7 @@ namespace SpaceInvading.Pages
 
         private void SetupBoss()
         {
+
             var boss = (Boss)AllEnemies.SlimeBoss.Clone();
             Border border = new Border
             {
@@ -124,10 +124,16 @@ namespace SpaceInvading.Pages
             border.Child = boss.EnemyState; // Dodaj obraz jako dziecko ramki
             minWidth = (int)boss.EnemyState.Width;
             minHeight = (int)boss.EnemyState.Height;
+
             Grid.SetColumn(border, 0);
             Grid.SetRow(border, 0);
+
+            Canvas.SetTop(EnemyHolder, -40);
+            Canvas.SetLeft(EnemyHolder, (MainCanvas.ActualWidth - MinWidth) / 2);
             EnemyHolder.Children.Add(border);
+            CurrentBoss = boss;
             Enemies.Add(boss);
+
             minWidth += 10;
             minHeight += 10;
 
@@ -274,11 +280,20 @@ namespace SpaceInvading.Pages
                     if (IsColliding(bullet, 0.9, block.EnemyState))
                     {
                         MainCanvas.Children.Remove(bullet);
-                        EnemyHolder.Children.Remove((UIElement)block.EnemyState.Parent);
                         bullets.Remove(bullet);
-                        Enemies.Remove(block);
+                        
+                        if(block.Health-- == 1)
+                        {
+                            EnemyHolder.Children.Remove((UIElement)block.EnemyState.Parent);
 
-                        _score += block.Score;
+                            Enemies.Remove(block);
+                            _score += block.Score;
+                        }
+
+                        if(block is Boss)
+                            _score += block.Score / 10;
+
+
                         ScoreCount.Content = _score.ToString();
 
                         while (RemoveEmptyColumn(0))
@@ -364,14 +379,21 @@ namespace SpaceInvading.Pages
             else
                 Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) + enemySpeed);
 
-            // strzał wrogów ( powiedzmy co 30 tick )
-            if (TickNumber % 30 == 0)
+            // strzał bossa ( wg. predkosci bossa )
+            if (Enemies[0] is Boss && TickNumber % CurrentBoss.AttackSpeed == 0)
             {
+                ShootBoss(CurrentBoss.ProjectileThrownCount);
+            }
+
+            // strzał wrogów ( powiedzmy co 30 tick )
+            else if (TickNumber % 30 == 0 && Enemies[0] is not Boss)
+            {
+                Random rnd = new Random();
                 foreach (var enemy in Enemies.ToArray())
                 {
-                    Random rnd = new Random();
-                    int shootChance = 15;
-                    if (rnd.Next(101) <= shootChance)
+                    int next = rnd.Next(300);
+                    Debug.WriteLine($"{next} | {enemy.ShootChance}");
+                    if (next <= enemy.ShootChance)
                     {
                         //var a = enemiesState.IndexOf(enemy);
                         ShootEnemy(enemy);
@@ -554,6 +576,25 @@ namespace SpaceInvading.Pages
 
             MainCanvas.Children.Add(bullet);
             enemyBullets.Add(projectile);
+        }
+
+        private void ShootBoss(int bulletCount)
+        {
+            for (int i = 0; i < bulletCount; i++)
+            {
+                Projectile projectile = (Projectile)CurrentBoss.Projectile.Clone();
+                Image bullet = projectile.ProjectileState;
+                // Get the position of the shooter relative to the canvas
+                Point shooterPositionRelativeToCanvas = CurrentBoss.EnemyState.TranslatePoint(new Point(0, 0), MainCanvas);
+                // Calculate the bullet's position
+                double canvasLeft = shooterPositionRelativeToCanvas.X + (CurrentBoss.EnemyState.Width / bulletCount) * (i + 1) - bullet.Width / 2;
+                double canvasTop = shooterPositionRelativeToCanvas.Y + CurrentBoss.EnemyState.Height;
+                // Set the bullet's position relative to the canvas
+                Canvas.SetLeft(bullet, canvasLeft);
+                Canvas.SetTop(bullet, canvasTop);
+                MainCanvas.Children.Add(bullet);
+                enemyBullets.Add(projectile);
+            }
         }
 
         private void CreateObstacle(double x, double y)
