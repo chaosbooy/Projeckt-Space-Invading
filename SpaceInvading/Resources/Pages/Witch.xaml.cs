@@ -23,11 +23,13 @@ namespace SpaceInvading.Resources.Pages
     {
         // dane do ofert
         List<Item> offerSource = new List<Item>() { AllItems.RagePotion, AllItems.HealthPotion, AllItems.ShieldPotion, AllItems.Luck_potion_1, AllItems.Shadow_potion_1 };
-
+        // dane do listy itemów
+        List<Item> ListofItems = Inventory.GetItemsForShop('w');
         public Witch()
         {
             InitializeComponent();
             CreateOffers();
+            CreateItemList();
         }
 
         private void CreateOffers()
@@ -111,6 +113,57 @@ namespace SpaceInvading.Resources.Pages
                 offer.Children.Add(priceItem);
                 offer.Children.Add(description);
                 offerList.Children.Add(offer);
+            }
+        }
+
+        private void CreateItemList()
+        {
+            for (int i = 0; i < ListofItems.Count; i++)
+            {
+                Grid itemHolder = new Grid
+                {
+                    Name = "offer" + i.ToString(),
+                    Background = Brushes.LightGray,
+                    VerticalAlignment = VerticalAlignment.Top
+                };
+                itemHolder.MouseEnter += Offer_MouseEnter;
+                itemHolder.MouseLeave += Offer_MouseLeave;
+
+                Rectangle border = new Rectangle
+                {
+                    Stroke = Brushes.White,
+                    StrokeThickness = 1
+                };
+                itemHolder.Children.Add(border);
+
+                Image frame = new Image
+                {
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Item_frame_empty.png")),
+                    Width = 48,
+                    Height = 48,
+                    Stretch = Stretch.Fill,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(5)
+                };
+                Image item = new Image
+                {
+                    Source = offerSource[i].Sprite.Source,
+                    Width = 43,
+                    Height = 43,
+                    Stretch = Stretch.Fill,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(7)
+                };
+
+                TextBlock itemNumber = new TextBlock
+                {
+                    Text = Inventory.ItemCount[ListofItems[i].Name].ToString(),
+                };
+                itemHolder.Children.Add(frame);
+                itemHolder.Children.Add(item);
+                itemHolder.Children.Add(itemNumber);
+
+                ItemList.Children.Add(itemHolder);
             }
         }
 

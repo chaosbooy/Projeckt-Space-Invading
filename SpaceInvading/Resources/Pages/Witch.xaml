@@ -10,9 +10,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.4*"></ColumnDefinition>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -23,7 +23,7 @@
         <ScrollViewer Grid.Row="0" Grid.RowSpan="3">
             <StackPanel x:Name="offerList"/>
         </ScrollViewer>
-
+        <StackPanel x:Name="ItemList" Grid.Column="1" Grid.RowSpan="3"/>
         <Label Content="Witch" FontSize="50" FontWeight="SemiBold" Foreground="White" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
 
     </Grid>

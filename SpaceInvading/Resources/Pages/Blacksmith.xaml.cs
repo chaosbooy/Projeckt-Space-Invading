@@ -22,7 +22,8 @@ namespace SpaceInvading.Resources.Pages
     public partial class Blacksmith : Page
     {
         List<Item> offerSource = new List<Item>() { AllItems.Armor_1 ,AllItems.Barrier_1, AllItems.Crossbow, AllItems.Gun};
-
+        // dane do listy itemów
+        List<Item> ListofItems = Inventory.GetItemsForShop('b');
         public Blacksmith()
         {
             InitializeComponent();
@@ -110,6 +111,57 @@ namespace SpaceInvading.Resources.Pages
                 offer.Children.Add(priceItem);
                 offer.Children.Add(description);
                 offerList.Children.Add(offer);
+            }
+        }
+
+        private void CreateItemList()
+        {
+            for (int i = 0; i < ListofItems.Count; i++)
+            {
+                Grid itemHolder = new Grid
+                {
+                    Name = "offer" + i.ToString(),
+                    Background = Brushes.LightGray,
+                    VerticalAlignment = VerticalAlignment.Top
+                };
+                itemHolder.MouseEnter += Offer_MouseEnter;
+                itemHolder.MouseLeave += Offer_MouseLeave;
+
+                Rectangle border = new Rectangle
+                {
+                    Stroke = Brushes.White,
+                    StrokeThickness = 1
+                };
+                itemHolder.Children.Add(border);
+
+                Image frame = new Image
+                {
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Item_frame_empty.png")),
+                    Width = 48,
+                    Height = 48,
+                    Stretch = Stretch.Fill,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(5)
+                };
+                Image item = new Image
+                {
+                    Source = offerSource[i].Sprite.Source,
+                    Width = 43,
+                    Height = 43,
+                    Stretch = Stretch.Fill,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(7)
+                };
+
+                TextBlock itemNumber = new TextBlock
+                {
+                    Text = Inventory.ItemCount[ListofItems[i].Name].ToString(),
+                };
+                itemHolder.Children.Add(frame);
+                itemHolder.Children.Add(item);
+                itemHolder.Children.Add(itemNumber);
+
+                ItemList.Children.Add(itemHolder);
             }
         }
 
