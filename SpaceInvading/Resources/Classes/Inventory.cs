@@ -11,6 +11,8 @@ namespace SpaceInvading.Resources.Classes
         public static List<Item> Items = new List<Item>();
         public static List<Item> Upgrades = new List<Item>();
         public static Dictionary<string, int> ItemCount = new Dictionary<string, int>();
+        public static Dictionary<string, int> PermamentUpgrades = new Dictionary<string, int>();
+        public static Dictionary<string, int> UsableUpgrades = new Dictionary<string, int>();
         public static void count()
         {
             foreach (Item item in Items)
@@ -40,6 +42,52 @@ namespace SpaceInvading.Resources.Classes
                 Items.Remove(item);
             }
             count();
+        }
+        public static void AddUpgrade(Item item)
+        {
+            Upgrades.Add(item);
+            PermamentUpgradesCount();
+        }
+        public static void RemoveUpgrade(Item item)
+        {
+            Upgrades.Remove(item);
+            PermamentUpgradesCount();
+        }
+        public static void PermamentUpgradesCount()
+        {
+            foreach (Item item in Upgrades)
+            {
+                if (ItemCount.ContainsKey(item.Name))
+                {
+                    ItemCount[item.Name]++;
+                }
+                else
+                {
+                    ItemCount.Add(item.Name, 1);
+                }
+            }
+        }
+        public static void UsableUpgradesCount()
+        {
+            foreach (Item item in Upgrades)
+            {
+                if (UsableUpgrades.ContainsKey(item.Name))
+                {
+                    UsableUpgrades[item.Name]++;
+                }
+                else
+                {
+                    UsableUpgrades.Add(item.Name, 1);
+                }
+            }
+        }
+        public static int GetPermamentUpgradeCount(string name)
+        {
+            if (PermamentUpgrades.ContainsKey(name))
+            {
+                return PermamentUpgrades[name];
+            }
+            return 0;
         }
         public static List<Item> GetItemsForShop(char shop)
         {

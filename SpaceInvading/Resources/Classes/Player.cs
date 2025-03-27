@@ -9,9 +9,6 @@ namespace SpaceInvading.Resources.Classes
     public class Player
     {
         #region Variables
-        //Village interaction
-        public List<Item> Drops { get; set; }
-        public List<Item> Upgrades { get; set; }
 
         //Basics
         public string Name { get; set; }
@@ -45,10 +42,8 @@ namespace SpaceInvading.Resources.Classes
 
         public Player(bool showHitBox)
         {
-            Drops = new List<Item>();
-            Upgrades = new List<Item>();
             Name = "Player";
-            Health = MaxHealth = 2;
+            Health = MaxHealth = 2 + Inventory.GetPermamentUpgradeCount("Armor Upgrade");
             
             _playerState = new Image
             {
