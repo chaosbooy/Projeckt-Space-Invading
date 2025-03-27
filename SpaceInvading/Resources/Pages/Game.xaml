@@ -27,10 +27,11 @@
             </Image>
         <Label x:Name="ScoreCount" Content="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="100" FontSize="40" Margin="18,0,0,185"></Label>
         <StackPanel x:Name="PausePanel" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-            <Button Content="Resume" FontSize="40" Padding="40, 3" Click="PauseGame"/>
+            <Button Content="Resume" FontSize="40" Padding="40, 3" Click="PauseGame" Background="#C38811" Foreground="#664400" BorderBrush="#664400" BorderThickness="5"/>
         </StackPanel>
-        <!--<Grid.Background>
-            <ImageBrush ImageSource="../Images/Background/background_Path.png" />
-        </Grid.Background>-->
+        <StackPanel x:Name="GameOverPanel" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+            <Button Content="Restart" FontSize="40" Margin="10" Padding="40, 3" Click="Restart" Background="#C38811" Foreground="#664400" BorderBrush="#664400" BorderThickness="5"/>
+            <Button Content="Go Back To Lobby" FontSize="40" Margin="10" Padding="40, 3" Click="ToLobby" Background="#C38811" Foreground="#664400" BorderBrush="#664400" BorderThickness="5"/>
+        </StackPanel>
     </Grid>
 </Page>

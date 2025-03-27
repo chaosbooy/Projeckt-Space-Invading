@@ -1,6 +1,7 @@
 ﻿using SpaceInvading.Resources.Classes;
 using SpaceInvading.Resources.Pages;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -204,8 +205,19 @@ namespace SpaceInvading.Pages
             window.KeyDown -= Window_KeyDown;
             window.KeyUp -= Window_KeyUp;
             CompositionTarget.Rendering -= GameLoop;
-            this.NavigationService.Navigate(new Lobby());
+            Player1.Stay();
 
+            GameOverPanel.Visibility = Visibility.Visible;
+        }
+
+        private void Restart(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Village());
+        }
+
+        private void ToLobby(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Lobby());
         }
 
         private void GameLoop(object? sender, EventArgs e)
@@ -392,7 +404,6 @@ namespace SpaceInvading.Pages
                 foreach (var enemy in Enemies.ToArray())
                 {
                     int next = rnd.Next(300);
-                    Debug.WriteLine($"{next} | {enemy.ShootChance}");
                     if (next <= enemy.ShootChance)
                     {
                         //var a = enemiesState.IndexOf(enemy);
@@ -599,6 +610,7 @@ namespace SpaceInvading.Pages
 
         private void CreateObstacle(double x, double y)
         {
+            if (Inventory.GetPermamentUpgradeCount("Barrier Upgrade") == 0) return;
             // części przeszkody
             Image[] obstacleParts = new Image[4];
             List<int> pozX = new List<int>() { -31, 0, 31, 62 };
