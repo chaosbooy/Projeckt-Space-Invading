@@ -132,7 +132,6 @@ namespace SpaceInvading.Resources.Pages
             Grid clickedOffer = (Grid)sender;
             int offerNr = Int32.Parse(clickedOffer.Name.Remove(0, 5));
             Item offerItem = offerSource[offerNr];
-            
             Inventory.RemoveItem(offerItem, 1);
 
             Inventory.AddItem(AllItems.Coin, offerItem.Worth);

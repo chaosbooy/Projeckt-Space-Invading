@@ -39,9 +39,12 @@ namespace SpaceInvading.Resources.Classes
         }
         public static void RemoveItem(Item item, int quantity)
         {
-            for (int i = 0; i < quantity; i++)
+            if (GetItemCount(item.Name) >= quantity)
             {
-                Items.Remove(item);
+                for (int i = 0; i < quantity; i++)
+                {
+                    Items.Remove(item);
+                }
             }
             count();
         }
