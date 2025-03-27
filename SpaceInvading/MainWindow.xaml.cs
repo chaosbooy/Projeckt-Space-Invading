@@ -16,6 +16,9 @@ namespace SpaceInvading
             Inventory.AddUpgrade((Item)AllItems.Barrier_1.Clone()); // debug line to delete later
             Inventory.AddUpgrade((Item)AllItems.Barrier_2.Clone());
             Inventory.AddUpgrade((Item)AllItems.Barrier_3.Clone());
+            Inventory.AddUpgrade((Item)AllItems.Armor_1.Clone()); 
+            Inventory.AddUpgrade((Item)AllItems.Armor_2.Clone());
+            Inventory.AddUpgrade((Item)AllItems.Armor_3.Clone());
         }
 
         private void MainContent_Navigated(object sender, NavigationEventArgs e)
