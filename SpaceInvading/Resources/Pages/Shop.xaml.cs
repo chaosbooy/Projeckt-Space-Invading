@@ -23,7 +23,7 @@ namespace SpaceInvading.Resources.Pages
     public partial class Shop : Page
     {
         // dane do ofert
-        List<Item> offerSource = new List<Item>() { AllItems.SlimeDrop, AllItems.SpiderDrop, AllItems.SkeletonDrop, AllItems.Boss_1_drop_1, AllItems.Boss_1_drop_2, AllItems.Boss_1_drop_3 };
+        List<Item> offerSource = new List<Item>();
         // dane do listy itemów
         List<Item> ListofItems = new List<Item>() { AllItems.Coin, AllItems.SlimeDrop, AllItems.SpiderDrop, AllItems.SkeletonDrop, AllItems.Boss_1_drop_1, AllItems.Boss_1_drop_2, AllItems.Boss_1_drop_3 };
 
@@ -36,6 +36,7 @@ namespace SpaceInvading.Resources.Pages
 
         private void CreateOffers()
         {
+            offerSource = Inventory.GetItemsForShop('m');
             for (int i = 0; i < offerSource.Count; i++)
             {
                 Grid offer = new Grid
@@ -138,6 +139,9 @@ namespace SpaceInvading.Resources.Pages
             // pokazanie zmian w ekwipunku gracza na ekranie sklepu
             CreateItemList();
             ItemListRefresh();
+
+            offerList.Children.Clear();
+            CreateOffers();
         }
 
         private void CreateItemList()

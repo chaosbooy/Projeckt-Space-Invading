@@ -117,7 +117,7 @@ namespace SpaceInvading.Resources.Classes
             }
             return Return;
         }
-       
+
         public static bool CheckForItem(Item item, int quantity)
         {
             if (ItemCount.ContainsKey(item.Name))

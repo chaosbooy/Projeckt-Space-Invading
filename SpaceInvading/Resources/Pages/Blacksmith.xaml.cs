@@ -21,7 +21,7 @@ namespace SpaceInvading.Resources.Pages
     /// </summary>
     public partial class Blacksmith : Page
     {
-        List<Item> offerSource = new List<Item>() { AllItems.Armor_1 ,AllItems.Barrier_1, AllItems.Crossbow, AllItems.Gun};
+        List<Item> offerSource = new List<Item>() { AllItems.Armor_1 ,AllItems.Barrier_1, AllItems.Crossbow, AllItems.Gun, AllItems.EnchantedSword};
         // dane do listy itemów
         List<Item> ListofItems = Inventory.GetItemsForShop('b');
         public Blacksmith()
