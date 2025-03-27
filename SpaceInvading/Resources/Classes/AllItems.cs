@@ -8,42 +8,90 @@ namespace SpaceInvading.Resources.Classes
 {
     internal class AllItems
     {
-        #region Upgrades
+        #region OneTimeUpgrades
 
         public readonly static Item HealthPotion = new Item
         {
-            Worth = 10,
-            isUsable = true
+            Name = "Health Potion",
+            Description = "When used restores 1 health",
+            Shop = 'w',
+            Worth = 20,
+            WorthItem = SlimeDrop,
+            isUsable = true,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_health_potion.png"))
+            }
         };
 
         public readonly static Item ShieldPotion = new Item
         {
+            Name = "Shield Potion",
+            Description = "When used gives you a shield that blocks one attack",
+            Shop = 'w',
             Worth = 10,
-            isUsable = true
+            WorthItem = Coin,
+            isUsable = true,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_shield_potion.png"))
+            }
+        };
+        public readonly static Item RagePotion = new Item
+        {
+            Name = "Rage Potion",
+            Description = "When used increases your attack speed for 10s",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = Coin,
+            isUsable = true,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Rage_potion.png"))
+            }
         };
 
         public readonly static Item Gun = new Item
         {
-            Worth = 10,
-            isUsable = true
+            Name ="Cannon",
+            Description = "Shoots a cannonball that explodes on impact, dealing damage to all enemies in the area",
+            Shop = 'b',
+            Worth = 2000,
+            WorthItem = Coin,
+            isUsable = true,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Canon.png"))
+            }
         };
 
-        public readonly static Item RagePotion = new Item
-        {
-            Worth = 10,
-            isUsable = true
-        };
 
         public readonly static Item Crossbow = new Item
         {
-            Worth = 10,
-            isUsable = true
+            Name = "Crossbow",
+            Description = "Shoots a three bolts in difrent directions",
+            Shop = 'b',
+            Worth = 500,
+            WorthItem = Coin,
+            isUsable = true,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Crossbow.png"))
+            }
         };
 
         public readonly static Item EnchantedSword = new Item
         {
-            Worth = 10,
-            isUsable = true
+            Name = "Enchanted Scroll",
+            Description = "Enchants your weapon for 10s, makes the projectiles go through walls and enemies",
+            Shop = 'b',
+            Worth = 5000,
+            WorthItem = Coin,
+            isUsable = true,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Sword_enchant.png"))
+            }
         };
 
         public readonly static List<Item> DroppableUpgrades = new List<Item>
@@ -54,19 +102,272 @@ namespace SpaceInvading.Resources.Classes
         #endregion
 
         #region Drops
+        public readonly static Item Coin = new Item
+        {
+            Name = "Coin",
+            Description = "currency",
+            Shop = 'n',
+            Worth = 1,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Coin.png"))
+            }
+        };
 
         public readonly static Item SlimeDrop = new Item
         {
-            Worth = 1,
-            isUsable = false
+            Name = "Slime goo",
+            Description = "slime goo, used often in medicine",
+            Shop = 'm',
+            Worth = 10,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime/Slime_item.png"))
+            }
         };
 
         public readonly static Item SpiderDrop = new Item
         {
-            Worth = 1,
-            isUsable = false
+            Name = "Spider web",
+            Description = "very durable spider web",
+            Shop = 'm',
+            Worth = 20,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Spider/Spider_item.png"))
+            }
+        };
+        public readonly static Item SkeletonDrop = new Item
+        {
+            Name="Skull",
+            Description = "cracked skull from a skeleton",
+            Shop = 'm',
+            Worth = 50,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Skeleton/Skeleton_item.png"))
+            }
         };
 
+
+        #endregion
+        #region PermamentUpgrades
+        public readonly static Item Armor_1 = new Item
+        {
+            Name = "Armor Upgrade",
+            Description = "Upgrades your armor allowing you to take 1 more damage",
+            Shop = 'b',
+            Worth = 300,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Armor.png"))
+            }
+        };
+        public readonly static Item Armor_2 = new Item
+        {
+            Name = "Armor Upgrade",
+            Description = "Upgrades your armor allowing you to take 1 more damage",
+            Shop = 'b',
+            Worth = 1000,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Armor.png"))
+            }
+        };
+        public readonly static Item Armor_3 = new Item
+        {
+            Name = "Armor Upgrade",
+            Description = "Upgrades your armor allowing you to take 1 more damage",
+            Shop = 'b',
+            Worth = 2500,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Armor.png"))
+            }
+        };
+        public readonly static Item Barrier_1 = new Item
+        {
+            Name = "Barrier Upgrade",
+            Description = "upgrades your barrier to hay",
+            Shop = 'b',
+            Worth = 100,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Barrier_1.png"))
+            }
+        };
+        public readonly static Item Barrier_2 = new Item
+        {
+            Name = "Barrier Upgrade",
+            Description = "upgrades your barrier to crates",
+            Shop = 'b',
+            Worth = 800,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Barrier_2.png"))
+            }
+        };
+        public readonly static Item Barrier_3 = new Item
+        {
+            Name = "Barrier Upgrade",
+            Description = "upgrades your barrier to bricks",
+            Shop = 'b',
+            Worth = 1500,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Barrier_3.png"))
+            }
+        };
+        public readonly static Item Shadow_potion_1 = new Item
+        {
+            Name = "Shadow Potion",
+            Description = "gives you +1% chance to nullify damage when hit",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
+        public readonly static Item Shadow_potion_2 = new Item
+        {
+            Name = "Shadow Potion",
+            Description = "gives you +1% chance to nullify damage when hit",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
+        public readonly static Item Shadow_potion_3 = new Item
+        {
+            Name = "Shadow Potion",
+            Description = "gives you +1% chance to nullify damage when hit",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
+        public readonly static Item Shadow_potion_4 = new Item
+        {
+            Name = "Shadow Potion",
+            Description = "gives you +1% chance to nullify damage when hit",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
+        public readonly static Item Shadow_potion_5 = new Item
+        {
+            Name = "Shadow Potion",
+            Description = "gives you +1% chance to nullify damage when hit",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
+        public readonly static Item Luck_potion_1 = new Item
+        {
+            Name = "Luck Potion",
+            Description = "gives you +5% chance for enemies to drop items when killed",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
+        public readonly static Item Luck_potion_2 = new Item
+        {
+            Name = "Luck Potion",
+            Description = "gives you +5% chance for enemies to drop items when killed",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
+        public readonly static Item Luck_potion_3 = new Item
+        {
+            Name = "Luck Potion",
+            Description = "gives you +5% chance for enemies to drop items when killed",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
+        public readonly static Item Luck_potion_4 = new Item
+        {
+            Name = "Luck Potion",
+            Description = "gives you +5% chance for enemies to drop items when killed",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
+        public readonly static Item Luck_potion_5 = new Item
+        {
+            Name = "Luck Potion",
+            Description = "gives you +5% chance for enemies to drop items when killed",
+            Shop = 'w',
+            Worth = 10,
+            WorthItem = SpiderDrop,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_Shadow_potion.png"))
+            }
+        };
         #endregion
 
     }

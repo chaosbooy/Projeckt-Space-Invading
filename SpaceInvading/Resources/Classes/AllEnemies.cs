@@ -38,6 +38,34 @@ namespace SpaceInvading.Resources.Classes
 
             }
         };
+        public readonly static Enemy Skeleton = new Enemy
+        {
+            Name = "Skeleton",
+            Score = 10,
+            Health = 1,
+            MaxDropCount = 1,
+            Projectile = new Projectile
+            {
+                Damage = 1,
+                Speed = 4,
+                ProjectileState = new Image
+                {
+                    Source = new BitmapImage(new Uri($"pack://application:,,,/Resources/Images/Skeleton/Skeleton_bullet_1.png")),
+                    Width = 64,
+                    Height = 32
+                }
+            },
+            EnemyState = new Image
+            {
+                Source = new BitmapImage(new Uri($"pack://application:,,,/Resources/Images/Skeleton/Skeleton.png")),
+                Width = 50,
+                Height = 50
+            },
+            PossibleDrops = new List<Item>
+            {
+
+            }
+        };
 
         public readonly static Enemy Slime = new Enemy
         {

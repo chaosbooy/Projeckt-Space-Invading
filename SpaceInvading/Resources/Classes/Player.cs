@@ -12,7 +12,6 @@ namespace SpaceInvading.Resources.Classes
         //Village interaction
         public List<Item> Drops { get; set; }
         public List<Item> Upgrades { get; set; }
-        public int Money { get; set; }
 
         //Basics
         public string Name { get; set; }
