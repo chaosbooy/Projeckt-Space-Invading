@@ -65,6 +65,10 @@ namespace SpaceInvading.Pages
             CompositionTarget.Rendering -= GameLoop;
             CompositionTarget.Rendering += GameLoop;
 
+
+            CreateObstacle(150, 400);
+            CreateObstacle(350, 400);
+            CreateObstacle(550, 400);
         }
 
         private void XamlLoaded(object sender, RoutedEventArgs e)
@@ -78,6 +82,29 @@ namespace SpaceInvading.Pages
             window.KeyUp += Window_KeyUp;
 
             MainCanvas.Focus();
+        }
+
+        #region Setups
+
+        private void SetupNewRound()
+        {
+            round++;
+            if (round == 5)
+                SetupBoss();
+            else if (round % 5 == 0)
+                SetupBoss();
+            if (round < 2)
+                SetupGame(1, 10);
+            else if (round < 5)
+                SetupGame(2, 10);
+            else
+                SetupGame(3, 10);
+            return;
+        }
+
+        private void SetupBoss()
+        {
+
         }
 
         private void SetupGame(int enemyRows, int enemyCols)
@@ -126,28 +153,9 @@ namespace SpaceInvading.Pages
                     Enemies.Add(block);
                 }
             }
-
-            CreateObstacle(150, 400);
-            CreateObstacle(350, 400);
-            CreateObstacle(550, 400);
         }
 
-        private void PauseGame(object sender, RoutedEventArgs e)
-        {
-            gamePaused = !gamePaused;
-            CompositionTarget.Rendering -= GameLoop;
-
-            if (gamePaused)
-            {
-                PausePanel.Visibility = Visibility.Visible;
-
-                return;
-            }
-
-            PausePanel.Visibility = Visibility.Collapsed;
-            CompositionTarget.Rendering += GameLoop;
-
-        }
+        #endregion
 
         private void EndGame()
         {
@@ -157,27 +165,6 @@ namespace SpaceInvading.Pages
             CompositionTarget.Rendering -= GameLoop;
             this.NavigationService.Navigate(new Lobby());
 
-        }
-
-        private void SetupBoss()
-        {
-
-        }
-
-        private void SetupNewRound()
-        {
-            round++;
-            if (round == 5)
-                SetupBoss();
-            else if (round % 5 == 0)
-                SetupBoss();
-            if (round < 2)
-                SetupGame(1, 10);
-            else if (round < 5)
-                SetupGame(2, 10);
-            else
-                SetupGame(3, 10);
-            return;
         }
 
         private void GameLoop(object? sender, EventArgs e)
@@ -280,7 +267,7 @@ namespace SpaceInvading.Pages
                 if (Canvas.GetTop(bullet) > this.ActualHeight)
                 {
                     MainCanvas.Children.Remove(bullet);
-                    bullets.Remove(bullet);
+                    enemyBullets.Remove(projectile);
                 }
                 //trafienie gracza
                 else if(IsColliding(Player1.PlayerHitBoxes, 0.7, bullet))
@@ -359,11 +346,13 @@ namespace SpaceInvading.Pages
             }
 
         }
+
         private void UpdateHealthBar()
         {
             if(Player1.Health <0 || Player1.Health > 5) { return; }
             ImageHealthBar.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/HealthBar/Health_" + Player1.MaxHealth + "_" + Player1.Health + ".png"));
         }
+
         private bool IsColliding(FrameworkElement a, double hitboxMultiplier, FrameworkElement b)
         {
             GeneralTransform transformA = a.TransformToAncestor(MainCanvas);
@@ -412,8 +401,25 @@ namespace SpaceInvading.Pages
             return !columnHasElements;
         }
 
-
         #region Player Input
+
+        private void PauseGame(object sender, RoutedEventArgs e)
+        {
+            gamePaused = !gamePaused;
+            CompositionTarget.Rendering -= GameLoop;
+
+            if (gamePaused)
+            {
+                PausePanel.Visibility = Visibility.Visible;
+
+                return;
+            }
+
+            PausePanel.Visibility = Visibility.Collapsed;
+            CompositionTarget.Rendering += GameLoop;
+
+        }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
