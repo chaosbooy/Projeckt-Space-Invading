@@ -25,7 +25,7 @@ namespace SpaceInvading.Resources.Pages
         // dane do ofert
         List<Item> offerSource = new List<Item>() { AllItems.SlimeDrop, AllItems.SpiderDrop, AllItems.SkeletonDrop, AllItems.Boss_1_drop_1, AllItems.Boss_1_drop_2, AllItems.Boss_1_drop_3 };
         // dane do listy itemów
-        List<Item> ListofItems = Inventory.GetItemsForShop('m');
+        List<Item> ListofItems = new List<Item>() { AllItems.Coin, AllItems.SlimeDrop, AllItems.SpiderDrop, AllItems.SkeletonDrop, AllItems.Boss_1_drop_1, AllItems.Boss_1_drop_2, AllItems.Boss_1_drop_3 };
 
         public Shop()
         {
@@ -46,6 +46,8 @@ namespace SpaceInvading.Resources.Pages
                 };
                 offer.MouseEnter += Offer_MouseEnter;
                 offer.MouseLeave += Offer_MouseLeave;
+
+                offer.MouseLeftButtonDown += Offer_MouseLeftButtonDown;
 
                 Rectangle border = new Rectangle
                 {
@@ -123,54 +125,81 @@ namespace SpaceInvading.Resources.Pages
             }
         }
 
+        private void Offer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // sprzedaz dropu
+
+            Grid clickedOffer = (Grid)sender;
+            int offerNr = Int32.Parse(clickedOffer.Name.Remove(0, 5));
+            Item offerItem = offerSource[offerNr];
+            
+            Inventory.RemoveItem(offerItem, 1);
+
+            Inventory.AddItem(AllItems.Coin, offerItem.Worth);
+            // pokazanie zmian w ekwipunku gracza na ekranie sklepu
+            CreateItemList();
+            ItemListRefresh();
+        }
+
         private void CreateItemList()
         {
-            for(int i = 0; i < ListofItems.Count; i++)
+            // reset listy
+            ItemList.Children.Clear();
+            for(int i = 0; i < offerSource.Count; i++)
             {
-                Grid itemHolder = new Grid
+                if (Inventory.ItemCount.ContainsKey(ListofItems[i].Name))
                 {
-                    Name = "offer" + i.ToString(),
-                    Background = Brushes.LightGray,
-                    VerticalAlignment = VerticalAlignment.Top
-                };
-                itemHolder.MouseEnter += Offer_MouseEnter;
-                itemHolder.MouseLeave += Offer_MouseLeave;
+                    Grid itemHolder = new Grid
+                    {
+                        Name = "offer" + i.ToString(),
+                        Background = Brushes.LightGray,
+                        VerticalAlignment = VerticalAlignment.Top
+                    };
+                    itemHolder.MouseEnter += Offer_MouseEnter;
+                    itemHolder.MouseLeave += Offer_MouseLeave;
 
-                Rectangle border = new Rectangle
-                {
-                    Stroke = Brushes.White,
-                    StrokeThickness = 1
-                };
-                itemHolder.Children.Add(border);
+                    Rectangle border = new Rectangle
+                    {
+                        Stroke = Brushes.White,
+                        StrokeThickness = 1
+                    };
+                    itemHolder.Children.Add(border);
 
-                Image frame = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Item_frame_empty.png")),
-                    Width = 48,
-                    Height = 48,
-                    Stretch = Stretch.Fill,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    Margin = new Thickness(5)
-                };
-                Image item = new Image
-                {
-                    Source = offerSource[i].Sprite.Source,
-                    Width = 43,
-                    Height = 43,
-                    Stretch = Stretch.Fill,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    Margin = new Thickness(7)
-                };
+                    Image item = new Image
+                    {
+                        Source = ListofItems[i].Sprite.Source,
+                        Width = 43,
+                        Height = 43,
+                        Stretch = Stretch.Fill,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = new Thickness(7)
+                    };
 
-                TextBlock itemNumber = new TextBlock
-                {
-                    Text = Inventory.ItemCount[ListofItems[i].Name].ToString(),
-                };
-                itemHolder.Children.Add(frame);
-                itemHolder.Children.Add(item);
-                itemHolder.Children.Add(itemNumber);
+                    TextBlock itemNumber = new TextBlock
+                    {
+                        Text = Inventory.ItemCount[ListofItems[i].Name].ToString(),
+                    };
+                    itemHolder.Children.Add(item);
+                    itemHolder.Children.Add(itemNumber);
 
-                ItemList.Children.Add(itemHolder);
+                    ItemList.Children.Add(itemHolder);
+                }
+
+            }
+        }
+
+        private void ItemListRefresh()
+        {
+            int i = 0;
+            foreach(var itemNumberInfo in ItemList.Children)
+            {
+                if(itemNumberInfo.GetType() == typeof(TextBlock))
+                {
+                    TextBlock itemPos = itemNumberInfo as TextBlock;
+                    itemPos.Text = Inventory.ItemCount[ListofItems[i].Name].ToString();
+                    i++;
+                }
+
             }
         }
 
