@@ -15,6 +15,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Spider",
             Score = 10,
             Health = 1,
+            Tier = 1,
             MaxDropCount = 3,
             Projectile = new Projectile
             {
@@ -44,6 +45,7 @@ namespace SpaceInvading.Resources.Classes
             Score = 10,
             Health = 1,
             MaxDropCount = 1,
+            Tier = 2,
             Projectile = new Projectile
             {
                 Damage = 1,
@@ -72,6 +74,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Slime",
             Score = 15,
             Health = 1,
+            Tier = 1,
             MaxDropCount = 3,
             Projectile = new Projectile
             {

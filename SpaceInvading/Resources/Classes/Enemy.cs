@@ -15,6 +15,7 @@ namespace SpaceInvading.Resources.Classes
         public string Name { get; set; }
         public int Score { get; set; }
         public int Health { get; set; }
+        public int Tier { get; set; }
         public Image EnemyState { get; set; }
         public Projectile Projectile { get; set; }
 
