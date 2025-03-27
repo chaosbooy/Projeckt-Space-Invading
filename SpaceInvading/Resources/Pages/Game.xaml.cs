@@ -20,6 +20,8 @@ namespace SpaceInvading.Pages
 
         private readonly bool HitBoxShow = false;
         private bool gamePaused;
+        private int minWidth = 0, minHeight = 0;
+        private int _score = 0;
 
         public Player Player1;
 
@@ -60,7 +62,7 @@ namespace SpaceInvading.Pages
             Player1.TurnLeft(true);
             Player1.TurnLeft(false);
 
-            SetupGame(1, 5);
+            SetupNewRound();
 
             CompositionTarget.Rendering -= GameLoop;
             CompositionTarget.Rendering += GameLoop;
@@ -88,12 +90,20 @@ namespace SpaceInvading.Pages
 
         private void SetupNewRound()
         {
+            minWidth = 0;
+            minHeight = 0;
+
+            EnemyHolder.ColumnDefinitions.Clear();
+            EnemyHolder.RowDefinitions.Clear();
+
             round++;
-            if (round == 5)
+            if (round == 1)
                 SetupBoss();
             else if (round % 5 == 0)
                 SetupBoss();
-            if (round < 2)
+            else if (round == 1)
+                SetupGame(1, 5);
+            else if (round == 2)
                 SetupGame(1, 10);
             else if (round < 5)
                 SetupGame(2, 10);
@@ -104,7 +114,25 @@ namespace SpaceInvading.Pages
 
         private void SetupBoss()
         {
+            var boss = (Boss)AllEnemies.SlimeBoss.Clone();
+            Border border = new Border
+            {
+                Background = HitBoxShow ? Brushes.Black : Brushes.Transparent,
+                Width = boss.EnemyState.Width,
+                Height = boss.EnemyState.Height
+            };
+            border.Child = boss.EnemyState; // Dodaj obraz jako dziecko ramki
+            minWidth = (int)boss.EnemyState.Width;
+            minHeight = (int)boss.EnemyState.Height;
+            Grid.SetColumn(border, 0);
+            Grid.SetRow(border, 0);
+            EnemyHolder.Children.Add(border);
+            Enemies.Add(boss);
+            minWidth += 10;
+            minHeight += 10;
 
+            EnemyHolder.ColumnDefinitions.Add(new ColumnDefinition { MinWidth = minWidth });
+            EnemyHolder.RowDefinitions.Add(new RowDefinition { MinHeight = minHeight });
         }
 
         private void SetupGame(int enemyRows, int enemyCols)
@@ -112,31 +140,14 @@ namespace SpaceInvading.Pages
             Canvas.SetLeft(EnemyHolder, 20);
             Canvas.SetTop(EnemyHolder, 20);
 
-            EnemyHolder.ColumnDefinitions.Clear();
-            EnemyHolder.RowDefinitions.Clear();
-            
-
-            for (int i = 0; i < enemyCols; ++i)
-                EnemyHolder.ColumnDefinitions.Add(new ColumnDefinition { MinWidth = 60 });
-
-            for (int i = 0; i < enemyRows; ++i)
-                EnemyHolder.RowDefinitions.Add(new RowDefinition { MinHeight = 60 });
-
             Random rnd = new Random();
 
             for (int i = 0; i < enemyRows; i++)
             {
                 for (int j = 0; j < enemyCols; j++)
                 {
-                    Border border = new Border
-                    {
-                        Background = HitBoxShow ? Brushes.Black : Brushes.Transparent,
-                        Width = 50,
-                        Height = 50
-                    };
-
                     var block = new Enemy();
-                    switch(rnd.Next(2))
+                    switch(rnd.Next(3))
                     {
                         case 0:
                             block = (Enemy)AllEnemies.Spider.Clone();
@@ -144,8 +155,23 @@ namespace SpaceInvading.Pages
                         case 1:
                             block = (Enemy)AllEnemies.Slime.Clone();
                             break;
+                        case 2:
+                            block = (Enemy)AllEnemies.Skeleton.Clone();
+                            break;
                     }
+
+                    Border border = new Border
+                    {
+                        Background = HitBoxShow ? Brushes.Black : Brushes.Transparent,
+                        Width = block.EnemyState.Width,
+                        Height = block.EnemyState.Height
+                    };
                     border.Child = block.EnemyState; // Dodaj obraz jako dziecko ramki
+
+                    if (minWidth < block.EnemyState.Width)
+                        minWidth = (int)block.EnemyState.Width;
+                    if (minHeight< block.EnemyState.Height)
+                        minHeight = (int)block.EnemyState.Height;
 
                     Grid.SetColumn(border, j);
                     Grid.SetRow(border, i);
@@ -153,6 +179,15 @@ namespace SpaceInvading.Pages
                     Enemies.Add(block);
                 }
             }
+
+            minWidth += 10;
+            minHeight += 10;
+
+            for (int i = 0; i < enemyCols; ++i)
+                EnemyHolder.ColumnDefinitions.Add(new ColumnDefinition { MinWidth = minWidth});
+
+            for (int i = 0; i < enemyRows; ++i)
+                EnemyHolder.RowDefinitions.Add(new RowDefinition { MinHeight = minHeight});
         }
 
         #endregion
@@ -243,8 +278,11 @@ namespace SpaceInvading.Pages
                         bullets.Remove(bullet);
                         Enemies.Remove(block);
 
+                        _score += block.Score;
+                        ScoreCount.Content = _score.ToString();
+
                         while (RemoveEmptyColumn(0))
-                            Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) + 60);
+                            Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) + minWidth);
                         while (RemoveEmptyColumn(EnemyHolder.ColumnDefinitions.Count - 1));
                         break;
                     }
@@ -253,9 +291,6 @@ namespace SpaceInvading.Pages
 
             if (Enemies.Count == 0)
                 SetupNewRound();
-
-            //debug line to delete later
-            debug.Content = enemyBullets.Count.ToString() +" | " + bullets.Count.ToString();
 
             // ruch pocisków wrogów
             foreach (var projectile in enemyBullets.ToArray())
