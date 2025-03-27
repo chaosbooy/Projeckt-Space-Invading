@@ -8,6 +8,67 @@ namespace SpaceInvading.Resources.Classes
 {
     internal class AllItems
     {
+        public readonly static Item Coin = new Item
+        {
+            Name = "Coin",
+            Description = "currency",
+            Shop = 'n',
+            Worth = 1,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Coin.png"))
+            }
+        };
+        
+
+        #region Drops
+
+        public readonly static Item SlimeDrop = new Item
+        {
+            Name = "Slime goo",
+            Description = "slime goo, often used in medicine",
+            Shop = 'm',
+            Worth = 10,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime/Slime_item.png"))
+            }
+        };
+
+        public readonly static Item SpiderDrop = new Item
+        {
+            Name = "Spider web",
+            Description = "very durable spider web",
+            Shop = 'm',
+            Worth = 20,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Spider/Spider_item.png"))
+            }
+        };
+        public readonly static Item SkeletonDrop = new Item
+        {
+            Name="Skull",
+            Description = "cracked skull from a skeleton",
+            Shop = 'm',
+            Worth = 50,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Skeleton/Skeleton_item.png"))
+            }
+        };
+
+
+        #endregion
+
         #region OneTimeUpgrades
 
         public readonly static Item HealthPotion = new Item
@@ -53,7 +114,7 @@ namespace SpaceInvading.Resources.Classes
 
         public readonly static Item Gun = new Item
         {
-            Name ="Cannon",
+            Name = "Cannon",
             Description = "Shoots a cannonball that explodes on impact, dealing damage to all enemies in the area",
             Shop = 'b',
             Worth = 2000,
@@ -101,64 +162,6 @@ namespace SpaceInvading.Resources.Classes
 
         #endregion
 
-        #region Drops
-        public readonly static Item Coin = new Item
-        {
-            Name = "Coin",
-            Description = "currency",
-            Shop = 'n',
-            Worth = 1,
-            WorthItem = Coin,
-            isUsable = false,
-            Sprite = new System.Windows.Controls.Image
-            {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Coin.png"))
-            }
-        };
-
-        public readonly static Item SlimeDrop = new Item
-        {
-            Name = "Slime goo",
-            Description = "slime goo, used often in medicine",
-            Shop = 'm',
-            Worth = 10,
-            WorthItem = Coin,
-            isUsable = false,
-            Sprite = new System.Windows.Controls.Image
-            {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Slime/Slime_item.png"))
-            }
-        };
-
-        public readonly static Item SpiderDrop = new Item
-        {
-            Name = "Spider web",
-            Description = "very durable spider web",
-            Shop = 'm',
-            Worth = 20,
-            WorthItem = Coin,
-            isUsable = false,
-            Sprite = new System.Windows.Controls.Image
-            {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Spider/Spider_item.png"))
-            }
-        };
-        public readonly static Item SkeletonDrop = new Item
-        {
-            Name="Skull",
-            Description = "cracked skull from a skeleton",
-            Shop = 'm',
-            Worth = 50,
-            WorthItem = Coin,
-            isUsable = false,
-            Sprite = new System.Windows.Controls.Image
-            {
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Skeleton/Skeleton_item.png"))
-            }
-        };
-
-
-        #endregion
         #region PermamentUpgrades
         public readonly static Item Armor_1 = new Item
         {
