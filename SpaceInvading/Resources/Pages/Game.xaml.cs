@@ -80,23 +80,6 @@ namespace SpaceInvading.Pages
             MainCanvas.Focus();
         }
 
-        private void PauseGame(object sender, RoutedEventArgs e)
-        {
-            gamePaused = !gamePaused;
-            CompositionTarget.Rendering -= GameLoop;
-
-            if (gamePaused)
-            {
-                PausePanel.Visibility = Visibility.Visible;
-
-                return;
-            }
-
-            PausePanel.Visibility = Visibility.Collapsed;
-            CompositionTarget.Rendering += GameLoop;
-
-        }
-
         private void SetupGame(int enemyRows, int enemyCols)
         {
             Canvas.SetLeft(EnemyHolder, 20);
@@ -149,10 +132,31 @@ namespace SpaceInvading.Pages
             CreateObstacle(550, 400);
         }
 
+        private void PauseGame(object sender, RoutedEventArgs e)
+        {
+            gamePaused = !gamePaused;
+            CompositionTarget.Rendering -= GameLoop;
+
+            if (gamePaused)
+            {
+                PausePanel.Visibility = Visibility.Visible;
+
+                return;
+            }
+
+            PausePanel.Visibility = Visibility.Collapsed;
+            CompositionTarget.Rendering += GameLoop;
+
+        }
+
         private void EndGame()
         {
-            this.NavigationService.Navigate(new Lobby());
+            var window = Window.GetWindow(this);
+            window.KeyDown -= Window_KeyDown;
+            window.KeyUp -= Window_KeyUp;
             CompositionTarget.Rendering -= GameLoop;
+            this.NavigationService.Navigate(new Lobby());
+
         }
 
         private void SetupBoss()
@@ -273,7 +277,7 @@ namespace SpaceInvading.Pages
 
                 Canvas.SetTop(bullet, Canvas.GetTop(bullet) + projectile.Speed);
                 // znikanie pocisku za swiatem
-                if (Canvas.GetTop(bullet) < 0)
+                if (Canvas.GetTop(bullet) > this.ActualHeight)
                 {
                     MainCanvas.Children.Remove(bullet);
                     bullets.Remove(bullet);
@@ -284,7 +288,11 @@ namespace SpaceInvading.Pages
                     Player1.Health -= projectile.Damage;
                     UpdateHealthBar();
                     //jezeli nastepne hp bedzie 0 koncz gre
-                    if (Player1.Health <= 0) EndGame();
+                    if (Player1.Health <= 0)
+                    {
+                        EndGame();
+                        return;
+                    }
                     else
                     {
                         enemyBullets.Remove(projectile);
