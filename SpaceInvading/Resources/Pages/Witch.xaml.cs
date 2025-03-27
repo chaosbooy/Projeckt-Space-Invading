@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceInvading.Resources.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,22 +21,26 @@ namespace SpaceInvading.Resources.Pages
     /// </summary>
     public partial class Witch : Page
     {
+        // dane do ofert
+        List<Item> offerSource = new List<Item>() { AllItems.RagePotion, AllItems.HealthPotion, AllItems.ShieldPotion, AllItems.Luck_potion_1, AllItems.Shadow_potion_1 };
+
         public Witch()
         {
             InitializeComponent();
             CreateOffers();
         }
-        List<Grid> offers = new List<Grid>();
-        List<string> offersNames = new List<string>() { "health_potion", "luck_potion", "rage_potion", "shadow_potion", "shield_potion", "sword_enchant" };
+
         private void CreateOffers()
         {
-            for (int i = 0; i < offersNames.Count; i++)
+            for (int i = 0; i < offerSource.Count; i++)
             {
                 Grid offer = new Grid
                 {
                     Name = "offer" + i.ToString(),
-                    Background = Brushes.DimGray,
+                    Background = Brushes.LightGray,
                 };
+                offer.MouseEnter += Offer_MouseEnter;
+                offer.MouseLeave += Offer_MouseLeave;
 
                 Rectangle border = new Rectangle
                 {
@@ -57,24 +62,68 @@ namespace SpaceInvading.Resources.Pages
                 };
                 Image item = new Image
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Upgrade_" + offersNames[i] + ".png")),
+                    Source = offerSource[i].Sprite.Source,
                     Width = 43,
                     Height = 43,
                     Stretch = Stretch.Fill,
                     HorizontalAlignment = HorizontalAlignment.Left,
                     Margin = new Thickness(7)
                 };
+
+                Label content = new Label
+                {
+                    Content = offerSource[i].Name + '\n' + "Price: " + offerSource[i].Worth.ToString(),
+                    Foreground = Brushes.Black,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    FontSize = 30,
+                    Margin = new Thickness(65, 0, 0, 0)
+                };
+
+                Image priceItem = new Image
+                {
+                    Source = offerSource[i].WorthItem.Sprite.Source,
+                    Width = 30,
+                    Height = 30,
+                    Stretch = Stretch.Fill,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(200, 50, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Top
+                };
+
+                TextBox description = new TextBox
+                {
+                    Text = offerSource[i].Description,
+                    Foreground = Brushes.Black,
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    FontSize = 20,
+                    Margin = new Thickness(300, 0, 0, 0),
+                    TextWrapping = TextWrapping.Wrap,
+                    Background = Brushes.Transparent,
+                    Width = 200,
+                    IsEnabled = false,
+                };
+
                 Grid.SetColumn(frame, 0);
                 Grid.SetColumn(item, 0);
                 offer.Children.Add(item);
                 offer.Children.Add(frame);
-
-
-
-
-                offers.Add(offer);
+                offer.Children.Add(content);
+                offer.Children.Add(priceItem);
+                offer.Children.Add(description);
                 offerList.Children.Add(offer);
             }
+        }
+
+        private void Offer_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Grid grid = sender as Grid;
+            grid.Background = Brushes.LightGray;
+        }
+
+        private void Offer_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Grid grid = sender as Grid;
+            grid.Background = Brushes.DimGray;
         }
     }
 }

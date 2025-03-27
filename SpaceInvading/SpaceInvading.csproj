@@ -108,6 +108,7 @@
     <None Remove="Resources\Images\Tree_Tiles\Tree_Tile_Middle.png" />
     <None Remove="Resources\Images\Tree_Tiles\Tree_Tile_Right.png" />
     <None Remove="Resources\Images\Tree_Tiles\Tree_Tile_Top.png" />
+    <None Remove="Resources\Images\Village\close_frame.png" />
     <None Remove="Resources\Images\Village\Gate.png" />
     <None Remove="Resources\Images\Village\Gate_selected.png" />
     <None Remove="Resources\Images\Village\Shop_blacksmith.png" />
@@ -236,6 +237,7 @@
     <Resource Include="Resources\Images\Tree_Tiles\Tree_Tile_Middle.png" />
     <Resource Include="Resources\Images\Tree_Tiles\Tree_Tile_Right.png" />
     <Resource Include="Resources\Images\Tree_Tiles\Tree_Tile_Top.png" />
+    <Resource Include="Resources\Images\Village\close_frame.png" />
     <Resource Include="Resources\Images\Village\Gate.png" />
     <Resource Include="Resources\Images\Village\Gate_selected.png" />
     <Resource Include="Resources\Images\Village\Shop_blacksmith_selected.png" />
