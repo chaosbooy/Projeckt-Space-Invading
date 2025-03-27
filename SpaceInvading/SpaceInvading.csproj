@@ -15,6 +15,14 @@
     <None Remove="Resources\Images\Background\background_Path_Cave.png" />
     <None Remove="Resources\Images\Background\background_tree.png" />
     <None Remove="Resources\Images\Background\background_Tree_Right.png" />
+    <None Remove="Resources\Images\Boss_1\Boss_Item_1.png" />
+    <None Remove="Resources\Images\Boss_1\Boss_item_2.png" />
+    <None Remove="Resources\Images\Boss_1\Boss_item_3.png" />
+    <None Remove="Resources\Images\Boss_1\Boss_Phase_1_bullet.png" />
+    <None Remove="Resources\Images\Boss_1\Boss_Phase_2_bullet.png" />
+    <None Remove="Resources\Images\Boss_1\Boss_Phase_Change.gif" />
+    <None Remove="Resources\Images\Boss_1\Boss_Sprite.png" />
+    <None Remove="Resources\Images\Boss_1\Boss_Sprite_phase_2.png" />
     <None Remove="Resources\Images\HealthBar\Health_1_0.png" />
     <None Remove="Resources\Images\HealthBar\Health_1_1.png" />
     <None Remove="Resources\Images\HealthBar\Health_2_0.png" />
@@ -135,6 +143,14 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\Background\background_Tree_Right.png" />
+    <Resource Include="Resources\Images\Boss_1\Boss_Item_1.png" />
+    <Resource Include="Resources\Images\Boss_1\Boss_item_2.png" />
+    <Resource Include="Resources\Images\Boss_1\Boss_item_3.png" />
+    <Resource Include="Resources\Images\Boss_1\Boss_Phase_1_bullet.png" />
+    <Resource Include="Resources\Images\Boss_1\Boss_Phase_2_bullet.png" />
+    <Resource Include="Resources\Images\Boss_1\Boss_Phase_Change.gif" />
+    <Resource Include="Resources\Images\Boss_1\Boss_Sprite.png" />
+    <Resource Include="Resources\Images\Boss_1\Boss_Sprite_phase_2.png" />
     <Resource Include="Resources\Images\HealthBar\Health_1_0.png" />
     <Resource Include="Resources\Images\HealthBar\Health_1_1.png" />
     <Resource Include="Resources\Images\HealthBar\Health_2_0.png" />

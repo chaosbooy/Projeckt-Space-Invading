@@ -65,6 +65,45 @@ namespace SpaceInvading.Resources.Classes
                 Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Skeleton/Skeleton_item.png"))
             }
         };
+        public readonly static Item Boss_1_drop_1 = new Item
+        {
+            Name = "Magic Crystal",
+            Description = "A piece of a Powerfull magic crystal containg a lot of energy",
+            Shop = 'm',
+            Worth = 1500,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_item_1.png"))
+            }
+        };
+        public readonly static Item Boss_1_drop_2 = new Item
+        {
+            Name = "Giant Iron Helmet",
+            Description = "Giant iron Helmet imbued with magic, you can still feel electricity coursing  through it",
+            Shop = 'm',
+            Worth = 2500,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_item_2.png"))
+            }
+        };
+        public readonly static Item Boss_1_drop_3 = new Item
+        {
+            Name = "Piece of armor",
+            Description = "A small piece of armor made of expensive material",
+            Shop = 'm',
+            Worth = 250,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_item_3.png"))
+            }
+        };
 
 
         #endregion
@@ -194,8 +233,8 @@ namespace SpaceInvading.Resources.Classes
             Name = "Armor Upgrade",
             Description = "Upgrades your armor allowing you to take 1 more damage",
             Shop = 'b',
-            Worth = 2500,
-            WorthItem = Coin,
+            Worth = 5,
+            WorthItem = Boss_1_drop_3,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
