@@ -5,14 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SpaceInvading.Resources.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="400" d:DesignWidth="800"
       Title="Shop" Background="SaddleBrown">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.4*"></ColumnDefinition>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -24,7 +24,6 @@
             <StackPanel x:Name="offerList"/>
         </ScrollViewer>
 
-        <Label Content="Shop" FontSize="50" FontWeight="SemiBold" Foreground="White" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
-
+        <Image Grid.Column="2" Grid.RowSpan="100"  Source="/Resources/Images/Village/Merchant_Profile.png" Stretch="Uniform"></Image>
     </Grid>
 </Page>

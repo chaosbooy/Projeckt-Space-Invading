@@ -60,6 +60,7 @@ namespace SpaceInvading.Resources.Pages
                     Height = 48,
                     Stretch = Stretch.Fill,
                     HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
                     Margin = new Thickness(5)
                 };
                 Image item = new Image
@@ -69,12 +70,13 @@ namespace SpaceInvading.Resources.Pages
                     Height = 43,
                     Stretch = Stretch.Fill,
                     HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
                     Margin = new Thickness(7)
                 };
 
                 Label content = new Label
                 {
-                    Content = offerSource[i].Name + '\n' + "Price: " + offerSource[i].Worth.ToString(),
+                    Content = offerSource[i].Name + " x" + Inventory.GetItemCount(offerSource[i].Name)+ '\n' + "Price: " + offerSource[i].Worth.ToString(),
                     Foreground = Brushes.Black,
                     HorizontalAlignment = HorizontalAlignment.Left,
                     FontSize = 30,
@@ -100,6 +102,7 @@ namespace SpaceInvading.Resources.Pages
                     HorizontalAlignment = HorizontalAlignment.Right,
                     FontSize = 20,
                     Margin = new Thickness(300, 0, 0, 0),
+                    BorderThickness = new Thickness(0),
                     TextWrapping = TextWrapping.Wrap,
                     Background = Brushes.Transparent,
                     Width = 200,
