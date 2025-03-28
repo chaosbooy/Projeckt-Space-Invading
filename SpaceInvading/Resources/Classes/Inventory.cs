@@ -100,7 +100,7 @@ namespace SpaceInvading.Resources.Classes
         }
         public static void PermamentUpgradesCountf()
         {
-            PermamentUpgrades.Clear();
+            PermamentUpgradesCount.Clear();
             foreach (Item item in PermamentUpgrades)
             {
                 if (PermamentUpgradesCount.ContainsKey(item.Name))
@@ -136,7 +136,7 @@ namespace SpaceInvading.Resources.Classes
         }
         public static void UsableUpgradesCountf()
         {
-            UsableUpgrades.Clear();
+            UsableUpgradesCount.Clear();
             foreach (Item item in UsableUpgrades)
             {
                 if (UsableUpgradesCount.ContainsKey(item.Name))
