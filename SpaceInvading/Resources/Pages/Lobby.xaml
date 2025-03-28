@@ -7,17 +7,25 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Lobby" Background="#35974E">
-   
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/Styles/ButtonStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel VerticalAlignment="Center">
+        <StackPanel VerticalAlignment="Center" Margin="0,50,0, 0">
             <Image Name="Image_Title" Margin="0"/>
-            <Button Content="Start" FontSize="50" Margin="50,0,50,0" Background="#C38811" Foreground="#664400" BorderBrush="#664400" BorderThickness="5" Click="StartGame" />
-            <Button Content="Exit" FontSize="39" Margin="80,50,80,50" Background="#C38811" Foreground="#664400" BorderBrush="#664400" BorderThickness="5" Click="LeaveGame" />
+            <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Start"  Click="StartGame" />
+            <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Exit"  Click="LeaveGame" />
         </StackPanel>
 
         <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Hidden" Background="#2A793E" >

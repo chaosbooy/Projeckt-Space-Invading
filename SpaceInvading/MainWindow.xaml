@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:SpaceInvading"
         mc:Ignorable="d"
         Title="ILIS(P)" MinHeight="650" MinWidth="900" Background="Transparent">
+
+    
+    
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Resources/Images/Background/background_tree.png" />

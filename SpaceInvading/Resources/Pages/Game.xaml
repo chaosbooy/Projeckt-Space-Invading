@@ -8,6 +8,14 @@
       d:DesignHeight="600" d:DesignWidth="800"
       Title="Game" Loaded="XamlLoaded">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/Styles/ButtonStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid Background="#a0852b">
 
         <Image Source="../Images/Background/background_Path.png" Stretch="Fill" Width="700" HorizontalAlignment="Center" Focusable="False" />
@@ -27,11 +35,11 @@
             </Image>
         <Label x:Name="ScoreCount" Content="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="100" FontSize="40" Margin="18,0,0,185"></Label>
         <StackPanel x:Name="PausePanel" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-            <Button Content="Resume" FontSize="40" Padding="40, 3" Click="PauseGame" Background="#C38811" Foreground="#664400" BorderBrush="#664400" BorderThickness="5"/>
+            <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Resume" Click="PauseGame"/>
         </StackPanel>
         <StackPanel x:Name="GameOverPanel" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-            <Button Content="Restart" FontSize="40" Margin="10" Padding="40, 3" Click="Restart" Background="#C38811" Foreground="#664400" BorderBrush="#664400" BorderThickness="5"/>
-            <Button Content="Go Back To Lobby" FontSize="40" Margin="10" Padding="40, 3" Click="ToLobby" Background="#C38811" Foreground="#664400" BorderBrush="#664400" BorderThickness="5"/>
+            <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Restart" Click="Restart"/>
+            <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Go Back To Lobby" Click="ToLobby"/>
         </StackPanel>
     </Grid>
 </Page>

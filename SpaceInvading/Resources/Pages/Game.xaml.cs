@@ -210,16 +210,6 @@ namespace SpaceInvading.Pages
             GameOverPanel.Visibility = Visibility.Visible;
         }
 
-        private void Restart(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new Village());
-        }
-
-        private void ToLobby(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new Lobby());
-        }
-
         private void GameLoop(object? sender, EventArgs e)
         {
             TickNumber++;
@@ -472,6 +462,16 @@ namespace SpaceInvading.Pages
 
         #region Player Input
 
+        private void Restart(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Village());
+        }
+
+        private void ToLobby(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Lobby());
+        }
+
         private void PauseGame(object sender, RoutedEventArgs e)
         {
             gamePaused = !gamePaused;
@@ -552,7 +552,7 @@ namespace SpaceInvading.Pages
         }
 
         #endregion
-
+        
         private void Shoot()
         {
             Image bullet = new Image
