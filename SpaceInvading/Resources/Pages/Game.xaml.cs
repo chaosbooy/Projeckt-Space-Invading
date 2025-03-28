@@ -101,9 +101,15 @@ namespace SpaceInvading.Pages
 
             round++;
             if (round % 5 == 0)
+            {
+                CurrentBoss = (Boss)AllEnemies.SlimeBoss.Clone();
                 SetupBoss();
+            }
             else if (round == 1)
-                SetupGame(1, 5);
+            {
+                CurrentBoss = (Boss)AllEnemies.SlimeBoss.Clone();
+                SetupBoss();
+            }
             else if (round == 2)
                 SetupGame(1, 10);
             else if (round < 5)
@@ -115,9 +121,7 @@ namespace SpaceInvading.Pages
 
         private void SetupBoss()
         {
-
-            var boss = (Boss)AllEnemies.SlimeBoss.Clone();
-            var phaseOne = boss.BossPhases[0];
+            var phaseOne = CurrentBoss.BossPhases[0];
 
             Border border = new Border
             {
@@ -135,7 +139,6 @@ namespace SpaceInvading.Pages
             Canvas.SetTop(EnemyHolder, -40);
             Canvas.SetLeft(EnemyHolder, (MainCanvas.ActualWidth - MinWidth) / 2);
             EnemyHolder.Children.Add(border);
-            CurrentBoss = boss;
             Enemies.Add(phaseOne);
 
             minWidth += 10;
@@ -148,6 +151,7 @@ namespace SpaceInvading.Pages
         private void SetupNextBossPhase()
         {
             CurrentBoss.BossPhases.RemoveAt(0);
+            SetupBoss();
         }
 
         private void SetupGame(int enemyRows, int enemyCols)
@@ -301,7 +305,7 @@ namespace SpaceInvading.Pages
                             _score += block.Score;
                         }
 
-                        if(block is Boss)
+                        if(CurrentBoss.BossPhases.Contains(block))
                             _score += block.Score / 10;
 
 
@@ -315,10 +319,10 @@ namespace SpaceInvading.Pages
                 }
             }
 
-            if (Enemies.Count == 0 && round % 5 != 0)
-                SetupNewRound();
-            else if (Enemies.Count == 0)
+            if (Enemies.Count == 0 && CurrentBoss.BossPhases.Count > 0)
                 SetupNextBossPhase();
+            else if (Enemies.Count == 0)
+                SetupNewRound();
 
             // ruch pocisków wrogów
             foreach (var projectile in enemyBullets.ToArray())
@@ -394,13 +398,13 @@ namespace SpaceInvading.Pages
 
             // strzał bossa ( wg. predkosci bossa )
 
-            if (round % 5 == 0 && TickNumber % CurrentBoss.BossPhases[0].ShootChance == 0)
+            if (CurrentBoss.BossPhases.Count != 0 && TickNumber % CurrentBoss.BossPhases[0].ShootChance == 0)
             {
                 ShootBoss(CurrentBoss.ProjectileThrownCount);
             }
 
             // strzał wrogów ( powiedzmy co 30 tick )
-            else if (TickNumber % 30 == 0 && round % 5 == 0)
+            else if (TickNumber % 30 == 0 && CurrentBoss.BossPhases.Count == 0)
             {
                 Random rnd = new Random();
                 foreach (var enemy in Enemies.ToArray())

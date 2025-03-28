@@ -110,7 +110,7 @@ namespace SpaceInvading.Resources.Classes
             {
                 new Enemy
                 {
-                    Name = "Phase 1",
+                    Name = "Slime King",
                     Score = 100,
                     Health = 30,
                     MaxDropCount = 10,
@@ -139,7 +139,7 @@ namespace SpaceInvading.Resources.Classes
                 },
                 new Enemy
                 {
-                    Name = "Phase 2",
+                    Name = "Slime Kings Core",
                     Score = 150,
                     Health = 20,
                     MaxDropCount = 10,
