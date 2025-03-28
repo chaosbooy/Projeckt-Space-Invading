@@ -65,12 +65,38 @@ namespace SpaceInvading.Resources.Classes
                 Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Skeleton/Skeleton_item.png"))
             }
         };
+        public readonly static Item GolemDrop = new Item
+        {
+            Name = "Rune",
+            Description = "A piece of rock with some magical rune inscribed on it",
+            Shop = 'm',
+            Worth = 100,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Village/Close_frame.png"))
+            }
+        };
+        public readonly static Item FireSpiritDrop = new Item
+        {
+            Name = "Fire essence",
+            Description = "A fire in Pure form, used in magical research",
+            Shop = 'm',
+            Worth = 120,
+            WorthItem = Coin,
+            isUsable = false,
+            Sprite = new System.Windows.Controls.Image
+            {
+                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Village/Close_frame.png"))
+            }
+        };
         public readonly static Item Boss_1_drop_1 = new Item
         {
             Name = "Magic Crystal",
             Description = "A piece of a Powerfull magic crystal containg a lot of energy",
             Shop = 'm',
-            Worth = 1500,
+            Worth = 1000,
             WorthItem = Coin,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
@@ -83,7 +109,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Giant Iron Helmet",
             Description = "Giant iron Helmet imbued with magic, you can still feel electricity coursing  through it",
             Shop = 'm',
-            Worth = 2500,
+            Worth = 1800,
             WorthItem = Coin,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
@@ -96,7 +122,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Piece of armor",
             Description = "A small piece of armor made of expensive material",
             Shop = 'm',
-            Worth = 250,
+            Worth = 150,
             WorthItem = Coin,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
@@ -115,7 +141,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Health Potion",
             Description = "When used restores 1 health",
             Shop = 'w',
-            Worth = 20,
+            Worth = 5,
             WorthItem = SlimeDrop,
             isUsable = true,
             Sprite = new System.Windows.Controls.Image
@@ -129,8 +155,8 @@ namespace SpaceInvading.Resources.Classes
             Name = "Shield Potion",
             Description = "When used gives you a shield that blocks one attack",
             Shop = 'w',
-            Worth = 10,
-            WorthItem = Coin,
+            Worth = 5,
+            WorthItem = GolemDrop,
             isUsable = true,
             Sprite = new System.Windows.Controls.Image
             {
@@ -142,8 +168,8 @@ namespace SpaceInvading.Resources.Classes
             Name = "Rage Potion",
             Description = "When used increases your attack speed for 10s",
             Shop = 'w',
-            Worth = 10,
-            WorthItem = Coin,
+            Worth = 5,
+            WorthItem = FireSpiritDrop,
             isUsable = true,
             Sprite = new System.Windows.Controls.Image
             {
@@ -156,7 +182,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Cannon",
             Description = "Shoots a cannonball that explodes on impact, dealing damage to all enemies in the area",
             Shop = 'b',
-            Worth = 2000,
+            Worth = 800,
             WorthItem = Coin,
             isUsable = true,
             Sprite = new System.Windows.Controls.Image
@@ -185,7 +211,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Enchanted Scroll",
             Description = "Enchants your weapon for 10s, makes the projectiles go through walls and enemies",
             Shop = 'b',
-            Worth = 5000,
+            Worth = 800,
             WorthItem = Coin,
             isUsable = true,
             Sprite = new System.Windows.Controls.Image
@@ -285,8 +311,8 @@ namespace SpaceInvading.Resources.Classes
             Name = "Shadow Potion",
             Description = "gives you +1% chance to nullify damage when hit",
             Shop = 'w',
-            Worth = 10,
-            WorthItem = SpiderDrop,
+            Worth = 5,
+            WorthItem = SkeletonDrop,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
@@ -299,7 +325,7 @@ namespace SpaceInvading.Resources.Classes
             Description = "gives you +1% chance to nullify damage when hit",
             Shop = 'w',
             Worth = 10,
-            WorthItem = SpiderDrop,
+            WorthItem = SkeletonDrop,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
@@ -311,8 +337,8 @@ namespace SpaceInvading.Resources.Classes
             Name = "Shadow Potion",
             Description = "gives you +1% chance to nullify damage when hit",
             Shop = 'w',
-            Worth = 10,
-            WorthItem = SpiderDrop,
+            Worth = 15,
+            WorthItem = SkeletonDrop,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
@@ -324,8 +350,8 @@ namespace SpaceInvading.Resources.Classes
             Name = "Shadow Potion",
             Description = "gives you +1% chance to nullify damage when hit",
             Shop = 'w',
-            Worth = 10,
-            WorthItem = SpiderDrop,
+            Worth = 1000,
+            WorthItem = Coin,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
@@ -337,8 +363,8 @@ namespace SpaceInvading.Resources.Classes
             Name = "Shadow Potion",
             Description = "gives you +1% chance to nullify damage when hit",
             Shop = 'w',
-            Worth = 10,
-            WorthItem = SpiderDrop,
+            Worth = 1300,
+            WorthItem = Coin,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {
@@ -350,7 +376,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Luck Potion",
             Description = "gives you +5% chance for enemies to drop items when killed",
             Shop = 'w',
-            Worth = 10,
+            Worth = 5,
             WorthItem = SpiderDrop,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
@@ -376,7 +402,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Luck Potion",
             Description = "gives you +5% chance for enemies to drop items when killed",
             Shop = 'w',
-            Worth = 10,
+            Worth = 15,
             WorthItem = SpiderDrop,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
@@ -389,7 +415,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Luck Potion",
             Description = "gives you +5% chance for enemies to drop items when killed",
             Shop = 'w',
-            Worth = 10,
+            Worth = 20,
             WorthItem = SpiderDrop,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
@@ -402,7 +428,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Luck Potion",
             Description = "gives you +5% chance for enemies to drop items when killed",
             Shop = 'w',
-            Worth = 10,
+            Worth = 25,
             WorthItem = SpiderDrop,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
