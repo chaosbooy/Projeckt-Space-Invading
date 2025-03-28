@@ -17,8 +17,11 @@ namespace SpaceInvading.Resources.Classes
 
         public static List<Item> GetItemsForShop(char shop)
         {
+            List<Item> input = Items ;
+            input.AddRange(PermamentUpgrades);
+            input.AddRange(UsableUpgrades);
             List<Item> Return = new List<Item>();
-            foreach (Item item in Items)
+            foreach (Item item in input)
             {
                 if (item.Shop == shop && !Return.Contains(item))
                 {
@@ -71,7 +74,19 @@ namespace SpaceInvading.Resources.Classes
             }
             return 0;
         }
+        public static bool CheckForItem(Item item, int quantity)
+        {
+            if (ItemCount.ContainsKey(item.Name))
+            {
+                if (ItemCount[item.Name] >= quantity)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
+
         #region permamentUpgrades
         public static void AddPermanentUpgrade(Item item)
         {
@@ -137,16 +152,6 @@ namespace SpaceInvading.Resources.Classes
         #endregion
        
 
-        public static bool CheckForItem(Item item, int quantity)
-        {
-            if (ItemCount.ContainsKey(item.Name))
-            {
-                if (ItemCount[item.Name] >= quantity)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+
     }
 }
