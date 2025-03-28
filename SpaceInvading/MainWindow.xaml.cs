@@ -13,12 +13,6 @@ namespace SpaceInvading
         public MainWindow()
         {
             InitializeComponent();
-            Inventory.AddPermanentUpgrade((Item)AllItems.Barrier_1.Clone()); // debug line to delete later
-            Inventory.AddPermanentUpgrade((Item)AllItems.Barrier_2.Clone());
-            Inventory.AddPermanentUpgrade((Item)AllItems.Barrier_3.Clone());
-            Inventory.AddPermanentUpgrade((Item)AllItems.Armor_1.Clone()); 
-            Inventory.AddPermanentUpgrade((Item)AllItems.Armor_2.Clone());
-            Inventory.AddPermanentUpgrade((Item)AllItems.Armor_3.Clone());
         }
 
         private void MainContent_Navigated(object sender, NavigationEventArgs e)

@@ -18,7 +18,8 @@ namespace SpaceInvading.Resources.Classes
 
         public static List<Item> GetItemsForShop(char shop)
         {
-            List<Item> input = Items ;
+            List<Item> input = new List<Item>();
+            input.AddRange(Items);
             input.AddRange(PermamentUpgrades);
             input.AddRange(UsableUpgrades);
             List<Item> Return = new List<Item>();
@@ -57,7 +58,7 @@ namespace SpaceInvading.Resources.Classes
 
         }
         #region Items
-            public static void AddItem(Item item, int quantity)
+        public static void AddItem(Item item, int quantity)
         {
             for (int i = 0; i < quantity; i++)
             {
@@ -112,6 +113,18 @@ namespace SpaceInvading.Resources.Classes
                 }
             }
             return false;
+        }
+        public static List<Item> RemoveSameName( List<Item> list)
+        {
+            List<Item> Return = new List<Item>();
+            foreach (Item item2 in list)
+            {
+                if (!CheckForItem(item2, Return))
+                {
+                    Return.Add(item2);
+                }
+            }
+            return Return;
         }
         #endregion
 

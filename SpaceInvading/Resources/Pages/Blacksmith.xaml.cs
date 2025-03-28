@@ -21,7 +21,7 @@ namespace SpaceInvading.Resources.Pages
     /// </summary>
     public partial class Blacksmith : Page
     {
-        List<Item> offerSource = new List<Item>() { AllItems.Armor_1 ,AllItems.Barrier_1, AllItems.Crossbow, AllItems.Gun, AllItems.EnchantedSword};
+        List<Item> offerSource = new List<Item>() { AllItems.Armor_1, AllItems.Armor_2, AllItems.Armor_3, AllItems.Barrier_1, AllItems.Barrier_2, AllItems.Barrier_3, AllItems.Crossbow, AllItems.Gun, AllItems.EnchantedSword};
 
         // dane do listy itemów
         List<Item> ListofItems = new List<Item>();
@@ -39,6 +39,7 @@ namespace SpaceInvading.Resources.Pages
 
         private void CreateOffers()
         {
+            List<Item> cool = Inventory.RemoveSameName(offerSource);
             for (int i = 0; i < offerSource.Count; i++)
             {
                 Grid offer = new Grid
@@ -133,6 +134,7 @@ namespace SpaceInvading.Resources.Pages
                 };
                 itemHolder.MouseEnter += Offer_MouseEnter;
                 itemHolder.MouseLeave += Offer_MouseLeave;
+                itemHolder.MouseLeftButtonDown += Offer_MouseLeftButtonDown;
 
                 Rectangle border = new Rectangle
                 {
@@ -162,7 +164,6 @@ namespace SpaceInvading.Resources.Pages
                         HorizontalAlignment = HorizontalAlignment.Left,
                         Margin = new Thickness(7)
                     };
-
                 }
                 else
                 {
@@ -209,7 +210,30 @@ namespace SpaceInvading.Resources.Pages
 
             }
         }
+        private void Offer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // sprzedaz dropu
 
+            Grid clickedOffer = (Grid)sender;
+            int offerNr = Int32.Parse(clickedOffer.Name.Remove(0, 5));
+            Item offerItem = offerSource[offerNr];
+            if (offerItem.isUsable)
+            {
+                Inventory.AddUsableUpgrade(offerItem);
+            }
+            else 
+            { 
+            
+            }
+
+            Inventory.AddItem(AllItems.Coin, offerItem.Worth);
+            // pokazanie zmian w ekwipunku gracza na ekranie sklepu
+            CreateItemList();
+            ItemListRefresh();
+
+            offerList.Children.Clear();
+            CreateOffers();
+        }
         private void Offer_MouseLeave(object sender, MouseEventArgs e)
         {
             Grid grid = sender as Grid;
