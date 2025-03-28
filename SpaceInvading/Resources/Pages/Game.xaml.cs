@@ -226,7 +226,8 @@ namespace SpaceInvading.Pages
             if (Player1.PlayerLeft && Canvas.GetLeft(Player1.PlayerHitBoxes) > 0)
             {
                 Canvas.SetLeft(Player1.PlayerHitBoxes, Canvas.GetLeft(Player1.PlayerHitBoxes) - Player1.PlayerSpeed);
-            } else if (Player1.PlayerRight && Canvas.GetLeft(Player1.PlayerHitBoxes) < MainCanvas.ActualWidth - Player1.PlayerHitBoxes.ActualWidth * 0.7)
+            }
+            if (Player1.PlayerRight && Canvas.GetLeft(Player1.PlayerHitBoxes) < MainCanvas.ActualWidth - Player1.PlayerHitBoxes.ActualWidth * 0.7)
             {
                 Canvas.SetLeft(Player1.PlayerHitBoxes, Canvas.GetLeft(Player1.PlayerHitBoxes) + Player1.PlayerSpeed);
             }

@@ -33,6 +33,7 @@ namespace SpaceInvading
                 this.ResizeMode = ResizeMode.CanResize;
                 this.WindowStyle = WindowStyle.SingleBorderWindow;
             }
+            MainContent.NavigationService.RemoveBackEntry();
         }
     }
 }
