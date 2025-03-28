@@ -9,12 +9,45 @@ namespace SpaceInvading.Resources.Classes
     public static class Inventory
     {
         public static List<Item> Items = new List<Item>();
-        public static List<Item> Upgrades = new List<Item>();
+        public static List<Item> PermamentUpgrades = new List<Item>();
+        public static List<Item> UsableUpgrades = new List<Item>();
         public static Dictionary<string, int> ItemCount = new Dictionary<string, int>();
-        public static Dictionary<string, int> PermamentUpgrades = new Dictionary<string, int>();
-        public static Dictionary<string, int> UsableUpgrades = new Dictionary<string, int>();
-        
-        public static void count()
+        public static Dictionary<string, int> PermamentUpgradesCount = new Dictionary<string, int>();
+        public static Dictionary<string, int> UsableUpgradesCount = new Dictionary<string, int>();
+
+        public static List<Item> GetItemsForShop(char shop)
+        {
+            List<Item> Return = new List<Item>();
+            foreach (Item item in Items)
+            {
+                if (item.Shop == shop && !Return.Contains(item))
+                {
+                    Return.Add(item);
+                }
+            }
+            return Return;
+        }
+        #region Items
+        public static void AddItem(Item item, int quantity)
+        {
+            for (int i = 0; i < quantity; i++)
+            {
+                Items.Add(item);
+            }
+            ItemCountf();
+        }
+        public static void RemoveItem(Item item, int quantity)
+        {
+            if (GetItemCount(item.Name) >= quantity)
+            {
+                for (int i = 0; i < quantity; i++)
+                {
+                    Items.Remove(item);
+                }
+            }
+            ItemCountf();
+        }
+        public static void ItemCountf()
         {
             ItemCount.Clear();
             foreach (Item item in Items)
@@ -29,94 +62,80 @@ namespace SpaceInvading.Resources.Classes
                 }
             }
         }
-        public static void AddItem(Item item, int quantity)
-        {
-            for (int i = 0; i < quantity; i++)
-            {
-                Items.Add(item);
-            }
-            count();
-        }
-        public static void RemoveItem(Item item, int quantity)
-        {
-            if (GetItemCount(item.Name) >= quantity)
-            {
-                for (int i = 0; i < quantity; i++)
-                {
-                    Items.Remove(item);
-                }
-            }
-            count();
-        }
-        public static void AddUpgrade(Item item)
-        {
-            Upgrades.Add(item);
-            PermamentUpgradesCount();
-        }
-        public static void RemoveUpgrade(Item item)
-        {
-            Upgrades.Remove(item);
-            PermamentUpgradesCount();
-        }
-        public static void PermamentUpgradesCount()
-        {
-            PermamentUpgrades.Clear();
-            foreach (Item item in Upgrades)
-            {
-                if (PermamentUpgrades.ContainsKey(item.Name))
-                {
-                    PermamentUpgrades[item.Name]++;
-                }
-                else
-                {
-                    PermamentUpgrades.Add(item.Name, 1);
-                }
-            }
-        }
-        public static void UsableUpgradesCount()
-        {
-            UsableUpgrades.Clear();
-            foreach (Item item in Upgrades)
-            {
-                if (UsableUpgrades.ContainsKey(item.Name))
-                {
-                    UsableUpgrades[item.Name]++;
-                }
-                else
-                {
-                    UsableUpgrades.Add(item.Name, 1);
-                }
-            }
-        }
         public static int GetItemCount(string name)
         {
-            
+
             if (ItemCount.ContainsKey(name))
             {
                 return ItemCount[name];
             }
             return 0;
         }
+        #endregion
+        #region permamentUpgrades
+        public static void AddPermanentUpgrade(Item item)
+        {
+            PermamentUpgrades.Add(item);
+            PermamentUpgradesCountf();
+        }
+        public static void RemovePermanentUpgrade(Item item)
+        {
+            PermamentUpgrades.Remove(item);
+            PermamentUpgradesCountf();
+        }
+        public static void PermamentUpgradesCountf()
+        {
+            PermamentUpgrades.Clear();
+            foreach (Item item in PermamentUpgrades)
+            {
+                if (PermamentUpgradesCount.ContainsKey(item.Name))
+                {
+                    PermamentUpgradesCount[item.Name]++;
+                }
+                else
+                {
+                    PermamentUpgradesCount.Add(item.Name, 1);
+                }
+            }
+        }
         public static int GetPermamentUpgradeCount(string name)
         {
-            if (PermamentUpgrades.ContainsKey(name))
+            if (PermamentUpgradesCount.ContainsKey(name))
             {
-                return PermamentUpgrades[name];
+                return PermamentUpgradesCount[name];
             }
             return 0;
         }
-        public static List<Item> GetItemsForShop(char shop)
+        #endregion
+
+        #region UsableUpgrades
+        public static void AddUsableUpgrade(Item item)
         {
-            List<Item> Return = new List<Item>();
-            foreach (Item item in Items)
+            UsableUpgrades.Add(item);
+            UsableUpgradesCountf();
+        }
+        public static void RemoveUsableUpgrade(Item item)
+        {
+            UsableUpgrades.Remove(item);
+            UsableUpgradesCountf();
+        }
+        public static void UsableUpgradesCountf()
+        {
+            UsableUpgrades.Clear();
+            foreach (Item item in UsableUpgrades)
             {
-                if (item.Shop == shop && !Return.Contains(item))
+                if (UsableUpgradesCount.ContainsKey(item.Name))
                 {
-                    Return.Add(item);
+                    UsableUpgradesCount[item.Name]++;
+                }
+                else
+                {
+                    UsableUpgradesCount.Add(item.Name, 1);
                 }
             }
-            return Return;
         }
+        #endregion
+       
 
         public static bool CheckForItem(Item item, int quantity)
         {
