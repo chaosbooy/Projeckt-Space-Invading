@@ -24,12 +24,14 @@ namespace SpaceInvading.Resources.Pages
         List<Item> offerSource = new List<Item>() { AllItems.Armor_1 ,AllItems.Barrier_1, AllItems.Crossbow, AllItems.Gun, AllItems.EnchantedSword};
 
         // dane do listy itemów
-        List<Item> ListofItems = Inventory.GetItemsForShop('n');
+        List<Item> ListofItems = new List<Item>();
         public Blacksmith()
         {
             InitializeComponent();
+            ListofItems.AddRange(Inventory.GetItemsForShop('n'));
             ListofItems.AddRange(Inventory.GetItemsForShop('m'));
             ListofItems.AddRange(Inventory.GetItemsForShop('b'));
+
             CreateOffers();
             CreateItemList();
             ItemListRefresh();
@@ -148,15 +150,33 @@ namespace SpaceInvading.Resources.Pages
                     HorizontalAlignment = HorizontalAlignment.Left,
                     Margin = new Thickness(5)
                 };
-                Image item = new Image
+                Image item = new Image();
+                if (ListofItems[i].Name == "Barrier Upgrade")
                 {
-                    Source = ListofItems[i].Sprite.Source,
-                    Width = 43,
-                    Height = 43,
-                    Stretch = Stretch.Fill,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    Margin = new Thickness(7)
-                };
+                    item = new Image
+                    {
+                        Source = new BitmapImage(new Uri($"pack://application:,,,/Resources/Images/misc/Upgrade_Barrier_{Inventory.AllItems[ListofItems[i].Name].ToString()}.png")),
+                        Width = 43,
+                        Height = 43,
+                        Stretch = Stretch.Fill,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = new Thickness(7)
+                    };
+
+                }
+                else
+                {
+                    item = new Image
+                    {
+                        Source = ListofItems[i].Sprite.Source,
+                        Width = 43,
+                        Height = 43,
+                        Stretch = Stretch.Fill,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = new Thickness(7)
+                    };
+                }
+
 
 
                 TextBlock itemNumber = new TextBlock

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SpaceInvading.Resources.Pages
 {
@@ -31,31 +32,39 @@ namespace SpaceInvading.Resources.Pages
         {
             this.NavigationService.Navigate(new Game());
         }
-
         private void GoShop(object sender, RoutedEventArgs e)
         {
+            System.Windows.Controls.Image img = (System.Windows.Controls.Image)sender;
             if (FrameShop.Visibility == Visibility.Visible) FrameShop.Visibility = Visibility.Collapsed;
             else FrameShop.Visibility = Visibility.Visible;
             closeFrame.Visibility = Visibility.Visible;
-        }
-
-        private void GoWitch(object sender, RoutedEventArgs e)
-        {
-            if (FrameWitch.Visibility == Visibility.Visible) FrameWitch.Visibility = Visibility.Collapsed;
-            else FrameWitch.Visibility = Visibility.Visible;
-            closeFrame.Visibility = Visibility.Visible;
-        }
-
-        private void GoBlacksmith(object sender, RoutedEventArgs e)
-        {
-            if (FrameBlacksmith.Visibility == Visibility.Visible) FrameBlacksmith.Visibility = Visibility.Collapsed;
-            else FrameBlacksmith.Visibility = Visibility.Visible;
-            closeFrame.Visibility = Visibility.Visible;
+            switch (img.Name)
+            {
+                case "Blacksmith":
+                    {
+                        FrameShop.Navigate(new Blacksmith());
+                        break;
+                    }
+                case "Shop":
+                    {
+                        FrameShop.Navigate(new Shop());
+                        break;
+                    }
+                case "Witch":
+                    {
+                        FrameShop.Navigate(new Witch());
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
         }
 
         private void MouseEnter(object sender, MouseEventArgs e)
         {
-            Image img = (Image)sender;
+            System.Windows.Controls.Image img = (System.Windows.Controls.Image)sender;
 
             string currentUri = img.Source.ToString();
 
@@ -70,7 +79,7 @@ namespace SpaceInvading.Resources.Pages
         }
         private void MouseLeave(object sender, MouseEventArgs e)
         {
-            Image img = (Image)sender;
+            System.Windows.Controls.Image img = (System.Windows.Controls.Image)sender;
 
             string currentUri = img.Source.ToString();
 
@@ -95,8 +104,6 @@ namespace SpaceInvading.Resources.Pages
         private void CloseFrame(object sender, MouseButtonEventArgs e)
         {
             FrameShop.Visibility = Visibility.Collapsed;
-            FrameWitch.Visibility = Visibility.Collapsed;
-            FrameBlacksmith.Visibility = Visibility.Collapsed;
             closeFrame.Visibility = Visibility.Collapsed;
         }
     }

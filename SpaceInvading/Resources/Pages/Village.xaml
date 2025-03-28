@@ -48,13 +48,11 @@
         <Grid.Background>
             <ImageBrush ImageSource="../Images/Village/village.png" Stretch="Fill"></ImageBrush>
         </Grid.Background>
-        <Image Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Stretch="Fill" Source="../Images/Village/Shop_blacksmith.png" MouseLeftButtonDown="GoBlacksmith" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="5"                     Grid.Row="0" Grid.RowSpan="2" Stretch="Fill" Source="../Images/Village/Gate.png"            MouseLeftButtonDown="StartGame"                 MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="7"                     Grid.Row="3"                  Stretch="Fill" Source="../Images/Village/Shop_merchant.png"   MouseLeftButtonDown="GoShop"                    MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
-        <Image Grid.Column="2"                     Grid.Row="5"                  Stretch="Fill" Source="../Images/Village/Shop_witch.png"      MouseLeftButtonDown="GoWitch" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Name="Blacksmith" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Stretch="Fill" Source="../Images/Village/Shop_blacksmith.png" MouseLeftButtonDown="GoShop" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Name="Gate"       Grid.Column="5"                     Grid.Row="0" Grid.RowSpan="2" Stretch="Fill" Source="../Images/Village/Gate.png"            MouseLeftButtonDown="StartGame"                 MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Name="Shop"       Grid.Column="7"                     Grid.Row="3"                  Stretch="Fill" Source="../Images/Village/Shop_merchant.png"   MouseLeftButtonDown="GoShop"                    MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
+        <Image Name="Witch"      Grid.Column="2"                     Grid.Row="5"                  Stretch="Fill" Source="../Images/Village/Shop_witch.png"      MouseLeftButtonDown="GoShop" MouseEnter="MouseEnter" MouseLeave="MouseLeave"></Image>
         <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="FrameShop" Source="Shop.xaml" Margin="50" Grid.RowSpan="1000" Grid.ColumnSpan="1000"/>
-        <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="FrameWitch" Source="Witch.xaml" Margin="50" Grid.RowSpan="1000" Grid.ColumnSpan="1000"/>
-        <Frame BorderBrush="White" BorderThickness="2" Visibility="Collapsed" x:Name="FrameBlacksmith" Source="Blacksmith.xaml" Margin="50" Grid.RowSpan="1000" Grid.ColumnSpan="1000"/>
         <Image x:Name="closeFrame" Source="../Images/Village/close_frame.png" Grid.Row="0" Grid.Column="9" Visibility="Collapsed" MouseLeftButtonDown="CloseFrame"/>
     </Grid>
 </Page>

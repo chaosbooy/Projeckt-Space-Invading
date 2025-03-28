@@ -24,7 +24,7 @@ namespace SpaceInvading.Resources.Classes
             List<Item> Return = new List<Item>();
             foreach (Item item in input)
             {
-                if (item.Shop == shop && !Return.Contains(item))
+                if (item.Shop == shop && !CheckForItem(item, Return) && !Return.Contains(item))
                 {
                     Return.Add(item);
                 }
@@ -102,11 +102,11 @@ namespace SpaceInvading.Resources.Classes
             }
             return 0;
         }
-        public static bool CheckForItem(Item item, int quantity)
+        public static bool CheckForItem(Item item, List<Item> list)
         {
-            if (ItemCount.ContainsKey(item.Name))
+            foreach ( Item item2 in list) 
             {
-                if (ItemCount[item.Name] >= quantity)
+                if (item2.Name == item.Name)
                 {
                     return true;
                 }
