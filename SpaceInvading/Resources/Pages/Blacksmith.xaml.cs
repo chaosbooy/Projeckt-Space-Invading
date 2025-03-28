@@ -22,6 +22,7 @@ namespace SpaceInvading.Resources.Pages
     public partial class Blacksmith : Page
     {
         List<Item> offerSource = new List<Item>() { AllItems.Armor_1 ,AllItems.Barrier_1, AllItems.Crossbow, AllItems.Gun, AllItems.EnchantedSword};
+
         // dane do listy itemów
         List<Item> ListofItems = Inventory.GetItemsForShop('n');
         public Blacksmith()
@@ -160,7 +161,7 @@ namespace SpaceInvading.Resources.Pages
 
                 TextBlock itemNumber = new TextBlock
                 {
-                    Text = Inventory.ItemCount[ListofItems[i].Name].ToString(),
+                    Text = Inventory.AllItems[ListofItems[i].Name].ToString(),
                     Margin = new Thickness(55, 0, 0, 0),
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,

@@ -14,6 +14,7 @@ namespace SpaceInvading.Resources.Classes
         public static Dictionary<string, int> ItemCount = new Dictionary<string, int>();
         public static Dictionary<string, int> PermamentUpgradesCount = new Dictionary<string, int>();
         public static Dictionary<string, int> UsableUpgradesCount = new Dictionary<string, int>();
+        public static Dictionary<string, int> AllItems = new Dictionary<string, int>();
 
         public static List<Item> GetItemsForShop(char shop)
         {
@@ -30,14 +31,40 @@ namespace SpaceInvading.Resources.Classes
             }
             return Return;
         }
+        public static void GetCombinedDictionary()
+        {
+            AllItems.Clear();
+            var dictionaries = new List<Dictionary<string, int>>()
+            {
+                ItemCount,
+                PermamentUpgradesCount,
+                UsableUpgradesCount
+            };
+            foreach (var dictionary in dictionaries)
+            {
+                foreach (var kvp in dictionary)
+                {
+                    if (AllItems.ContainsKey(kvp.Key))
+                    {
+                        AllItems[kvp.Key] += kvp.Value;
+                    }
+                    else
+                    {
+                        AllItems.Add(kvp.Key, kvp.Value);
+                    }
+                }
+            }
+
+        }
         #region Items
-        public static void AddItem(Item item, int quantity)
+            public static void AddItem(Item item, int quantity)
         {
             for (int i = 0; i < quantity; i++)
             {
                 Items.Add(item);
             }
             ItemCountf();
+            GetCombinedDictionary();
         }
         public static void RemoveItem(Item item, int quantity)
         {
@@ -49,6 +76,7 @@ namespace SpaceInvading.Resources.Classes
                 }
             }
             ItemCountf();
+            GetCombinedDictionary();
         }
         public static void ItemCountf()
         {
@@ -92,11 +120,13 @@ namespace SpaceInvading.Resources.Classes
         {
             PermamentUpgrades.Add(item);
             PermamentUpgradesCountf();
+            GetCombinedDictionary();
         }
         public static void RemovePermanentUpgrade(Item item)
         {
             PermamentUpgrades.Remove(item);
             PermamentUpgradesCountf();
+            GetCombinedDictionary();
         }
         public static void PermamentUpgradesCountf()
         {
@@ -128,11 +158,13 @@ namespace SpaceInvading.Resources.Classes
         {
             UsableUpgrades.Add(item);
             UsableUpgradesCountf();
+            GetCombinedDictionary();
         }
         public static void RemoveUsableUpgrade(Item item)
         {
             UsableUpgrades.Remove(item);
             UsableUpgradesCountf();
+            GetCombinedDictionary();
         }
         public static void UsableUpgradesCountf()
         {
