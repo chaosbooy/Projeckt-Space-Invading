@@ -23,11 +23,15 @@ namespace SpaceInvading.Resources.Pages
     {
         List<Item> offerSource = new List<Item>() { AllItems.Armor_1 ,AllItems.Barrier_1, AllItems.Crossbow, AllItems.Gun, AllItems.EnchantedSword};
         // dane do listy itemów
-        List<Item> ListofItems = Inventory.GetItemsForShop('b');
+        List<Item> ListofItems = Inventory.GetItemsForShop('n');
         public Blacksmith()
         {
             InitializeComponent();
+            ListofItems.AddRange(Inventory.GetItemsForShop('m'));
+            ListofItems.AddRange(Inventory.GetItemsForShop('b'));
             CreateOffers();
+            CreateItemList();
+            ItemListRefresh();
         }
 
         private void CreateOffers()
@@ -145,7 +149,7 @@ namespace SpaceInvading.Resources.Pages
                 };
                 Image item = new Image
                 {
-                    Source = offerSource[i].Sprite.Source,
+                    Source = ListofItems[i].Sprite.Source,
                     Width = 43,
                     Height = 43,
                     Stretch = Stretch.Fill,
@@ -153,15 +157,35 @@ namespace SpaceInvading.Resources.Pages
                     Margin = new Thickness(7)
                 };
 
+
                 TextBlock itemNumber = new TextBlock
                 {
                     Text = Inventory.ItemCount[ListofItems[i].Name].ToString(),
+                    Margin = new Thickness(55, 0, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    FontSize = 30,
                 };
                 itemHolder.Children.Add(frame);
                 itemHolder.Children.Add(item);
                 itemHolder.Children.Add(itemNumber);
 
                 ItemList.Children.Add(itemHolder);
+            }
+        }
+
+        private void ItemListRefresh()
+        {
+            int i = 0;
+            foreach (var itemNumberInfo in ItemList.Children)
+            {
+                if (itemNumberInfo.GetType() == typeof(TextBlock))
+                {
+                    TextBlock itemPos = itemNumberInfo as TextBlock;
+                    itemPos.Text = Inventory.ItemCount[ListofItems[i].Name].ToString();
+                    i++;
+                }
+
             }
         }
 

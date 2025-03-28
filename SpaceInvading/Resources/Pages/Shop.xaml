@@ -20,7 +20,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="0" Grid.RowSpan="3">
+        <ScrollViewer Grid.Row="0" Grid.RowSpan="3" VerticalScrollBarVisibility="Hidden">
             <StackPanel x:Name="offerList"/>
         </ScrollViewer>
         <StackPanel x:Name="ItemList" Grid.Column="1" Grid.RowSpan="3"/>

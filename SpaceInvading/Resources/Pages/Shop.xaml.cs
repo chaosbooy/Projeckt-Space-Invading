@@ -148,7 +148,7 @@ namespace SpaceInvading.Resources.Pages
         {
             // reset listy
             ItemList.Children.Clear();
-            for(int i = 0; i < offerSource.Count; i++)
+            for(int i = 0; i < ListofItems.Count; i++)
             {
                 if (Inventory.ItemCount.ContainsKey(ListofItems[i].Name))
                 {
@@ -156,7 +156,7 @@ namespace SpaceInvading.Resources.Pages
                     {
                         Name = "offer" + i.ToString(),
                         Background = Brushes.LightGray,
-                        VerticalAlignment = VerticalAlignment.Top
+                        VerticalAlignment = VerticalAlignment.Top,
                     };
                     itemHolder.MouseEnter += Offer_MouseEnter;
                     itemHolder.MouseLeave += Offer_MouseLeave;
@@ -181,6 +181,10 @@ namespace SpaceInvading.Resources.Pages
                     TextBlock itemNumber = new TextBlock
                     {
                         Text = Inventory.ItemCount[ListofItems[i].Name].ToString(),
+                        Margin = new Thickness(55,0,0,0),
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        FontSize = 30,
                     };
                     itemHolder.Children.Add(item);
                     itemHolder.Children.Add(itemNumber);

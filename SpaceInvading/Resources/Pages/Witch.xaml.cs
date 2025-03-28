@@ -24,12 +24,16 @@ namespace SpaceInvading.Resources.Pages
         // dane do ofert
         List<Item> offerSource = new List<Item>() { AllItems.RagePotion, AllItems.HealthPotion, AllItems.ShieldPotion, AllItems.Luck_potion_1, AllItems.Shadow_potion_1 };
         // dane do listy itemów
-        List<Item> ListofItems = Inventory.GetItemsForShop('w');
+        List<Item> ListofItems = new List<Item>();
         public Witch()
         {
             InitializeComponent();
+            ListofItems.AddRange(Inventory.GetItemsForShop('n'));
+            ListofItems.AddRange(Inventory.GetItemsForShop('m'));
+            ListofItems.AddRange(Inventory.GetItemsForShop('w'));
             CreateOffers();
             CreateItemList();
+            ItemListRefresh();
         }
 
         private void CreateOffers()
@@ -118,6 +122,7 @@ namespace SpaceInvading.Resources.Pages
 
         private void CreateItemList()
         {
+            ItemList.Children.Clear();
             for (int i = 0; i < ListofItems.Count; i++)
             {
                 Grid itemHolder = new Grid
@@ -136,18 +141,9 @@ namespace SpaceInvading.Resources.Pages
                 };
                 itemHolder.Children.Add(border);
 
-                Image frame = new Image
-                {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Item_frame_empty.png")),
-                    Width = 48,
-                    Height = 48,
-                    Stretch = Stretch.Fill,
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    Margin = new Thickness(5)
-                };
                 Image item = new Image
                 {
-                    Source = offerSource[i].Sprite.Source,
+                    Source = ListofItems[i].Sprite.Source,
                     Width = 43,
                     Height = 43,
                     Stretch = Stretch.Fill,
@@ -158,12 +154,31 @@ namespace SpaceInvading.Resources.Pages
                 TextBlock itemNumber = new TextBlock
                 {
                     Text = Inventory.ItemCount[ListofItems[i].Name].ToString(),
+                    Margin = new Thickness(55, 0, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    FontSize = 30,
                 };
-                itemHolder.Children.Add(frame);
                 itemHolder.Children.Add(item);
                 itemHolder.Children.Add(itemNumber);
 
                 ItemList.Children.Add(itemHolder);
+            }
+        }
+
+
+        private void ItemListRefresh()
+        {
+            int i = 0;
+            foreach (var itemNumberInfo in ItemList.Children)
+            {
+                if (itemNumberInfo.GetType() == typeof(TextBlock))
+                {
+                    TextBlock itemPos = itemNumberInfo as TextBlock;
+                    itemPos.Text = Inventory.ItemCount[ListofItems[i].Name].ToString();
+                    i++;
+                }
+
             }
         }
 
