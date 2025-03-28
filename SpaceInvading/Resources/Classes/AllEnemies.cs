@@ -104,33 +104,70 @@ namespace SpaceInvading.Resources.Classes
 
         public readonly static Boss SlimeBoss = new Boss 
         {
-            Name = "Slime Boss",
-            Score = 100,
-            Health = 30,
-            MaxDropCount = 10,
-            AttackSpeed = 200,
+            BossName = "Slime Boss",
             ProjectileThrownCount = 5,
-            Projectile = new Projectile
+            BossPhases = new List<Enemy>
             {
-                Damage = 1,
-                Speed = 2,
-                ProjectileState = new Image
+                new Enemy
                 {
-                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_Phase_1_bullet.png")),
-                    Width = 64,
-                    Height = 32
-                }
-            },
-            EnemyState = new Image
-            {
-                Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_Sprite.png")),
-                Width = 200,
-                Height = 200
-            },
-            PossibleDrops = new List<Item>
-            {
+                    Name = "Phase 1",
+                    Score = 100,
+                    Health = 30,
+                    MaxDropCount = 10,
+                    ShootChance = 200,
+                    Projectile = new Projectile
+                    {
+                        Damage = 1,
+                        Speed = 2,
+                        ProjectileState = new Image
+                        {
+                            Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_Phase_1_bullet.png")),
+                            Width = 64,
+                            Height = 32
+                        }
+                    },
+                    EnemyState = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_Sprite.png")),
+                        Width = 200,
+                        Height = 200
+                    },
+                    PossibleDrops = new List<Item>
+                    {
 
+                    }
+                },
+                new Enemy
+                {
+                    Name = "Phase 2",
+                    Score = 150,
+                    Health = 20,
+                    MaxDropCount = 10,
+                    ShootChance = 150,
+                    Projectile = new Projectile
+                    {
+                        Damage = 1,
+                        Speed = 2,
+                        ProjectileState = new Image
+                        {
+                            Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_Phase_2_bullet.png")),
+                            Width = 64,
+                            Height = 32
+                        }
+                    },
+                    EnemyState = new Image
+                    {
+                        Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_Sprite_phase_2.png")),
+                        Width = 200,
+                        Height = 200
+                    },
+                    PossibleDrops = new List<Item>
+                    {
+
+                    }
+                }
             }
+            
         };
     }
 }

@@ -394,7 +394,7 @@ namespace SpaceInvading.Pages
 
             // strzał bossa ( wg. predkosci bossa )
 
-            if (round % 5 == 0 && TickNumber % CurrentBoss.AttackSpeed == 0)
+            if (round % 5 == 0 && TickNumber % CurrentBoss.BossPhases[0].ShootChance == 0)
             {
                 ShootBoss(CurrentBoss.ProjectileThrownCount);
             }

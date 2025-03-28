@@ -6,7 +6,6 @@ namespace SpaceInvading.Resources.Classes
     {
         public string BossName { get; set; }
         public int ProjectileThrownCount { get; set; }
-        public int AttackSpeed { get; set; }
         public List<Enemy> BossPhases { get; set; }
 
         public Boss() 
@@ -27,7 +26,6 @@ namespace SpaceInvading.Resources.Classes
             return new Boss
             {
                 ProjectileThrownCount = this.ProjectileThrownCount,
-                AttackSpeed = this.AttackSpeed,
                 BossPhases = phasesCloned
             };
         }
