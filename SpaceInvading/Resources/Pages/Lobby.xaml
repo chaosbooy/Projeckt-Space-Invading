@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SpaceInvading.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="900"
       Title="Lobby" Background="#35974E">
 
     <Page.Resources>
@@ -22,10 +22,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel VerticalAlignment="Center" Margin="0,50,0, 0">
-            <Image Name="Image_Title" Margin="0"/>
-            <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Start"  Click="StartGame" />
-            <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Exit"  Click="LeaveGame" />
+        <StackPanel VerticalAlignment="Center" >
+            <Image Name="Image_Title" Source="/Resources/Images/Background/Title_Card.png" Margin="0"/>
+            <Button Style="{StaticResource ResourceKey=GameButtons}" Margin="10" Content="Start"  Click="StartGame" />
+            <Button Style="{StaticResource ResourceKey=GameButtons}" FontSize="35" Margin="30,0" Content="Exit"  Click="LeaveGame" />
         </StackPanel>
 
         <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Hidden" Background="#2A793E" >

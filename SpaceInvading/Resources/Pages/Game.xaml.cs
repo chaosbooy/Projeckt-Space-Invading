@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -116,15 +117,17 @@ namespace SpaceInvading.Pages
         {
 
             var boss = (Boss)AllEnemies.SlimeBoss.Clone();
+            var phaseOne = boss.BossPhases[0];
+
             Border border = new Border
             {
                 Background = HitBoxShow ? Brushes.Black : Brushes.Transparent,
-                Width = boss.EnemyState.Width,
-                Height = boss.EnemyState.Height
+                Width = phaseOne.EnemyState.Width,
+                Height = phaseOne.EnemyState.Height
             };
-            border.Child = boss.EnemyState; // Dodaj obraz jako dziecko ramki
-            minWidth = (int)boss.EnemyState.Width;
-            minHeight = (int)boss.EnemyState.Height;
+            border.Child = phaseOne.EnemyState; // Dodaj obraz jako dziecko ramki
+            minWidth = (int)phaseOne.EnemyState.Width;
+            minHeight = (int)phaseOne.EnemyState.Height;
 
             Grid.SetColumn(border, 0);
             Grid.SetRow(border, 0);
@@ -133,13 +136,18 @@ namespace SpaceInvading.Pages
             Canvas.SetLeft(EnemyHolder, (MainCanvas.ActualWidth - MinWidth) / 2);
             EnemyHolder.Children.Add(border);
             CurrentBoss = boss;
-            Enemies.Add(boss);
+            Enemies.Add(phaseOne);
 
             minWidth += 10;
             minHeight += 10;
 
             EnemyHolder.ColumnDefinitions.Add(new ColumnDefinition { MinWidth = minWidth });
             EnemyHolder.RowDefinitions.Add(new RowDefinition { MinHeight = minHeight });
+        }
+
+        private void SetupNextBossPhase()
+        {
+            CurrentBoss.BossPhases.RemoveAt(0);
         }
 
         private void SetupGame(int enemyRows, int enemyCols)
@@ -307,8 +315,10 @@ namespace SpaceInvading.Pages
                 }
             }
 
-            if (Enemies.Count == 0)
+            if (Enemies.Count == 0 && round % 5 != 0)
                 SetupNewRound();
+            else if (Enemies.Count == 0)
+                SetupNextBossPhase();
 
             // ruch pocisków wrogów
             foreach (var projectile in enemyBullets.ToArray())
@@ -383,13 +393,14 @@ namespace SpaceInvading.Pages
                 Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) + enemySpeed);
 
             // strzał bossa ( wg. predkosci bossa )
-            if (Enemies[0] is Boss && TickNumber % CurrentBoss.AttackSpeed == 0)
+
+            if (round % 5 == 0 && TickNumber % CurrentBoss.AttackSpeed == 0)
             {
                 ShootBoss(CurrentBoss.ProjectileThrownCount);
             }
 
             // strzał wrogów ( powiedzmy co 30 tick )
-            else if (TickNumber % 30 == 0 && Enemies[0] is not Boss)
+            else if (TickNumber % 30 == 0 && round % 5 == 0)
             {
                 Random rnd = new Random();
                 foreach (var enemy in Enemies.ToArray())
@@ -592,15 +603,17 @@ namespace SpaceInvading.Pages
 
         private void ShootBoss(int bulletCount)
         {
+            var currentPhase = CurrentBoss.BossPhases[0];
+
             for (int i = 0; i < bulletCount; i++)
             {
-                Projectile projectile = (Projectile)CurrentBoss.Projectile.Clone();
+                Projectile projectile = (Projectile)currentPhase.Projectile.Clone();
                 Image bullet = projectile.ProjectileState;
                 // Get the position of the shooter relative to the canvas
-                Point shooterPositionRelativeToCanvas = CurrentBoss.EnemyState.TranslatePoint(new Point(0, 0), MainCanvas);
+                Point shooterPositionRelativeToCanvas = currentPhase.EnemyState.TranslatePoint(new Point(0, 0), MainCanvas);
                 // Calculate the bullet's position
-                double canvasLeft = shooterPositionRelativeToCanvas.X + (CurrentBoss.EnemyState.Width / bulletCount) * (i + 1) - bullet.Width / 2;
-                double canvasTop = shooterPositionRelativeToCanvas.Y + CurrentBoss.EnemyState.Height;
+                double canvasLeft = shooterPositionRelativeToCanvas.X + (currentPhase.EnemyState.Width / bulletCount) * (i + 1) - bullet.Width / 2;
+                double canvasTop = shooterPositionRelativeToCanvas.Y + currentPhase.EnemyState.Height;
                 // Set the bullet's position relative to the canvas
                 Canvas.SetLeft(bullet, canvasLeft);
                 Canvas.SetTop(bullet, canvasTop);
