@@ -14,7 +14,7 @@ namespace SpaceInvading.Resources.Classes
             BossName = "";
         }
 
-        new public object Clone()
+        public object Clone()
         {
             List<Enemy> phasesCloned = new List<Enemy>();
 
