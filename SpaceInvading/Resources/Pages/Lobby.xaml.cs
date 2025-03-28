@@ -24,10 +24,10 @@ namespace SpaceInvading.Pages
         private void StartGame(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new Village());
-            Inventory.AddItem(AllItems.SlimeDrop, 7);
-            Inventory.AddItem(AllItems.SkeletonDrop, 11);
-            Inventory.AddItem(AllItems.SpiderDrop, 5);
-            Inventory.AddItem(AllItems.Boss_1_drop_1, 1);
+            Inventory.AddItem(AllItems.SlimeDrop, 20);
+            Inventory.AddItem(AllItems.SkeletonDrop, 20);
+            Inventory.AddItem(AllItems.SpiderDrop, 50);
+            Inventory.AddItem(AllItems.Boss_1_drop_1, 10);
         }
 
         private void LeaveGame(object sender, RoutedEventArgs e)

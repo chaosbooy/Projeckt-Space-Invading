@@ -22,16 +22,13 @@ namespace SpaceInvading.Resources.Pages
     public partial class Blacksmith : Page
     {
         List<Item> offerSource = new List<Item>() { AllItems.Armor_1, AllItems.Armor_2, AllItems.Armor_3, AllItems.Barrier_1, AllItems.Barrier_2, AllItems.Barrier_3, AllItems.Crossbow, AllItems.Gun, AllItems.EnchantedSword};
-
+        List<Item> itemsDistincs = new List<Item>();
         // dane do listy itemów
         List<Item> ListofItems = new List<Item>();
         public Blacksmith()
         {
             InitializeComponent();
-            ListofItems.AddRange(Inventory.GetItemsForShop('n'));
-            ListofItems.AddRange(Inventory.GetItemsForShop('m'));
-            ListofItems.AddRange(Inventory.GetItemsForShop('b'));
-
+            
             CreateOffers();
             CreateItemList();
             ItemListRefresh();
@@ -39,8 +36,12 @@ namespace SpaceInvading.Resources.Pages
 
         private void CreateOffers()
         {
-            List<Item> cool = Inventory.RemoveSameName(offerSource);
-            for (int i = 0; i < offerSource.Count; i++)
+            foreach (Item item in Inventory.PermamentUpgrades)
+            {
+                offerSource.Remove(item);
+            }
+            itemsDistincs = Inventory.RemoveSameName(offerSource);
+            for(int i = 0; i < itemsDistincs.Count; i++)
             {
                 Grid offer = new Grid
                 {
@@ -49,6 +50,8 @@ namespace SpaceInvading.Resources.Pages
                 };
                 offer.MouseEnter += Offer_MouseEnter;
                 offer.MouseLeave += Offer_MouseLeave;
+
+                offer.MouseLeftButtonDown += Offer_MouseLeftButtonDown;
 
                 Rectangle border = new Rectangle
                 {
@@ -70,7 +73,7 @@ namespace SpaceInvading.Resources.Pages
                 };
                 Image item = new Image
                 {
-                    Source = offerSource[i].Sprite.Source,
+                    Source = itemsDistincs[i].Sprite.Source,
                     Width = 43,
                     Height = 43,
                     Stretch = Stretch.Fill,
@@ -80,7 +83,7 @@ namespace SpaceInvading.Resources.Pages
 
                 Label content = new Label
                 {
-                    Content = offerSource[i].Name + '\n' + "Price: " + offerSource[i].Worth.ToString(),
+                    Content = itemsDistincs[i].Name + '\n' + "Price: " + itemsDistincs[i].Worth.ToString(),
                     Foreground = Brushes.Black,
                     HorizontalAlignment = HorizontalAlignment.Left,
                     FontSize = 30,
@@ -89,7 +92,7 @@ namespace SpaceInvading.Resources.Pages
 
                 Image priceItem = new Image
                 {
-                    Source = offerSource[i].WorthItem.Sprite.Source,
+                    Source = itemsDistincs[i].WorthItem.Sprite.Source,
                     Width = 30,
                     Height = 30,
                     Stretch = Stretch.Fill,
@@ -100,7 +103,7 @@ namespace SpaceInvading.Resources.Pages
 
                 TextBox description = new TextBox
                 {
-                    Text = offerSource[i].Description,
+                    Text = itemsDistincs[i].Description,
                     Foreground = Brushes.Black,
                     HorizontalAlignment = HorizontalAlignment.Right,
                     FontSize = 20,
@@ -124,6 +127,10 @@ namespace SpaceInvading.Resources.Pages
 
         private void CreateItemList()
         {
+            ListofItems.Clear();
+            ListofItems.AddRange(Inventory.GetItemsForShop('n'));
+            ListofItems.AddRange(Inventory.GetItemsForShop('m'));
+            ListofItems.AddRange(Inventory.GetItemsForShop('b'));
             for (int i = 0; i < ListofItems.Count; i++)
             {
                 Grid itemHolder = new Grid
@@ -134,7 +141,6 @@ namespace SpaceInvading.Resources.Pages
                 };
                 itemHolder.MouseEnter += Offer_MouseEnter;
                 itemHolder.MouseLeave += Offer_MouseLeave;
-                itemHolder.MouseLeftButtonDown += Offer_MouseLeftButtonDown;
 
                 Rectangle border = new Rectangle
                 {
@@ -212,26 +218,31 @@ namespace SpaceInvading.Resources.Pages
         }
         private void Offer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // sprzedaz dropu
 
             Grid clickedOffer = (Grid)sender;
             int offerNr = Int32.Parse(clickedOffer.Name.Remove(0, 5));
-            Item offerItem = offerSource[offerNr];
+            Item offerItem = itemsDistincs[offerNr];
             if (offerItem.isUsable)
             {
-                Inventory.AddUsableUpgrade(offerItem);
+                if(Inventory.GetItemCount(offerItem.WorthItem.Name) >= offerItem.Worth)
+                {
+                    Inventory.AddUsableUpgrade(offerItem);
+                    Inventory.RemoveItem(offerItem.WorthItem, offerItem.Worth);
+                }
             }
             else 
-            { 
-            
+            {
+                if (Inventory.GetItemCount(offerItem.WorthItem.Name) >= offerItem.Worth)
+                {
+                    Inventory.AddPermanentUpgrade(offerItem);
+                    Inventory.RemoveItem(offerItem.WorthItem, offerItem.Worth);
+                }
             }
 
-            Inventory.AddItem(AllItems.Coin, offerItem.Worth);
-            // pokazanie zmian w ekwipunku gracza na ekranie sklepu
+            offerList.Children.Clear();
+            ItemList.Children.Clear();
             CreateItemList();
             ItemListRefresh();
-
-            offerList.Children.Clear();
             CreateOffers();
         }
         private void Offer_MouseLeave(object sender, MouseEventArgs e)

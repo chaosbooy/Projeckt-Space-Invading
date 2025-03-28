@@ -22,15 +22,13 @@ namespace SpaceInvading.Resources.Pages
     public partial class Witch : Page
     {
         // dane do ofert
-        List<Item> offerSource = new List<Item>() { AllItems.RagePotion, AllItems.HealthPotion, AllItems.ShieldPotion, AllItems.Luck_potion_1, AllItems.Shadow_potion_1 };
+        List<Item> offerSource = new List<Item>() { AllItems.RagePotion, AllItems.HealthPotion, AllItems.ShieldPotion, AllItems.Luck_potion_1, AllItems.Luck_potion_2, AllItems.Luck_potion_3, AllItems.Luck_potion_4, AllItems.Luck_potion_5, AllItems.Shadow_potion_1, AllItems.Shadow_potion_2, AllItems.Shadow_potion_3, AllItems.Shadow_potion_4, AllItems.Shadow_potion_5 };
+        List<Item> itemsDistincs = new List<Item>();
         // dane do listy itemów
         List<Item> ListofItems = new List<Item>();
         public Witch()
         {
             InitializeComponent();
-            ListofItems.AddRange(Inventory.GetItemsForShop('n'));
-            ListofItems.AddRange(Inventory.GetItemsForShop('m'));
-            ListofItems.AddRange(Inventory.GetItemsForShop('w'));
             CreateOffers();
             CreateItemList();
             ItemListRefresh();
@@ -38,7 +36,12 @@ namespace SpaceInvading.Resources.Pages
 
         private void CreateOffers()
         {
-            for (int i = 0; i < offerSource.Count; i++)
+            foreach (Item item in Inventory.PermamentUpgrades)
+            {
+                offerSource.Remove(item);
+            }
+            itemsDistincs = Inventory.RemoveSameName(offerSource);
+            for (int i = 0; i < itemsDistincs.Count; i++)
             {
                 Grid offer = new Grid
                 {
@@ -47,6 +50,8 @@ namespace SpaceInvading.Resources.Pages
                 };
                 offer.MouseEnter += Offer_MouseEnter;
                 offer.MouseLeave += Offer_MouseLeave;
+
+                offer.MouseLeftButtonDown += Offer_MouseLeftButtonDown;
 
                 Rectangle border = new Rectangle
                 {
@@ -68,7 +73,7 @@ namespace SpaceInvading.Resources.Pages
                 };
                 Image item = new Image
                 {
-                    Source = offerSource[i].Sprite.Source,
+                    Source = itemsDistincs[i].Sprite.Source,
                     Width = 43,
                     Height = 43,
                     Stretch = Stretch.Fill,
@@ -78,7 +83,7 @@ namespace SpaceInvading.Resources.Pages
 
                 Label content = new Label
                 {
-                    Content = offerSource[i].Name + '\n' + "Price: " + offerSource[i].Worth.ToString(),
+                    Content = itemsDistincs[i].Name + '\n' + "Price: " + itemsDistincs[i].Worth.ToString(),
                     Foreground = Brushes.Black,
                     HorizontalAlignment = HorizontalAlignment.Left,
                     FontSize = 30,
@@ -87,18 +92,18 @@ namespace SpaceInvading.Resources.Pages
 
                 Image priceItem = new Image
                 {
-                    Source = offerSource[i].WorthItem.Sprite.Source,
+                    Source = itemsDistincs[i].WorthItem.Sprite.Source,
                     Width = 30,
                     Height = 30,
                     Stretch = Stretch.Fill,
                     HorizontalAlignment = HorizontalAlignment.Left,
-                    Margin = new Thickness(200, 50, 0, 0),
+                    Margin = new Thickness(220, 50, 0, 0),
                     VerticalAlignment = VerticalAlignment.Top
                 };
 
                 TextBox description = new TextBox
                 {
-                    Text = offerSource[i].Description,
+                    Text = itemsDistincs[i].Description,
                     Foreground = Brushes.Black,
                     HorizontalAlignment = HorizontalAlignment.Right,
                     FontSize = 20,
@@ -122,7 +127,10 @@ namespace SpaceInvading.Resources.Pages
 
         private void CreateItemList()
         {
-            ItemList.Children.Clear();
+            ListofItems.Clear();
+            ListofItems.AddRange(Inventory.GetItemsForShop('n'));
+            ListofItems.AddRange(Inventory.GetItemsForShop('m'));
+            ListofItems.AddRange(Inventory.GetItemsForShop('w'));
             for (int i = 0; i < ListofItems.Count; i++)
             {
                 Grid itemHolder = new Grid
@@ -141,31 +149,58 @@ namespace SpaceInvading.Resources.Pages
                 };
                 itemHolder.Children.Add(border);
 
-                Image item = new Image
+                Image frame = new Image
                 {
-                    Source = ListofItems[i].Sprite.Source,
-                    Width = 43,
-                    Height = 43,
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/Item_frame_empty.png")),
+                    Width = 48,
+                    Height = 48,
                     Stretch = Stretch.Fill,
                     HorizontalAlignment = HorizontalAlignment.Left,
-                    Margin = new Thickness(7)
+                    Margin = new Thickness(5)
                 };
+                Image item = new Image();
+                if (ListofItems[i].Name == "Barrier Upgrade")
+                {
+                    item = new Image
+                    {
+                        Source = new BitmapImage(new Uri($"pack://application:,,,/Resources/Images/misc/Upgrade_Barrier_{Inventory.AllItems[ListofItems[i].Name].ToString()}.png")),
+                        Width = 43,
+                        Height = 43,
+                        Stretch = Stretch.Fill,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = new Thickness(7)
+                    };
+                }
+                else
+                {
+                    item = new Image
+                    {
+                        Source = ListofItems[i].Sprite.Source,
+                        Width = 43,
+                        Height = 43,
+                        Stretch = Stretch.Fill,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = new Thickness(7)
+                    };
+                }
+
+
 
                 TextBlock itemNumber = new TextBlock
                 {
-                    Text = Inventory.ItemCount[ListofItems[i].Name].ToString(),
+                    Text = Inventory.AllItems[ListofItems[i].Name].ToString(),
                     Margin = new Thickness(55, 0, 0, 0),
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     FontSize = 30,
                 };
+                itemHolder.Children.Add(frame);
                 itemHolder.Children.Add(item);
                 itemHolder.Children.Add(itemNumber);
 
                 ItemList.Children.Add(itemHolder);
             }
         }
-
 
         private void ItemListRefresh()
         {
@@ -181,7 +216,35 @@ namespace SpaceInvading.Resources.Pages
 
             }
         }
+        private void Offer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
 
+            Grid clickedOffer = (Grid)sender;
+            int offerNr = Int32.Parse(clickedOffer.Name.Remove(0, 5));
+            Item offerItem = itemsDistincs[offerNr];
+            if (offerItem.isUsable)
+            {
+                if (Inventory.GetItemCount(offerItem.WorthItem.Name) >= offerItem.Worth)
+                {
+                    Inventory.AddUsableUpgrade(offerItem);
+                    Inventory.RemoveItem(offerItem.WorthItem, offerItem.Worth);
+                }
+            }
+            else
+            {
+                if (Inventory.GetItemCount(offerItem.WorthItem.Name) >= offerItem.Worth)
+                {
+                    Inventory.AddPermanentUpgrade(offerItem);
+                    Inventory.RemoveItem(offerItem.WorthItem, offerItem.Worth);
+                }
+            }
+
+            offerList.Children.Clear();
+            ItemList.Children.Clear();
+            CreateItemList();
+            ItemListRefresh();
+            CreateOffers();
+        }
         private void Offer_MouseLeave(object sender, MouseEventArgs e)
         {
             Grid grid = sender as Grid;
