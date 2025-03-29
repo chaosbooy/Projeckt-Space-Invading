@@ -337,7 +337,7 @@ namespace SpaceInvading.Pages
                     enemyBullets.Remove(projectile);
                 }
                 //trafienie gracza
-                else if(IsColliding(Player1.PlayerHitBoxes, 0.7, bullet))
+                else if(IsColliding(Player1.PlayerHitBoxes, 0.4, bullet))
                 {
                     Player1.Health -= projectile.Damage;
                     UpdateHealthBar();
