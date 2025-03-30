@@ -21,7 +21,7 @@ namespace SpaceInvading.Pages
         #region Variables
 
         private readonly bool HitBoxShow = false;
-        private bool gamePaused;
+        private bool gamePaused, roundEnd = false;
         private int minWidth = 0, minHeight = 0;
         private int _score = 0;
 
@@ -137,7 +137,7 @@ namespace SpaceInvading.Pages
             Grid.SetRow(border, 0);
 
             Canvas.SetTop(EnemyHolder, -40);
-            Canvas.SetLeft(EnemyHolder, (MainCanvas.ActualWidth - MinWidth) / 2);
+            Canvas.SetLeft(EnemyHolder, (MainCanvas.Width - minWidth) / 2);
             EnemyHolder.Children.Add(border);
             Enemies.Add(phaseOne);
 
@@ -151,6 +151,27 @@ namespace SpaceInvading.Pages
         private void SetupNextBossPhase()
         {
             CurrentBoss.BossPhases.RemoveAt(0);
+            if (CurrentBoss.BossPhases.Count == 0)
+            {
+                roundEnd = true;
+                var window = Window.GetWindow(this);
+                CompositionTarget.Rendering -= GameLoop;
+
+                new Timer((sender) =>
+                {
+                    System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        window.KeyDown -= Window_KeyDown;
+                        window.KeyUp -= Window_KeyUp;
+                        this.NavigationService.Navigate(new Village());
+                    });
+
+                }, null, 1500, 0);
+
+                return;
+            }
+
+
             SetupBoss();
         }
 
@@ -165,19 +186,7 @@ namespace SpaceInvading.Pages
             {
                 for (int j = 0; j < enemyCols; j++)
                 {
-                    var block = new Enemy();
-                    switch(rnd.Next(3))
-                    {
-                        case 0:
-                            block = (Enemy)AllEnemies.Spider.Clone();
-                            break;
-                        case 1:
-                            block = (Enemy)AllEnemies.Slime.Clone();
-                            break;
-                        case 2:
-                            block = (Enemy)AllEnemies.Skeleton.Clone();
-                            break;
-                    }
+                    var block = (Enemy) AllEnemies.Mobs[rnd.Next(AllEnemies.Mobs.Count)].Clone();
 
                     Border border = new Border
                     {
@@ -383,6 +392,8 @@ namespace SpaceInvading.Pages
                 }
             }
 
+            if (EnemyHolder.ColumnDefinitions.Count == 0) return;
+
             if (Canvas.GetLeft(EnemyHolder) <= 0 && enemiesMoveDirection == Direction.Left ||
                 Canvas.GetLeft(EnemyHolder) > MainCanvas.Width - (EnemyHolder.ColumnDefinitions.Count * EnemyHolder.ColumnDefinitions[0].ActualWidth)
                 && enemiesMoveDirection == Direction.Right)
@@ -525,6 +536,7 @@ namespace SpaceInvading.Pages
                         playerAttack = KeyState.Pressed;
                     return;
                 case Key.Escape:
+                    if (roundEnd) return;
                     PauseGame(sender, e);
                     return;
                 case Key.F:

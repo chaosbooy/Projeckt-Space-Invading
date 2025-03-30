@@ -70,7 +70,6 @@ namespace SpaceInvading.Resources.Classes
 
             }
         };
-
         public readonly static Enemy Slime = new Enemy
         {
             Name = "Slime",
@@ -102,6 +101,13 @@ namespace SpaceInvading.Resources.Classes
             }
         };
 
+        public readonly static List<Enemy> Mobs = new List<Enemy>
+        {
+            Spider,
+            Skeleton,
+            Slime
+        };
+
         public readonly static Boss SlimeBoss = new Boss 
         {
             BossName = "Slime Boss",
@@ -112,7 +118,7 @@ namespace SpaceInvading.Resources.Classes
                 {
                     Name = "Slime King",
                     Score = 100,
-                    Health = 30,
+                    Health = 3,
                     MaxDropCount = 10,
                     ShootChance = 200,
                     Projectile = new Projectile
@@ -141,7 +147,7 @@ namespace SpaceInvading.Resources.Classes
                 {
                     Name = "Slime Kings Core",
                     Score = 150,
-                    Health = 20,
+                    Health = 2,
                     MaxDropCount = 10,
                     ShootChance = 150,
                     Projectile = new Projectile
