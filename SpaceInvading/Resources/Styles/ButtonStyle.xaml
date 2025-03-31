@@ -23,4 +23,26 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style TargetType="{x:Type Border}" x:Key="NickPanel">
+        <Setter Property="Background" Value="#C38811"/>
+        <Setter Property="BorderBrush" Value="#664400" />
+        <Setter Property="BorderThickness" Value="5" />
+        <Setter Property="Padding" Value="40, 3"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}" x:Name="PlayerName">
+        <Setter Property="Background" Value="#edaf32"/>
+        <Setter Property="FontSize" Value="35" />
+        <Setter Property="Foreground" Value="#664400" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="#664400" />
+        <Setter Property="BorderThickness" Value="3" />
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="#ffe14c" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

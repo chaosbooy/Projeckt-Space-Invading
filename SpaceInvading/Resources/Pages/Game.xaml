@@ -38,6 +38,13 @@
             <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Resume" Click="PauseGame"/>
         </StackPanel>
         <StackPanel x:Name="GameOverPanel" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+            <Border Style="{StaticResource ResourceKey=NickPanel}">
+                <StackPanel>
+                    <Label Content="Enter your name to save" HorizontalAlignment="Center" FontSize="30"/>
+                    <TextBox x:Name="PlayerName" Text="xxx"  HorizontalAlignment="Center" Width="200" />
+                </StackPanel>
+            </Border>
+            
             <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Restart" Click="Restart"/>
             <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Go Back To Lobby" Click="ToLobby"/>
         </StackPanel>

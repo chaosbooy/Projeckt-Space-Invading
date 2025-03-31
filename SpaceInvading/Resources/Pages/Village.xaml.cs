@@ -32,6 +32,7 @@ namespace SpaceInvading.Resources.Pages
         {
             this.NavigationService.Navigate(new Game());
         }
+
         private void GoShop(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Image img = (System.Windows.Controls.Image)sender;

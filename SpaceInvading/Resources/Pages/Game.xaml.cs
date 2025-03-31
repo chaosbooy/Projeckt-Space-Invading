@@ -23,7 +23,7 @@ namespace SpaceInvading.Pages
         private readonly bool HitBoxShow = false;
         private bool gamePaused, roundEnd = false;
         private int minWidth = 0, minHeight = 0;
-        private int _score = 0;
+        public static int _score = 0;
         Random rnd = new Random();
 
         public Player Player1;
@@ -42,7 +42,7 @@ namespace SpaceInvading.Pages
         // co ktory tick mają ruszyć się wrogowie
         private double TickNumber = 0;
 
-        private int round;
+        private static int round;
         // kierunek ruchu przeciwników
         private Direction enemiesMoveDirection = Direction.Left;
         private KeyState playerAttack = KeyState.Up;
@@ -68,6 +68,7 @@ namespace SpaceInvading.Pages
             Player1.TurnLeft(false);
 
             SetupNewRound();
+            round--;
 
             CompositionTarget.Rendering -= GameLoop;
             CompositionTarget.Rendering += GameLoop;
@@ -80,6 +81,7 @@ namespace SpaceInvading.Pages
 
         private void XamlLoaded(object sender, RoutedEventArgs e)
         {
+            round++;
             var window = Window.GetWindow(this);
             
             window.KeyDown -= Window_KeyDown;
@@ -102,6 +104,8 @@ namespace SpaceInvading.Pages
             EnemyHolder.RowDefinitions.Clear();
 
             round++;
+
+            Debug.WriteLine(round);
             if (round % 5 == 0)
             {
                 CurrentBoss = (Boss)AllEnemies.SlimeBoss.Clone();
@@ -228,7 +232,6 @@ namespace SpaceInvading.Pages
             window.KeyUp -= Window_KeyUp;
             CompositionTarget.Rendering -= GameLoop;
             Player1.Stay();
-
             GameOverPanel.Visibility = Visibility.Visible;
         }
 
