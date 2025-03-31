@@ -14,7 +14,6 @@ namespace SpaceInvading.Resources.Classes
             Description = "currency",
             Shop = 'n',
             Worth = 1,
-            WorthItem = Coin,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
             {

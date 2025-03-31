@@ -12,6 +12,8 @@ namespace SpaceInvading.Pages
     /// </summary>
     public partial class Lobby : Page
     {
+        private Dictionary<string, int> previousSaves = new Dictionary<string, int>();
+
         public Lobby()
         {
             InitializeComponent();
@@ -24,10 +26,10 @@ namespace SpaceInvading.Pages
         private void StartGame(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new Village());
+            Inventory.AddItem(AllItems.Coin, 300);
             Inventory.AddItem(AllItems.SlimeDrop, 20);
-            Inventory.AddItem(AllItems.SkeletonDrop, 20);
-            Inventory.AddItem(AllItems.SpiderDrop, 50);
-            Inventory.AddItem(AllItems.Boss_1_drop_1, 10);
+            Inventory.AddItem(AllItems.ShieldPotion, 1);
+            Inventory.UsableUpgrades.Add(AllItems.ShieldPotion);
         }
 
         private void LeaveGame(object sender, RoutedEventArgs e)

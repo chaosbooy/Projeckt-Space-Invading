@@ -37,7 +37,7 @@ namespace SpaceInvading.Resources.Classes
             },
             PossibleDrops = new List<Item>
             {
-
+                AllItems.SpiderDrop
             }
         };
         public readonly static Enemy Skeleton = new Enemy
@@ -67,7 +67,7 @@ namespace SpaceInvading.Resources.Classes
             },
             PossibleDrops = new List<Item>
             {
-
+                AllItems.SkeletonDrop
             }
         };
         public readonly static Enemy Slime = new Enemy
@@ -97,7 +97,7 @@ namespace SpaceInvading.Resources.Classes
             },
             PossibleDrops = new List<Item>
             {
-
+                AllItems.SlimeDrop
             }
         };
 
@@ -108,7 +108,7 @@ namespace SpaceInvading.Resources.Classes
             Slime
         };
 
-        public readonly static Boss SlimeBoss = new Boss 
+        public readonly static Boss SlimeBoss = new Boss
         {
             BossName = "Slime Boss",
             ProjectileThrownCount = 5,
@@ -140,7 +140,8 @@ namespace SpaceInvading.Resources.Classes
                     },
                     PossibleDrops = new List<Item>
                     {
-
+                        AllItems.SlimeDrop,
+                        AllItems.Boss_1_drop_1
                     }
                 },
                 new Enemy
@@ -169,11 +170,12 @@ namespace SpaceInvading.Resources.Classes
                     },
                     PossibleDrops = new List<Item>
                     {
-
+                        AllItems.Boss_1_drop_2,
+                        AllItems.Boss_1_drop_3
                     }
                 }
             }
-            
+
         };
     }
 }

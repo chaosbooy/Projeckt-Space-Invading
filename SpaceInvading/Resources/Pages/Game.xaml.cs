@@ -24,6 +24,7 @@ namespace SpaceInvading.Pages
         private bool gamePaused, roundEnd = false;
         private int minWidth = 0, minHeight = 0;
         private int _score = 0;
+        Random rnd = new Random();
 
         public Player Player1;
         private Effects currEffect = Effects.None;
@@ -159,7 +160,7 @@ namespace SpaceInvading.Pages
 
                 new Timer((sender) =>
                 {
-                    System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
                         window.KeyDown -= Window_KeyDown;
                         window.KeyUp -= Window_KeyUp;
@@ -312,11 +313,16 @@ namespace SpaceInvading.Pages
 
                             Enemies.Remove(block);
                             _score += block.Score;
+
+
+                            if (CurrentBoss.BossPhases.Contains(block))
+                                Inventory.AddItem(block.PossibleDrops[0], block.MaxDropCount);
+
+                            Inventory.AddItem(block.PossibleDrops.Last(), rnd.Next(block.MaxDropCount));
                         }
 
                         if(CurrentBoss.BossPhases.Contains(block))
                             _score += block.Score / 10;
-
 
                         ScoreCount.Content = _score.ToString();
 
@@ -350,8 +356,19 @@ namespace SpaceInvading.Pages
                 {
                     Player1.Health -= projectile.Damage;
                     UpdateHealthBar();
+                    if(currEffect == Effects.Shield)
+                    {
+                        currEffect = Effects.None;
+                        Player1.PlayerHitBoxes.BorderBrush = Brushes.Transparent;
+                        Player1.PlayerHitBoxes.BorderThickness = new Thickness(0);
+
+                        MainCanvas.Children.Remove(bullet);
+                        enemyBullets.Remove(projectile);
+                        Player1.Health += projectile.Damage;
+                        UpdateHealthBar();
+                    }
                     //jezeli nastepne hp bedzie 0 koncz gre
-                    if (Player1.Health <= 0)
+                    else if (Player1.Health <= 0)
                     {
                         EndGame();
                         return;
@@ -417,7 +434,6 @@ namespace SpaceInvading.Pages
             // strzał wrogów ( powiedzmy co 30 tick )
             else if (TickNumber % 30 == 0 && CurrentBoss.BossPhases.Count == 0)
             {
-                Random rnd = new Random();
                 foreach (var enemy in Enemies.ToArray())
                 {
                     int next = rnd.Next(300);
@@ -594,7 +610,8 @@ namespace SpaceInvading.Pages
         }
 
         #endregion
-        
+
+        #region Shooting and Abilities
         private void Shoot()
         {
             Image bullet = new Image
@@ -614,14 +631,53 @@ namespace SpaceInvading.Pages
 
         private void Ability(Item item)
         {
+            int lastLength = Inventory.UsableUpgrades.Count;
             if (item == AllItems.HealthPotion)
             {
                 if (Player1.Health + 1 >= Player1.MaxHealth) Player1.Health = Player1.MaxHealth;
                 else Player1.Health += 1;
+                UpdateHealthBar();
             }
-            else if (item == AllItems.ShieldPotion) currEffect = Effects.Shield;
-            else if (item == AllItems.RagePotion) currEffect = Effects.Rage;
-            else if (item == AllItems.EnchantedSword) currEffect = Effects.Enchant;
+            else if (item == AllItems.ShieldPotion)
+            {
+                currEffect = Effects.Shield;
+                Player1.PlayerHitBoxes.BorderBrush = Brushes.Blue;
+                Player1.PlayerHitBoxes.BorderThickness = new Thickness(2);
+
+                EffectTimer(lastLength, 5000);
+            }
+            else if (item == AllItems.RagePotion)
+            {
+                currEffect = Effects.Rage;
+                Player1.PlayerHitBoxes.BorderBrush = Brushes.Red;
+                Player1.PlayerHitBoxes.BorderThickness = new Thickness(2);
+
+                EffectTimer(lastLength, 5000);
+            }
+            else if (item == AllItems.EnchantedSword)
+            {
+                currEffect = Effects.Enchant;
+                Player1.PlayerHitBoxes.BorderBrush = Brushes.Purple;
+                Player1.PlayerHitBoxes.BorderThickness = new Thickness(2);
+
+                EffectTimer(lastLength, 5000);
+            }
+        }
+
+        private void EffectTimer(int lastLength, int effectTime)
+        {
+            new Timer((sender) =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    if (lastLength == Inventory.UsableUpgrades.Count - 1)
+                        currEffect = Effects.None;
+
+                    Player1.PlayerHitBoxes.BorderBrush = Brushes.Transparent;
+                    Player1.PlayerHitBoxes.BorderThickness = new Thickness(0);
+                });
+
+            }, null, effectTime, 0);
         }
 
         private void ShootEnemy(Enemy shooter)
@@ -664,6 +720,8 @@ namespace SpaceInvading.Pages
                 enemyBullets.Add(projectile);
             }
         }
+
+        #endregion
 
         private void CreateObstacle(double x, double y)
         {
