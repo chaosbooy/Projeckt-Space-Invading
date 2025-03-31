@@ -26,6 +26,7 @@ namespace SpaceInvading.Pages
         private int _score = 0;
 
         public Player Player1;
+        private Effects currEffect = Effects.None;
 
         // przeciwnicy na planszy
         private List<Enemy> Enemies = new();
@@ -107,8 +108,7 @@ namespace SpaceInvading.Pages
             }
             else if (round == 1)
             {
-                CurrentBoss = (Boss)AllEnemies.SlimeBoss.Clone();
-                SetupBoss();
+                SetupGame(1, 5);
             }
             else if (round == 2)
                 SetupGame(1, 10);
@@ -166,7 +166,7 @@ namespace SpaceInvading.Pages
                         this.NavigationService.Navigate(new Village());
                     });
 
-                }, null, 1500, 0);
+                }, null, 1000, 0);
 
                 return;
             }
@@ -535,6 +535,21 @@ namespace SpaceInvading.Pages
                     else
                         playerAttack = KeyState.Pressed;
                     return;
+                case Key.D1:
+                    if (Inventory.UsableUpgrades.Count < 1) return;
+                    Ability(Inventory.UsableUpgrades[0]);
+                    Inventory.UsableUpgrades.RemoveAt(0);
+                    return;
+                case Key.D2:
+                    if (Inventory.UsableUpgrades.Count < 2) return;
+                    Ability(Inventory.UsableUpgrades[1]);
+                    Inventory.UsableUpgrades.RemoveAt(1);
+                    return;
+                case Key.D3:
+                    if (Inventory.UsableUpgrades.Count < 3) return;
+                    Ability(Inventory.UsableUpgrades[2]);
+                    Inventory.UsableUpgrades.RemoveAt(2);
+                    return;
                 case Key.Escape:
                     if (roundEnd) return;
                     PauseGame(sender, e);
@@ -595,6 +610,18 @@ namespace SpaceInvading.Pages
             Canvas.SetTop(bullet, y);
             MainCanvas.Children.Add(bullet);
             bullets.Add(bullet);
+        }
+
+        private void Ability(Item item)
+        {
+            if (item == AllItems.HealthPotion)
+            {
+                if (Player1.Health + 1 >= Player1.MaxHealth) Player1.Health = Player1.MaxHealth;
+                else Player1.Health += 1;
+            }
+            else if (item == AllItems.ShieldPotion) currEffect = Effects.Shield;
+            else if (item == AllItems.RagePotion) currEffect = Effects.Rage;
+            else if (item == AllItems.EnchantedSword) currEffect = Effects.Enchant;
         }
 
         private void ShootEnemy(Enemy shooter)
@@ -676,5 +703,12 @@ namespace SpaceInvading.Pages
     {
         Left,
         Right
+    }
+    enum Effects
+    {
+        None,
+        Enchant,
+        Rage,
+        Shield,
     }
 }
