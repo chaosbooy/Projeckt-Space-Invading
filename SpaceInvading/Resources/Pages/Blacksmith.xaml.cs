@@ -137,7 +137,8 @@ namespace SpaceInvading.Resources.Pages
                 {
                     Name = "offer" + i.ToString(),
                     Background = Brushes.LightGray,
-                    VerticalAlignment = VerticalAlignment.Top
+                    VerticalAlignment = VerticalAlignment.Top,
+                    ToolTip = ListofItems[i].Name + ": " + ListofItems[i].Description,
                 };
                 itemHolder.MouseEnter += Offer_MouseEnter;
                 itemHolder.MouseLeave += Offer_MouseLeave;
