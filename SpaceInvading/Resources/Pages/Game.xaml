@@ -52,6 +52,7 @@
             <Image Grid.Column="2" Source="../Images/misc/Item_frame_empty.png"></Image>
             <Label Grid.Column="2" Content="3" FontSize="40" Foreground="White" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
         </Grid>
+        <ProgressBar x:Name="progressBar" Visibility="Collapsed" Foreground="Red" Minimum="0" Maximum="0" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Width="351"/>
         <Label x:Name="ScoreCount" Content="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="100" FontSize="40" Margin="18,0,0,185"></Label>
         <StackPanel x:Name="PausePanel" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
             <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Resume" Click="PauseGame"/>

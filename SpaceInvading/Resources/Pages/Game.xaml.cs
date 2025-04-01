@@ -158,6 +158,11 @@ namespace SpaceInvading.Pages
             EnemyHolder.Children.Add(border);
             Enemies.Add(phaseOne);
             Debug.WriteLine($"Left: {Canvas.GetLeft(EnemyHolder)} Top: {Canvas.GetTop(EnemyHolder)}");
+            
+            //Health bar
+            progressBar.Maximum = phaseOne.Health;
+            progressBar.Visibility = Visibility.Visible;
+            UpdateBossHealth(phaseOne.Health);
 
             minWidth += 10;
             minHeight += 10;
@@ -165,12 +170,13 @@ namespace SpaceInvading.Pages
             EnemyHolder.ColumnDefinitions.Add(new ColumnDefinition { MinWidth = minWidth });
             EnemyHolder.RowDefinitions.Add(new RowDefinition { MinHeight = minHeight });
         }
-
+        
         private void SetupNextBossPhase()
         {
             CurrentBoss.BossPhases.RemoveAt(0);
             if (CurrentBoss.BossPhases.Count == 0)
             {
+                progressBar.Visibility = Visibility.Collapsed;
                 roundEnd = true;
                 var window = Window.GetWindow(this);
                 CompositionTarget.Rendering -= GameLoop;
@@ -188,7 +194,6 @@ namespace SpaceInvading.Pages
 
                 return;
             }
-
 
             SetupBoss();
         }
@@ -238,6 +243,10 @@ namespace SpaceInvading.Pages
 
         #endregion
 
+        private void UpdateBossHealth(int hp)
+        {
+            progressBar.Value = hp;
+        }
         private void EndGame()
         {
             var window = Window.GetWindow(this);
@@ -251,6 +260,7 @@ namespace SpaceInvading.Pages
 
         private void GameLoop(object? sender, EventArgs e)
         {
+            
             TickNumber++;
             if (Player1.PlayerLeft && Canvas.GetLeft(Player1.PlayerHitBoxes) > 0)
             {
@@ -342,8 +352,11 @@ namespace SpaceInvading.Pages
                         }
 
                         if (CurrentBoss.BossPhases.Contains(block))
+                        {
                             _score += block.Score / 10;
-
+                            UpdateBossHealth(block.Health);
+                        }
+                            
                         ScoreCount.Content = _score.ToString();
 
                         while (RemoveEmptyColumn(0))
