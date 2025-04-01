@@ -108,7 +108,7 @@ namespace SpaceInvading.Pages
 
             round++;
 
-            Debug.WriteLine(round);
+            //Debug.WriteLine(round);
             if (round % 5 == 0)
             {
                 CurrentBoss = (Boss)AllEnemies.SlimeBoss.Clone();
@@ -116,7 +116,8 @@ namespace SpaceInvading.Pages
             }
             else if (round == 1)
             {
-                SetupGame(1, 5);
+                CurrentBoss = (Boss)AllEnemies.SlimeBoss.Clone();
+                SetupBoss();
             }
             else if (round == 2)
                 SetupGame(1, 10);
@@ -141,13 +142,22 @@ namespace SpaceInvading.Pages
             minWidth = (int)phaseOne.EnemyState.Width;
             minHeight = (int)phaseOne.EnemyState.Height;
 
+            if(CurrentBoss.BossPhases.Count == 2)
+            {
+                Canvas.SetTop(EnemyHolder, -40);
+                Canvas.SetLeft(EnemyHolder, (MainCanvas.Width - minWidth) / 2);
+            }
+            else
+            {
+                Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) - CurrentBoss.BossPhases[0].EnemyState.Width);
+            }
+
             Grid.SetColumn(border, 0);
             Grid.SetRow(border, 0);
 
-            Canvas.SetTop(EnemyHolder, -40);
-            Canvas.SetLeft(EnemyHolder, (MainCanvas.Width - minWidth) / 2);
             EnemyHolder.Children.Add(border);
             Enemies.Add(phaseOne);
+            Debug.WriteLine($"Left: {Canvas.GetLeft(EnemyHolder)} Top: {Canvas.GetTop(EnemyHolder)}");
 
             minWidth += 10;
             minHeight += 10;

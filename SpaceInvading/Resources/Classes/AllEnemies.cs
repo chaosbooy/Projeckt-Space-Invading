@@ -177,5 +177,10 @@ namespace SpaceInvading.Resources.Classes
             }
 
         };
+
+        public readonly static List<Boss> Bosses = new List<Boss>
+        {
+            SlimeBoss
+        };
     }
 }
