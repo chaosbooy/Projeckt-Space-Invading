@@ -23,17 +23,13 @@ namespace SpaceInvading.Pages
             Image_Title.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Resources/Images/Background/Title_Card.png"));
             Random random = new Random();
 
+            SavingSystem.Initialize();
+            var scores = SavingSystem.Scores;
 
-            AddScore("maks", 3, 1, 0, (random.NextDouble() * 12) - 6);
-            AddScore("rafal", 3, 1, 1, (random.NextDouble() * 12) - 6);
-            AddScore("leon", 3, 2, 0, (random.NextDouble() * 12) - 6);
-            AddScore("leon", 3, 2, 1, (random.NextDouble() * 12) - 6);
-            AddScore("leon", 3, 3, 0, (random.NextDouble() * 12) - 6);
-            AddScore("leon", 3, 3, 1, (random.NextDouble() * 12) - 6);
-            AddScore("leon", 3, 4, 0, (random.NextDouble() * 12) - 6);
-            AddScore("leon", 3, 4, 1, (random.NextDouble() * 12) - 6);
-            AddScore("leon", 3, 5, 0, (random.NextDouble() * 12) - 6);
-            AddScore("leon", 3, 5, 1, (random.NextDouble() * 12) - 6);
+            for (int i = 0; i < scores.Count; i++)
+            {
+                AddScore(scores[i].Item1, scores[i].Item2, i / 2 + 1, i % 2, (random.NextDouble() * 12) - 6);
+            }
         }
         
         private void StartGame(object sender, RoutedEventArgs e)

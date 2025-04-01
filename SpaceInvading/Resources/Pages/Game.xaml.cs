@@ -116,10 +116,7 @@ namespace SpaceInvading.Pages
                 SetupBoss();
             }
             else if (round == 1)
-            {
-                CurrentBoss = (Boss)AllEnemies.SlimeBoss.Clone();
-                SetupBoss();
-            }
+                SetupGame(1, 5);
             else if (round == 2)
                 SetupGame(1, 10);
             else if (round < 5)
@@ -273,6 +270,7 @@ namespace SpaceInvading.Pages
         {
             progressBar.Value = hp;
         }
+
         private void EndGame()
         {
             var window = Window.GetWindow(this);
@@ -572,11 +570,19 @@ namespace SpaceInvading.Pages
 
         private void Restart(object sender, RoutedEventArgs e)
         {
+            if(PlayerName.Text.Length > 0)
+                SavingSystem.AddScore(PlayerName.Text, _score);
+
+            if (gamePaused) round--;
+
             this.NavigationService.Navigate(new Village());
         }
 
         private void ToLobby(object sender, RoutedEventArgs e)
         {
+            if (PlayerName.Text.Length > 0)
+                SavingSystem.AddScore(PlayerName.Text, _score);
+
             this.NavigationService.Navigate(new Lobby());
         }
 
