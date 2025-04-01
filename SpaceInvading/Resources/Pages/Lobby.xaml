@@ -23,8 +23,8 @@
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel VerticalAlignment="Center" >
-            <Image Name="Image_Title" Source="/Resources/Images/Background/Title_Card.png" Margin="0"/>
+        <StackPanel VerticalAlignment="top" >
+            <Image Name="Image_Title" Source="/Resources/Images/Background/Title_Card.png"  Margin="0"/>
             <Button Style="{StaticResource ResourceKey=GameButtons}" Margin="10" Content="Start"  Click="StartGame" />
             <Button Style="{StaticResource ResourceKey=GameButtons}" FontSize="35" Margin="30,0" Content="Exit"  Click="LeaveGame" />
         </StackPanel>
