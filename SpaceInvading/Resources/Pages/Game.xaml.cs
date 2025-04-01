@@ -72,10 +72,6 @@ namespace SpaceInvading.Pages
             SetupNewRound();
             round--;
 
-            CompositionTarget.Rendering -= GameLoop;
-            CompositionTarget.Rendering += GameLoop;
-
-
             CreateObstacle(150, 400);
             CreateObstacle(350, 400);
             CreateObstacle(550, 400);
@@ -84,6 +80,9 @@ namespace SpaceInvading.Pages
 
         private void XamlLoaded(object sender, RoutedEventArgs e)
         {
+            CompositionTarget.Rendering -= GameLoop;
+            CompositionTarget.Rendering += GameLoop;
+
             round++;
             var window = Window.GetWindow(this);
             
@@ -127,7 +126,7 @@ namespace SpaceInvading.Pages
                 SetupGame(3, 10);
             return;
         }
-
+        
         private void SetupBoss()
         {
             var phaseOne = CurrentBoss.BossPhases[0];
@@ -149,6 +148,11 @@ namespace SpaceInvading.Pages
             }
             else
             {
+                CompositionTarget.Rendering -= GameLoop;
+
+                //Some MEthod here
+                CompositionTarget.Rendering += GameLoop;
+
                 Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) - CurrentBoss.BossPhases[0].EnemyState.Width);
             }
 

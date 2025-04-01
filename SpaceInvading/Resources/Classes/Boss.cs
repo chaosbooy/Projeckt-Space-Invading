@@ -7,6 +7,7 @@ namespace SpaceInvading.Resources.Classes
         public string BossName { get; set; }
         public int ProjectileThrownCount { get; set; }
         public List<Enemy> BossPhases { get; set; }
+        public List<string> PhaseAnimation { get; set; }
 
         public Boss() 
         {
