@@ -133,7 +133,7 @@ namespace SpaceInvading.Resources.Classes
 
         #endregion
 
-        #region OneTimeUpgrades
+        #region One Time Upgrades
 
         public readonly static Item HealthPotion = new Item
         {
@@ -154,8 +154,8 @@ namespace SpaceInvading.Resources.Classes
             Name = "Shield Potion",
             Description = "When used gives you a shield that blocks one attack",
             Shop = 'w',
-            Worth = 5,
-            WorthItem = GolemDrop,
+            Worth = 300,
+            WorthItem = Coin,
             isUsable = true,
             Sprite = new System.Windows.Controls.Image
             {
@@ -167,8 +167,8 @@ namespace SpaceInvading.Resources.Classes
             Name = "Rage Potion",
             Description = "When used increases your attack speed for 10s",
             Shop = 'w',
-            Worth = 5,
-            WorthItem = FireSpiritDrop,
+            Worth = 1200,
+            WorthItem = Coin,
             isUsable = true,
             Sprite = new System.Windows.Controls.Image
             {
@@ -226,7 +226,7 @@ namespace SpaceInvading.Resources.Classes
 
         #endregion
 
-        #region PermamentUpgrades
+        #region Permament Upgrades
         public readonly static Item Armor_1 = new Item
         {
             Name = "Armor Upgrade",
