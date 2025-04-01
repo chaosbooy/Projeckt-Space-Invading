@@ -112,9 +112,14 @@ namespace SpaceInvading.Resources.Classes
         {
             BossName = "Slime Boss",
             ProjectileThrownCount = 5,
-            PhaseAnimation = new List<string>
+            PhaseAnimation = new List<Image>
             {
-                "pack://application:,,,/Resources/Images/Boss_1/Boss_Phase_Change.png",
+                new Image
+                {
+                    Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_Phase_Change.gif")),
+                    Width = 200,
+                    Height = 200
+                }
             },
             BossPhases = new List<Enemy>
             {

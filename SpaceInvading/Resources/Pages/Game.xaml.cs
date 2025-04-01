@@ -7,9 +7,11 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using WpfAnimatedGif;
 
 namespace SpaceInvading.Pages
 {
@@ -137,7 +139,6 @@ namespace SpaceInvading.Pages
                 Width = phaseOne.EnemyState.Width,
                 Height = phaseOne.EnemyState.Height
             };
-            border.Child = phaseOne.EnemyState; // Dodaj obraz jako dziecko ramki
             minWidth = (int)phaseOne.EnemyState.Width;
             minHeight = (int)phaseOne.EnemyState.Height;
 
@@ -145,13 +146,34 @@ namespace SpaceInvading.Pages
             {
                 Canvas.SetTop(EnemyHolder, -40);
                 Canvas.SetLeft(EnemyHolder, (MainCanvas.Width - minWidth) / 2);
+                border.Child = phaseOne.EnemyState; // Dodaj obraz jako dziecko ramki
             }
             else
             {
+                while(bullets.Count > 0)
+                {
+                    MainCanvas.Children.Remove(bullets[0]);
+                    bullets.RemoveAt(0);
+                }
+                while(enemyBullets.Count > 0)
+                {
+                    MainCanvas.Children.Remove(enemyBullets[0].ProjectileState);
+                    enemyBullets.RemoveAt(0);
+                }
+
                 CompositionTarget.Rendering -= GameLoop;
 
-                //Some MEthod here
-                CompositionTarget.Rendering += GameLoop;
+                border.Child = CurrentBoss.PhaseAnimation[0];
+
+                // Apply the animated GIF behavior
+                ImageBehavior.SetAnimatedSource(CurrentBoss.PhaseAnimation[0], CurrentBoss.PhaseAnimation[0].Source);
+                ImageBehavior.SetRepeatBehavior(CurrentBoss.PhaseAnimation[0], new System.Windows.Media.Animation.RepeatBehavior(1));
+                ImageBehavior.AddAnimationCompletedHandler(CurrentBoss.PhaseAnimation[0], (sender, e) =>
+                {
+                    CompositionTarget.Rendering += GameLoop;
+                    border.Child = phaseOne.EnemyState;
+                    CurrentBoss.PhaseAnimation.RemoveAt(0);
+                });
 
                 Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) - CurrentBoss.BossPhases[0].EnemyState.Width);
             }

@@ -252,6 +252,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Images\Village\Shop_blacksmith.png" />
     <Resource Include="Resources\Images\Village\Shop_merchant.png" />
     <Resource Include="Resources\Images\Village\Shop_merchant_selected.png" />
