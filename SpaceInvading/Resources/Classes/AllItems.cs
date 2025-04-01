@@ -95,7 +95,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Magic Crystal",
             Description = "A piece of a Powerfull magic crystal containg a lot of energy",
             Shop = 'm',
-            Worth = 1000,
+            Worth = 400,
             WorthItem = Coin,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image
@@ -108,7 +108,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Giant Iron Helmet",
             Description = "Giant iron Helmet imbued with magic, you can still feel electricity coursing  through it",
             Shop = 'm',
-            Worth = 1800,
+            Worth = 600,
             WorthItem = Coin,
             isUsable = false,
             Sprite = new System.Windows.Controls.Image

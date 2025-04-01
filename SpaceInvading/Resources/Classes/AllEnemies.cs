@@ -45,7 +45,7 @@ namespace SpaceInvading.Resources.Classes
             Name = "Skeleton",
             Score = 10,
             Health = 1,
-            MaxDropCount = 1,
+            MaxDropCount = 3,
             Tier = 2,
             ShootChance = 25,
             Projectile = new Projectile
@@ -119,7 +119,7 @@ namespace SpaceInvading.Resources.Classes
                     Name = "Slime King",
                     Score = 100,
                     Health = 3,
-                    MaxDropCount = 10,
+                    MaxDropCount = 15,
                     ShootChance = 200,
                     Projectile = new Projectile
                     {
@@ -149,7 +149,7 @@ namespace SpaceInvading.Resources.Classes
                     Name = "Slime Kings Core",
                     Score = 150,
                     Health = 2,
-                    MaxDropCount = 10,
+                    MaxDropCount = 4,
                     ShootChance = 150,
                     Projectile = new Projectile
                     {
@@ -170,8 +170,8 @@ namespace SpaceInvading.Resources.Classes
                     },
                     PossibleDrops = new List<Item>
                     {
-                        AllItems.Boss_1_drop_2,
-                        AllItems.Boss_1_drop_3
+                        AllItems.Boss_1_drop_3,
+                        AllItems.Boss_1_drop_2
                     }
                 }
             }

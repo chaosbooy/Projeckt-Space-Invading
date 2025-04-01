@@ -33,6 +33,25 @@
         <Image Source="../Images/Background/background_Tree.png" Stretch="Fill" HorizontalAlignment="Center" MinWidth="1300"/>
         <Image Source="../Images/HealthBar/Health_1_0.png" x:Name="ImageHealthBar" HorizontalAlignment="Left" VerticalAlignment="Bottom" MinWidth="10" MaxHeight="200">
             </Image>
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="30" MinHeight="10" MaxHeight="120" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="../Images/misc/Item_frame.png"></Image>
+            <Image x:Name="Ability1" Grid.Column="0" Source="../Images/misc/Item_frame_empty.png"></Image>
+            <Image Grid.Column="0" Source="../Images/misc/Item_frame_empty.png"></Image>
+            <Label Grid.Column="0" Content="1" FontSize="40" Foreground="White" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+            <Image Grid.Column="1" Source="../Images/misc/Item_frame.png"></Image>
+            <Image x:Name="Ability2" Grid.Column="1" Source="../Images/misc/Item_frame_empty.png"></Image>
+            <Image Grid.Column="1" Source="../Images/misc/Item_frame_empty.png"></Image>
+            <Label Grid.Column="1" Content="2" FontSize="40" Foreground="White" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+            <Image Grid.Column="2" Source="../Images/misc/Item_frame.png"></Image>
+            <Image x:Name="Ability3" Grid.Column="2" Source="../Images/misc/Item_frame_empty.png"></Image>
+            <Image Grid.Column="2" Source="../Images/misc/Item_frame_empty.png"></Image>
+            <Label Grid.Column="2" Content="3" FontSize="40" Foreground="White" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+        </Grid>
         <Label x:Name="ScoreCount" Content="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Panel.ZIndex="100" FontSize="40" Margin="18,0,0,185"></Label>
         <StackPanel x:Name="PausePanel" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
             <Button Style="{StaticResource ResourceKey=GameButtons}" Content="Resume" Click="PauseGame"/>

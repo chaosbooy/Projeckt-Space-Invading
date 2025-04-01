@@ -77,6 +77,7 @@ namespace SpaceInvading.Pages
             CreateObstacle(150, 400);
             CreateObstacle(350, 400);
             CreateObstacle(550, 400);
+            UpdateAbilityWindow();
         }
 
         private void XamlLoaded(object sender, RoutedEventArgs e)
@@ -558,16 +559,19 @@ namespace SpaceInvading.Pages
                     if (Inventory.UsableUpgrades.Count < 1) return;
                     Ability(Inventory.UsableUpgrades[0]);
                     Inventory.UsableUpgrades.RemoveAt(0);
+                    UpdateAbilityWindow();
                     return;
                 case Key.D2:
                     if (Inventory.UsableUpgrades.Count < 2) return;
                     Ability(Inventory.UsableUpgrades[1]);
                     Inventory.UsableUpgrades.RemoveAt(1);
+                    UpdateAbilityWindow();
                     return;
                 case Key.D3:
                     if (Inventory.UsableUpgrades.Count < 3) return;
                     Ability(Inventory.UsableUpgrades[2]);
                     Inventory.UsableUpgrades.RemoveAt(2);
+                    UpdateAbilityWindow();
                     return;
                 case Key.Escape:
                     if (roundEnd) return;
@@ -631,9 +635,42 @@ namespace SpaceInvading.Pages
             MainCanvas.Children.Add(bullet);
             bullets.Add(bullet);
         }
-
+        private void UpdateAbilityWindow()
+        {
+            if (Inventory.UsableUpgrades.Count <= 0) 
+            {
+                Ability1.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/item_frame_empty.png"));
+                Ability2.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/item_frame_empty.png"));
+                Ability3.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/item_frame_empty.png"));
+            }
+            if (Inventory.UsableUpgrades.Count >= 1)
+            {
+                Ability1.Source = Inventory.UsableUpgrades[0].Sprite.Source;
+            }
+            else
+            {
+                Ability1.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/item_frame_empty.png"));
+            }
+            if (Inventory.UsableUpgrades.Count >= 2)
+            {
+                Ability2.Source = Inventory.UsableUpgrades[1].Sprite.Source;
+            }
+            else
+            {
+                Ability2.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/item_frame_empty.png"));
+            }
+            if (Inventory.UsableUpgrades.Count >= 3)
+            {
+                Ability3.Source = Inventory.UsableUpgrades[2].Sprite.Source;
+            }
+            else
+            {
+                Ability3.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/misc/item_frame_empty.png"));
+            }
+        }
         private void Ability(Item item)
         {
+
             int lastLength = Inventory.UsableUpgrades.Count;
             if (item == AllItems.HealthPotion)
             {

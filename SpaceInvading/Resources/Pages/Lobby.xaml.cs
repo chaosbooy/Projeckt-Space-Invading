@@ -27,9 +27,8 @@ namespace SpaceInvading.Pages
         {
             this.NavigationService.Navigate(new Village());
             Inventory.AddItem(AllItems.Coin, 300);
-            Inventory.AddItem(AllItems.SlimeDrop, 20);
-            Inventory.AddItem(AllItems.ShieldPotion, 1);
-            Inventory.UsableUpgrades.Add(AllItems.ShieldPotion);
+            Inventory.AddItem(AllItems.SlimeDrop, 10);
+            Inventory.AddUsableUpgrade(AllItems.ShieldPotion);
         }
 
         private void LeaveGame(object sender, RoutedEventArgs e)
