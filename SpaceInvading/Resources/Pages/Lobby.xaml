@@ -29,7 +29,10 @@
             <Button Style="{StaticResource ResourceKey=GameButtons}" FontSize="35" Margin="30,0" Content="Exit"  Click="LeaveGame" />
         </StackPanel>
 
-        <ScrollViewer x:Name="Scoreboard" Grid.Column="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Hidden"  Background="#2A793E" >
+        <ScrollViewer x:Name="Scoreboard" Grid.Column="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Hidden" >
+            <ScrollViewer.Background>
+                <ImageBrush ImageSource="/Resources/Images/misc/plank.png" Stretch="Fill" />
+            </ScrollViewer.Background>
             <Grid ClipToBounds="True">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -43,7 +46,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Scores" FontSize="20" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Foreground="LightSteelBlue"/>
+                <TextBlock Text="Scores" FontSize="60" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Foreground="Black" FontFamily="pack://application:,,,/Resources/Fonts/Nashville.ttf#Nashville" />
             </Grid>
         </ScrollViewer>
     </Grid>

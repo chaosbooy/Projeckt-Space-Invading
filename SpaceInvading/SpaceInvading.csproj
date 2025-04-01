@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\Helldorado.ttf" />
+    <None Remove="Resources\Fonts\Nashville.ttf" />
+    <None Remove="Resources\Fonts\spf.ttf" />
     <None Remove="Resources\Images\Background\background_Cave.png" />
     <None Remove="Resources\Images\Background\background_full.png" />
     <None Remove="Resources\Images\Background\background_Path.png" />
@@ -47,6 +50,7 @@
     <None Remove="Resources\Images\misc\Coin.png" />
     <None Remove="Resources\Images\misc\Item_frame.png" />
     <None Remove="Resources\Images\misc\Item_frame_empty.png" />
+    <None Remove="Resources\Images\misc\plank.png" />
     <None Remove="Resources\Images\misc\Poster.png" />
     <None Remove="Resources\Images\misc\Upgrade_Armor.png" />
     <None Remove="Resources\Images\misc\Upgrade_Barrier_1.png" />
@@ -125,6 +129,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Fonts\Helldorado.ttf" />
+    <Resource Include="Resources\Fonts\Nashville.ttf" />
+    <Resource Include="Resources\Fonts\spf.ttf" />
     <Resource Include="Resources\Images\Background\background_Cave.png" />
     <Resource Include="Resources\Images\Background\background_full.png" />
     <Resource Include="Resources\Images\Background\background_Path.png" />
@@ -180,6 +187,7 @@
     <Resource Include="Resources\Images\misc\Coin.png" />
     <Resource Include="Resources\Images\misc\Item_frame.png" />
     <Resource Include="Resources\Images\misc\Item_frame_empty.png" />
+    <Resource Include="Resources\Images\misc\plank.png" />
     <Resource Include="Resources\Images\misc\Poster.png" />
     <Resource Include="Resources\Images\misc\Upgrade_Armor.png" />
     <Resource Include="Resources\Images\misc\Upgrade_Barrier_1.png" />

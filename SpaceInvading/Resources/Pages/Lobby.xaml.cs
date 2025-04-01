@@ -24,7 +24,7 @@ namespace SpaceInvading.Pages
             Random random = new Random();
 
 
-            AddScore("maks", 233330, 1, 0, (random.NextDouble() * 12) - 6);
+            AddScore("maks", 3, 1, 0, (random.NextDouble() * 12) - 6);
             AddScore("rafal", 3, 1, 1, (random.NextDouble() * 12) - 6);
             AddScore("leon", 3, 2, 0, (random.NextDouble() * 12) - 6);
             AddScore("leon", 3, 2, 1, (random.NextDouble() * 12) - 6);
@@ -50,15 +50,10 @@ namespace SpaceInvading.Pages
         }
         private void AddScore(string n, int s, int row, int col, double tilt)
         {
+            SolidColorBrush TextBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#6E260E"));
             Grid grid = (Grid)Scoreboard.Content;
             Grid poster = new Grid
             {
-                RowDefinitions =
-                {
-                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                },
                 VerticalAlignment = VerticalAlignment.Top,
             };
             System.Windows.Controls.Image back = new System.Windows.Controls.Image
@@ -70,31 +65,34 @@ namespace SpaceInvading.Pages
             Label wanted = new Label
             {
                 Content = "Wanted",
-                Foreground = Brushes.Brown,
+                Foreground = TextBrush,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Top,
                 FontSize = 30,
-                Margin = new Thickness(0, 5, 0, 0),
+                Margin = new Thickness(0, 15, 0, 0),
+                FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Resources/Fonts/Nashville.ttf#Nashville"),
                 RenderTransform = new RotateTransform(tilt),
             };
             Label name = new Label
             {
                 Content = n,
-                Foreground = Brushes.Brown,
+                Foreground = TextBrush,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Bottom,
+                VerticalAlignment = VerticalAlignment.Center,
                 FontSize = 30,
-                Margin = new Thickness(0, 5, 0, 0),
+                Margin = new Thickness(0, 20, 0, 0),
+                FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Resources/Fonts/Nashville.ttf#Nashville"),
                 RenderTransform = new RotateTransform(tilt),
             };
             Label score = new Label
             {
-                Content = s.ToString(),
-                Foreground = Brushes.Brown,
+                Content = $"{s}$",
+                Foreground = TextBrush,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(0, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Margin = new Thickness(0, 0, 0, 30),
                 FontSize = 30,
+                FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Resources/Fonts/Helldorado.ttf#Helldorado"),
                 RenderTransform = new RotateTransform(tilt),
             };
 
@@ -102,13 +100,13 @@ namespace SpaceInvading.Pages
             Grid.SetRowSpan(back, 3);
             poster.Children.Add(back);
 
-            Grid.SetRow(wanted, 0);
+            //Grid.SetRow(wanted, 0);
             poster.Children.Add(wanted);
 
-            Grid.SetRow(name, 1);
+            //Grid.SetRow(name, 1);
             poster.Children.Add(name);
 
-            Grid.SetRow(score, 2);
+            //Grid.SetRow(score, 2);
             poster.Children.Add(score);
 
 
