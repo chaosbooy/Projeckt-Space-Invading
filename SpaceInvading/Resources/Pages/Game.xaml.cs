@@ -728,6 +728,7 @@ namespace SpaceInvading.Pages
                 currEffect = Effects.Rage;
                 Player1.PlayerHitBoxes.BorderBrush = Brushes.Red;
                 Player1.PlayerHitBoxes.BorderThickness = new Thickness(2);
+                Player1.PlayerSpeed = 4;
 
                 EffectTimer(lastLength, 2000);
             }
@@ -753,6 +754,7 @@ namespace SpaceInvading.Pages
 
                     Player1.PlayerHitBoxes.BorderBrush = Brushes.Transparent;
                     Player1.PlayerHitBoxes.BorderThickness = new Thickness(0);
+                    Player1.PlayerSpeed = 2.5;
                 });
 
             }, null, effectTime, 0);
