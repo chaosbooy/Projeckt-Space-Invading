@@ -47,6 +47,7 @@
     <None Remove="Resources\Images\misc\Coin.png" />
     <None Remove="Resources\Images\misc\Item_frame.png" />
     <None Remove="Resources\Images\misc\Item_frame_empty.png" />
+    <None Remove="Resources\Images\misc\Poster.png" />
     <None Remove="Resources\Images\misc\Upgrade_Armor.png" />
     <None Remove="Resources\Images\misc\Upgrade_Barrier_1.png" />
     <None Remove="Resources\Images\misc\Upgrade_Barrier_2.png" />
@@ -179,6 +180,7 @@
     <Resource Include="Resources\Images\misc\Coin.png" />
     <Resource Include="Resources\Images\misc\Item_frame.png" />
     <Resource Include="Resources\Images\misc\Item_frame_empty.png" />
+    <Resource Include="Resources\Images\misc\Poster.png" />
     <Resource Include="Resources\Images\misc\Upgrade_Armor.png" />
     <Resource Include="Resources\Images\misc\Upgrade_Barrier_1.png" />
     <Resource Include="Resources\Images\misc\Upgrade_Barrier_2.png" />
