@@ -118,7 +118,7 @@ namespace SpaceInvading.Resources.Classes
                 {
                     Name = "Slime King",
                     Score = 100,
-                    Health = 3,
+                    Health = 15,
                     MaxDropCount = 15,
                     ShootChance = 200,
                     Projectile = new Projectile
@@ -148,13 +148,13 @@ namespace SpaceInvading.Resources.Classes
                 {
                     Name = "Slime Kings Core",
                     Score = 150,
-                    Health = 2,
+                    Health = 30,
                     MaxDropCount = 4,
                     ShootChance = 150,
                     Projectile = new Projectile
                     {
                         Damage = 1,
-                        Speed = 2,
+                        Speed = 4,
                         ProjectileState = new Image
                         {
                             Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/Boss_1/Boss_Phase_2_bullet.png")),
