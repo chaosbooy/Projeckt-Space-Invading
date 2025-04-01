@@ -27,6 +27,8 @@ namespace SpaceInvading.Pages
         Random rnd = new Random();
 
         public Player Player1;
+
+        private Timer _effectTimer;
         private Effects currEffect = Effects.None;
 
         // przeciwnicy na planszy
@@ -234,6 +236,7 @@ namespace SpaceInvading.Pages
             CompositionTarget.Rendering -= GameLoop;
             Player1.Stay();
             GameOverPanel.Visibility = Visibility.Visible;
+            round = 0;
         }
 
         private void GameLoop(object? sender, EventArgs e)
@@ -251,6 +254,10 @@ namespace SpaceInvading.Pages
             if (playerAttack == KeyState.Pressed && !Player1.IsAttacking)
             {
                 playerAttack = KeyState.Down;
+                Shoot();
+                Player1.Attack();
+            } else if ((playerAttack == KeyState.Pressed || playerAttack == KeyState.Down) && currEffect == Effects.Rage)
+            {
                 Shoot();
                 Player1.Attack();
             }
@@ -273,11 +280,11 @@ namespace SpaceInvading.Pages
                 }
             }
 
-            // trafienie pocisku gracza w przeszkode
+            //pociski gracza
             foreach (var bullet in bullets.ToArray())
             {
-                // okresla czy przycisk jest na ekranie
-                bool isBulletAlive = true;
+                // trafienie pocisku gracza w przeszkodę
+                bool isBulletAlive = true;      // okresla czy przycisk jest na ekranie
                 for (int i = 0; i < obstacles.Count; i++)
                 {
                     // sprawdzanie czesci w kazdej przeszkodzie
@@ -288,30 +295,29 @@ namespace SpaceInvading.Pages
                             if (isBulletAlive && IsColliding(obstacles[i].Parts[j], 1, bullet))
                             {
                                 bool ifDestroyed = obstacles[i].DamagePart(j);
-                                bullets.Remove(bullet);
-                                MainCanvas.Children.Remove(bullet);
                                 if (ifDestroyed)
                                 {
                                     MainCanvas.Children.Remove(obstacles[i].Parts[j]);
                                 }
-                                isBulletAlive = false;
+
+                                if(currEffect != Effects.Enchant)
+                                {
+                                    MainCanvas.Children.Remove(bullet);
+                                    bullets.Remove(bullet);
+                                    isBulletAlive = false;
+                                }
                             }
                         }
                     }
                 }
-            }
+                if (!isBulletAlive) continue;
 
-            // trafienie w przeciwnika
-            foreach (var block in Enemies.ToArray())
-            {
-                foreach (var bullet in bullets.ToArray())
+                // trafienie pocisku gracza w przeciwnika
+                foreach (var block in Enemies.ToArray())
                 {
-                    if (IsColliding(bullet, 0.9, block.EnemyState))
+                    if (isBulletAlive && IsColliding(bullet, 0.9, block.EnemyState))
                     {
-                        MainCanvas.Children.Remove(bullet);
-                        bullets.Remove(bullet);
-                        
-                        if(block.Health-- == 1)
+                        if (block.Health-- == 1)
                         {
                             EnemyHolder.Children.Remove((UIElement)block.EnemyState.Parent);
 
@@ -325,15 +331,22 @@ namespace SpaceInvading.Pages
                             Inventory.AddItem(block.PossibleDrops.Last(), rnd.Next(block.MaxDropCount));
                         }
 
-                        if(CurrentBoss.BossPhases.Contains(block))
+                        if (CurrentBoss.BossPhases.Contains(block))
                             _score += block.Score / 10;
 
                         ScoreCount.Content = _score.ToString();
 
                         while (RemoveEmptyColumn(0))
                             Canvas.SetLeft(EnemyHolder, Canvas.GetLeft(EnemyHolder) + minWidth);
-                        while (RemoveEmptyColumn(EnemyHolder.ColumnDefinitions.Count - 1));
-                        break;
+                        while (RemoveEmptyColumn(EnemyHolder.ColumnDefinitions.Count - 1)) ;
+
+                        if (currEffect != Effects.Enchant)
+                        {
+                            MainCanvas.Children.Remove(bullet);
+                            bullets.Remove(bullet);
+                            isBulletAlive = false;
+                            break;
+                        }
                     }
                 }
             }
@@ -672,6 +685,7 @@ namespace SpaceInvading.Pages
         {
 
             int lastLength = Inventory.UsableUpgrades.Count;
+            
             if (item == AllItems.HealthPotion)
             {
                 if (Player1.Health + 1 >= Player1.MaxHealth) Player1.Health = Player1.MaxHealth;
@@ -692,7 +706,7 @@ namespace SpaceInvading.Pages
                 Player1.PlayerHitBoxes.BorderBrush = Brushes.Red;
                 Player1.PlayerHitBoxes.BorderThickness = new Thickness(2);
 
-                EffectTimer(lastLength, 5000);
+                EffectTimer(lastLength, 2000);
             }
             else if (item == AllItems.EnchantedSword)
             {
@@ -700,18 +714,19 @@ namespace SpaceInvading.Pages
                 Player1.PlayerHitBoxes.BorderBrush = Brushes.Purple;
                 Player1.PlayerHitBoxes.BorderThickness = new Thickness(2);
 
-                EffectTimer(lastLength, 5000);
+                EffectTimer(lastLength, 3000);
             }
         }
 
         private void EffectTimer(int lastLength, int effectTime)
         {
-            new Timer((sender) =>
+            _effectTimer?.Dispose();
+
+            _effectTimer = new Timer((sender) =>
             {
                 Application.Current.Dispatcher.Invoke(() =>
-                {
-                    if (lastLength == Inventory.UsableUpgrades.Count - 1)
-                        currEffect = Effects.None;
+                {       
+                    currEffect = Effects.None;
 
                     Player1.PlayerHitBoxes.BorderBrush = Brushes.Transparent;
                     Player1.PlayerHitBoxes.BorderThickness = new Thickness(0);

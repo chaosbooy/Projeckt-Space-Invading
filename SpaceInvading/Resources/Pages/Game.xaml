@@ -60,7 +60,7 @@
             <Border Style="{StaticResource ResourceKey=NickPanel}">
                 <StackPanel>
                     <Label Content="Enter your name to save" HorizontalAlignment="Center" FontSize="30"/>
-                    <TextBox x:Name="PlayerName" Text="xxx"  HorizontalAlignment="Center" Width="200" />
+                    <TextBox x:Name="PlayerName" Text=""  HorizontalAlignment="Center" Width="200" />
                 </StackPanel>
             </Border>
             
