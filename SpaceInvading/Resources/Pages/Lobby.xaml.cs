@@ -44,6 +44,7 @@ namespace SpaceInvading.Pages
         {
             System.Windows.Application.Current.Shutdown();
         }
+
         private void AddScore(string n, int s, int row, int col, double tilt)
         {
             SolidColorBrush TextBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#6E260E"));

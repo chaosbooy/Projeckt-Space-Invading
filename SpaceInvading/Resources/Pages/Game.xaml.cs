@@ -32,6 +32,7 @@ namespace SpaceInvading.Pages
 
         private Timer _effectTimer;
         private Effects currEffect = Effects.None;
+        private KeyState playerAbility = KeyState.Up;
 
         // przeciwnicy na planszy
         private List<Enemy> Enemies = new();
@@ -573,7 +574,16 @@ namespace SpaceInvading.Pages
             if(PlayerName.Text.Length > 0)
                 SavingSystem.AddScore(PlayerName.Text, _score);
 
-            if (gamePaused) round--;
+            if (gamePaused)
+            {
+                round--;
+                _score -= 250;
+            }
+
+            var window = Window.GetWindow(this);
+            window.KeyDown -= Window_KeyDown;
+            window.KeyUp -= Window_KeyUp;
+            CompositionTarget.Rendering -= GameLoop;
 
             this.NavigationService.Navigate(new Village());
         }
@@ -605,6 +615,15 @@ namespace SpaceInvading.Pages
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.D1 || e.Key == Key.D2 || e.Key == Key.D3) 
+            {
+                if (playerAbility == KeyState.Pressed || playerAbility == KeyState.Down)
+                    playerAbility = KeyState.Down;
+                else
+                    playerAbility = KeyState.Pressed;
+            }
+            
+
             switch (e.Key)
             {
                 case Key.A:
@@ -624,21 +643,21 @@ namespace SpaceInvading.Pages
                         playerAttack = KeyState.Pressed;
                     return;
                 case Key.D1:
-                    if (Inventory.UsableUpgrades.Count < 1) return;
+                    if (Inventory.UsableUpgrades.Count < 1 || playerAbility != KeyState.Pressed) return;
                     Ability(Inventory.UsableUpgrades[0]);
                     Inventory.UsableUpgrades.RemoveAt(0);
                     UpdateAbilityWindow();
                     return;
                 case Key.D2:
-                    if (Inventory.UsableUpgrades.Count < 2) return;
+                    if (Inventory.UsableUpgrades.Count < 2 || playerAbility != KeyState.Pressed) return;
                     Ability(Inventory.UsableUpgrades[1]);
                     Inventory.UsableUpgrades.RemoveAt(1);
                     UpdateAbilityWindow();
                     return;
                 case Key.D3:
-                    if (Inventory.UsableUpgrades.Count < 3) return;
+                    if (Inventory.UsableUpgrades.Count < 3 || playerAbility != KeyState.Pressed) return;
                     Ability(Inventory.UsableUpgrades[2]);
-                    Inventory.UsableUpgrades.RemoveAt(2);
+                    Inventory.UsableUpgrades.RemoveAt(2); 
                     UpdateAbilityWindow();
                     return;
                 case Key.Escape:
@@ -674,6 +693,9 @@ namespace SpaceInvading.Pages
                 case Key.Space:
                     playerAttack = KeyState.Released;
                     break;
+                case Key.D1: case Key.D2: case Key.D3:
+                    playerAbility = KeyState.Up;
+                    break;
             }
 
             if (Player1.IsAttacking) return;
@@ -703,6 +725,7 @@ namespace SpaceInvading.Pages
             MainCanvas.Children.Add(bullet);
             bullets.Add(bullet);
         }
+
         private void UpdateAbilityWindow()
         {
             if (Inventory.UsableUpgrades.Count <= 0) 
@@ -746,6 +769,10 @@ namespace SpaceInvading.Pages
                 if (Player1.Health + 1 >= Player1.MaxHealth) Player1.Health = Player1.MaxHealth;
                 else Player1.Health += 1;
                 UpdateHealthBar();
+
+                currEffect = Effects.Healed;
+
+                EffectTimer(lastLength, 500);
             }
             else if (item == AllItems.ShieldPotion)
             {
@@ -880,5 +907,6 @@ namespace SpaceInvading.Pages
         Enchant,
         Rage,
         Shield,
+        Healed,
     }
 }
